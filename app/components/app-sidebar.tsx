@@ -1,4 +1,4 @@
-import { Activity, AudioWaveform, Command, GalleryVerticalEnd, LayoutList, Network, Newspaper, Radar, Tv, User } from 'lucide-react';
+import { Activity, AudioWaveform, Command, GalleryVerticalEnd, LayoutList, Network, Newspaper, Radar, Tv } from 'lucide-react';
 import * as React from 'react';
 
 import { NavMain } from '~/components/nav-main';
@@ -11,11 +11,6 @@ import { Logo } from './ui/logo';
 
 // This is sample data.
 const data = {
-  user: {
-    name: 'shadcn',
-    email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg',
-  },
   teams: [
     {
       name: 'Acme Inc',
@@ -90,7 +85,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavProjects projects={data.projects} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
