@@ -1,8 +1,6 @@
 export type Team = {
   id: number;
-  createdAt: Date;
-  deletedAt: null;
   name: string;
-  updatedAt: Date;
+  slug: Date;
   selected?: boolean;
 };
