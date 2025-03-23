@@ -6,6 +6,7 @@ import { NavProjects } from '~/components/nav-projects';
 import { NavUser } from '~/components/nav-user';
 import { TeamSwitcher } from '~/components/team-switcher';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail, useSidebar } from '~/components/ui/sidebar';
+import { useFeatureFlags } from '~/hooks/useFeatureFlags';
 import { Logo } from './ui/logo';
 
 
@@ -73,6 +74,7 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { state } = useSidebar()
+  const featureEnabled = useFeatureFlags()
 
   return (
     <Sidebar collapsible='icon' {...props}>
@@ -81,7 +83,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <TeamSwitcher teams={data.teams} />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        {featureEnabled('NjAifRCOjQn6XL8n1oI3E').isEnabled() && <NavMain items={data.navMain} />}
+
         <NavProjects projects={data.projects} />
       </SidebarContent>
       <SidebarFooter>

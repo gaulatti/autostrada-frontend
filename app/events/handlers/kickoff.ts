@@ -29,7 +29,7 @@ function* kickoff(): Generator<any, void, any> {
   /**
    * Set Teams
    */
-  const teams = me.memberships.map(({ team }: { team: Team }) => team);
+  const teams = (me.memberships || []).map(({ team }: { team: Team }) => team);
   yield put(setTeams(teams));
 
   /**

@@ -4,10 +4,12 @@ import { AppSidebar } from '~/components/app-sidebar';
 import { OverlaySpinner } from '~/components/spinners';
 import { SidebarInset, SidebarProvider } from '~/components/ui/sidebar';
 import { useAuthStatus } from '~/hooks/useAuth';
+import { useFeatureFlags } from '~/hooks/useFeatureFlags';
 import { getKickoffReady } from '~/state/selectors/lifecycle';
 
 const PrivateLayout = () => {
   const { isAuthenticated, isLoaded } = useAuthStatus();
+  const featureEnabled = useFeatureFlags();
   const isKickoffReady = useSelector(getKickoffReady);
 
   if (isAuthenticated && isLoaded && isKickoffReady) {
@@ -15,7 +17,7 @@ const PrivateLayout = () => {
       <SidebarProvider>
         <AppSidebar />
         <SidebarInset>
-          <Outlet />
+          {featureEnabled('NjAifRCOjQn6XL8n1oI3E').isEnabled() ? <Outlet /> : <>403</>}
         </SidebarInset>
       </SidebarProvider>
     );
