@@ -5,6 +5,7 @@ import { OverlaySpinner } from '~/components/spinners';
 import { SidebarInset, SidebarProvider } from '~/components/ui/sidebar';
 import { useAuthStatus } from '~/hooks/useAuth';
 import { useFeatureFlags } from '~/hooks/useFeatureFlags';
+import { Forbidden } from '~/pages/403';
 import { getKickoffReady } from '~/state/selectors/lifecycle';
 
 const PrivateLayout = () => {
@@ -17,7 +18,7 @@ const PrivateLayout = () => {
       <SidebarProvider>
         <AppSidebar />
         <SidebarInset>
-          {featureEnabled('NjAifRCOjQn6XL8n1oI3E').isEnabled() ? <Outlet /> : <>403</>}
+          {featureEnabled('NjAifRCOjQn6XL8n1oI3E').isEnabled() ? <Outlet /> : <Forbidden />}
         </SidebarInset>
       </SidebarProvider>
     );

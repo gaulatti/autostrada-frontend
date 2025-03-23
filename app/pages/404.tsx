@@ -1,0 +1,50 @@
+import { Button } from '@radix-ui/themes';
+import { AlertCircle } from 'lucide-react';
+import { useCallback } from 'react';
+import { useLocation, useNavigate } from 'react-router';
+
+/**
+ * NotFound component renders a 404 error page indicating the page doesn't exist.
+ * It provides a button to navigate back to the home page if not already there.
+ *
+ * @component
+ * @example
+ * return (
+ *   <NotFound />
+ * )
+ *
+ * @returns {JSX.Element} A JSX element representing the 404 error page.
+ */
+const NotFound = (): JSX.Element => {
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    /**
+     * Handles the click event on the button to navigate to the home page.
+     */
+    const handleClick = useCallback(() => {
+        navigate('/');
+    }, [navigate]);
+
+    const isHome = location.pathname === '/';
+
+    return (
+        <div className='flex flex-col items-center justify-center min-h-screen p-4'>
+            <div className='max-w-md w-full space-y-8 text-center'>
+                <AlertCircle className='mx-auto h-24 w-24 text-muted-foreground' />
+                <h1 className='text-4xl font-bold'>404</h1>
+                <h2 className='text-2xl font-semibold'>Page Not Found</h2>
+                <p className='text-muted-foreground'>
+                    Oops! The page you're looking for doesn't exist or has been moved.
+                </p>
+                {!isHome && (
+                    <Button onClick={handleClick} className='mt-4'>
+                        Go Home
+                    </Button>
+                )}
+            </div>
+        </div>
+    );
+};
+
+export { NotFound };
