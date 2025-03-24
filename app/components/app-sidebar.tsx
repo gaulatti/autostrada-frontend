@@ -1,6 +1,5 @@
-import { Activity, LayoutList, Network, Newspaper, Radar, Tv } from 'lucide-react';
+import { Activity, BookOpenCheck, Cable, ChartNoAxesCombined, FileCode, FolderKanban, Group, HeartPulse, LayoutList, MonitorSmartphone, Newspaper, Radar, Tv } from 'lucide-react';
 import * as React from 'react';
-
 import { NavMain } from '~/components/nav-main';
 import { NavProjects } from '~/components/nav-projects';
 import { NavUser } from '~/components/nav-user';
@@ -10,19 +9,69 @@ import { useFeatureFlags } from '~/hooks/useFeatureFlags';
 import { Logo } from './ui/logo';
 
 const data = {
-  navMain: [
-    {
-      title: 'Playlists',
-      url: '/playlists',
-      icon: LayoutList,
-      isActive: true,
-    },
-    {
-      title: 'Strategies',
-      url: '/strategies',
-      icon: Network,
-      isActive: true,
-    },
+  sections: [{
+    name: "Metrics",
+    items: [
+      {
+        title: 'Core Web Vitals',
+        url: '/metrics/core-web-vitals',
+        icon: ChartNoAxesCombined,
+        isActive: true,
+      },
+      {
+        title: 'Grades',
+        url: '/metrics/grades',
+        icon: BookOpenCheck,
+        isActive: true,
+      },
+    ],
+  },
+  {
+    name: "Scans",
+    items: [
+      {
+        title: 'Pulses',
+        url: '/scans/pulses',
+        icon: HeartPulse,
+        isActive: true,
+      },
+      {
+        title: 'Projects',
+        url: '/scans/projects',
+        icon: FolderKanban,
+        isActive: true,
+      },
+      {
+        title: 'Providers',
+        url: '/scans/providers',
+        icon: Cable,
+        isActive: true,
+      },
+      {
+        title: 'Platforms',
+        url: '/scans/platforms',
+        icon: MonitorSmartphone,
+        isActive: true,
+      },
+    ]
+  },
+  {
+    name: "Targets",
+    items: [
+      {
+        title: 'Clusters',
+        url: '/targets/clusters',
+        icon: Group,
+        isActive: true,
+      },
+      {
+        title: 'Urls',
+        url: '/targets/urls',
+        icon: FileCode,
+        isActive: true,
+      }
+    ]
+  }
   ],
   projects: [
     {
@@ -64,7 +113,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <TeamSwitcher />
       </SidebarHeader>
       <SidebarContent>
-        {featureEnabled('NjAifRCOjQn6XL8n1oI3E').isEnabled() && <NavMain items={data.navMain} />}
+        {featureEnabled('NjAifRCOjQn6XL8n1oI3E').isEnabled() && <NavMain sections={data.sections} />}
         <NavProjects projects={data.projects} />
       </SidebarContent>
       <SidebarFooter>
