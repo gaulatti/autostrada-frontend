@@ -16,6 +16,7 @@ export default [
     route('/scans/projects', './pages/scans/projects/index.tsx'),
     route('/scans/providers', './pages/scans/providers/index.tsx'),
     route('/scans/pulses', './pages/scans/pulses/index.tsx'),
+    route('/scans/pulses/:slug', './pages/scans/pulses/details.tsx'),
 
     /**
      * Targets
