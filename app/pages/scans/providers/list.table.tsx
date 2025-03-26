@@ -51,7 +51,7 @@ const DataTable = () => {
   const [page, setPage] = useState(1);
   const [pageSize] = useState(20);
   const [random, randomize] = useRandom();
-  const [sorting, setSorting] = useState<SortingState>([{ id: 'updated_at', desc: true }]);
+  const [sorting, setSorting] = useState<SortingState>([{ id: 'updatedAt', desc: true }]);
 
   const sortingParams = useMemo(() => {
     if (sorting.length > 0) {

@@ -15,8 +15,8 @@ export type Pulse = {
   slug: string;
   playlist_slug: string;
   url: { slug: string; url: string };
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export const columns: ColumnDef<Pulse>[] = [
@@ -54,7 +54,7 @@ export const columns: ColumnDef<Pulse>[] = [
     },
   },
   {
-    accessorKey: 'created_at',
+    accessorKey: 'createdAt',
     header: ({ column }) => (
       <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
         Created
@@ -78,7 +78,7 @@ export const columns: ColumnDef<Pulse>[] = [
     },
   },
   {
-    accessorKey: 'updated_at',
+    accessorKey: 'updatedAt',
     header: ({ column }) => (
       <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
         Updated
@@ -107,7 +107,7 @@ const DataTable = () => {
   const [page, setPage] = useState(1);
   const [pageSize] = useState(20);
   const [random, randomize] = useRandom();
-  const [sorting, setSorting] = useState<SortingState>([{ id: 'updated_at', desc: true }]);
+  const [sorting, setSorting] = useState<SortingState>([{ id: 'updatedAt', desc: true }]);
   const { lastMessage } = useSSE();
 
   const sortingParams = useMemo(() => {

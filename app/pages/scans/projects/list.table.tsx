@@ -51,7 +51,7 @@ const DataTable = () => {
   const [page, setPage] = useState(1);
   const [pageSize] = useState(20);
   const [random, randomize] = useRandom();
-  const [sorting, setSorting] = useState<SortingState>([{ id: 'updated_at', desc: true }]);
+  const [sorting, setSorting] = useState<SortingState>([{ id: 'updatedAt', desc: true }]);
 
   const sortingParams = useMemo(() => {
     if (sorting.length > 0) {
@@ -61,7 +61,7 @@ const DataTable = () => {
   }, [sorting]);
 
   const queryParams = useMemo(() => ({ page, pageSize, random, ...sortingParams }), [page, pageSize, sortingParams, random]);
-  const { data } = useAPI(Method.GET, [], `urls`, queryParams);
+  const { data } = useAPI(Method.GET, [], `projects`, queryParams);
 
   const table = useReactTable({
     data: data?.rows ?? [],
