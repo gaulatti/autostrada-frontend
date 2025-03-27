@@ -48,7 +48,7 @@ const Page = () => {
       <SiteHeader title='Pulse Detail' />
       <Flex className='m-6' gap='3' direction='column'>
         <Breadcrumbs items={breadcrumbItems} />
-        <div className='min-h-screen bg-gray-50 dark:bg-gray-900'>
+        <div className='min-h-screen'>
           <div className='max-w-7xl mx-auto space-y-8'>
             {/* Overall Grade */}
             <section className='bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm border border-gray-200 dark:border-gray-700'>
