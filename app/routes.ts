@@ -16,9 +16,8 @@ export default [
     route('/scans/projects', './pages/scans/projects/index.tsx'),
     route('/scans/providers', './pages/scans/providers/index.tsx'),
     route('/scans/pulses', './pages/scans/pulses/index.tsx'),
-    route('/scans/pulses/:pulseSlug', './pages/scans/pulses/details.tsx'),
-    route('/scans/heartbeats/:heartbeatSlug', './pages/scans/heartbeats/details.tsx'),
-    route('/scans/pulses/:pulseSlug/heartbeats/:heartbeatSlug', './pages/scans/heartbeats/details.tsx'),
+    route('/scans/pulses/:slug', './pages/scans/pulses/details.tsx'),
+    route('/scans/heartbeats/:slug', './pages/scans/heartbeats/details.tsx'),
 
     /**
      * Targets
