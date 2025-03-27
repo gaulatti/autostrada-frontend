@@ -149,7 +149,7 @@ const Page = () => {
       <SiteHeader title='Pulse Report' />
       <Flex className='m-6' gap='3' direction='column'>
         <Breadcrumbs items={breadcrumbItems} />
-        <div className='min-h-screen bg-gray-50 dark:bg-gray-900 p-4 md:p-8'>
+        <div className='min-h-screen p-4 md:p-8'>
           <div className='max-w-7xl mx-auto space-y-8'>
             {/* Overall Grades */}
             <section className='grid grid-cols-1 md:grid-cols-2 gap-6'>
