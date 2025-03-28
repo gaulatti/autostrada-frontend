@@ -1,5 +1,7 @@
 import { Box, Flex, Progress, Tabs } from '@radix-ui/themes';
 import { AlertCircle, Clock, Code, Database, ExternalLink, FileText, Image, Zap } from 'lucide-react';
+import { useParams } from 'react-router';
+import { Method, useAPI } from '~/clients/api';
 import { Breadcrumbs, type BreadcrumbItem } from '~/components/breadcrumbs';
 import { SiteHeader } from '~/components/header';
 import { Card } from '~/components/ui/card';
@@ -43,9 +45,13 @@ const formatTime = (ms: number) => {
 };
 
 const Page = () => {
+  const { slug } = useParams();
+  const { data } = useAPI(Method.GET, [], `/pulses/${slug}`)
+
+  console.log( { data })
   return (
     <>
-      <SiteHeader title='Pulse Detail' />
+      <SiteHeader title='Heartbeat Detail' />
       <Flex className='m-6' gap='3' direction='column'>
         <Breadcrumbs items={breadcrumbItems} />
         {/* Overall Grade */}
