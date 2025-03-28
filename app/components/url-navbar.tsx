@@ -1,4 +1,4 @@
-import { Flex } from '@radix-ui/themes';
+import { Flex, Link } from '@radix-ui/themes';
 import type { JSX } from 'react';
 
 /**
@@ -11,11 +11,13 @@ import type { JSX } from 'react';
 const URLNavbar = ({ url }: { url: string }): JSX.Element => {
   return (
     <Flex gap='2' align='center' className='my-4'>
-      <Flex gap='3' className='w-full'>
-        <GlobeIcon className='w-5 h-5 text-muted-foreground' />
-        <div className='flex-1 text-sm font-mono text-muted-foreground overflow-hidden whitespace-nowrap text-ellipsis'>{url}</div>
-      </Flex>
-    </Flex>
+      <Link href={url} target='_blank'>
+        <Flex gap='3' className='w-full'>
+          <GlobeIcon className='w-5 h-5 text-muted-foreground' />
+          <div className='flex-1 text-sm font-mono text-muted-foreground overflow-hidden whitespace-nowrap text-ellipsis'>{url}</div>
+        </Flex>
+      </Link>
+    </Flex >
   );
 };
 
