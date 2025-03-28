@@ -24,7 +24,6 @@ export default [
      */
     route('/targets/clusters', './pages/targets/clusters/index.tsx'),
     route('/targets/urls', './pages/targets/urls/index.tsx'),
-    route('/dashboard', './pages/routes.tsx'),
   ]),
   route('/logout', './pages/auth/logout.tsx'),
   route('/login', './pages/auth/login.tsx'),
