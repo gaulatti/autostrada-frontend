@@ -2,6 +2,7 @@ import { Button, Card } from '@radix-ui/themes';
 import { ArrowRight, Monitor, Smartphone } from 'lucide-react';
 import { NavLink } from 'react-router';
 import { calculateGrade } from '~/utils/dashboards';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 
 const OverallGrade = ({ heartbeat }: any) => {
     const grade = calculateGrade(
@@ -19,10 +20,19 @@ const OverallGrade = ({ heartbeat }: any) => {
                     ) : (
                         <Monitor className="h-4 w-4" />
                     )}
-                    <span>
-                        {heartbeat.platform.type.charAt(0).toUpperCase() +
-                            heartbeat.platform.type.slice(1)}
-                    </span>
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger>
+                                <span>
+                                    {heartbeat.platform.type.charAt(0).toUpperCase() +
+                                        heartbeat.platform.type.slice(1)}
+                                </span>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <>{heartbeat.platform.user_agent}</>
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
                 </div>
             </div>
             <div className="flex items-start gap-6 mt-4">

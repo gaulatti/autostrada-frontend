@@ -1,6 +1,7 @@
 import { Card } from '@radix-ui/themes';
 import { AlertCircle, Clock, Database, Image, Monitor, Smartphone, Zap } from 'lucide-react';
 import { formatTime } from '~/utils/dashboards';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 
 const CwvComparison = ({ heartbeats }: any) => {
     return (<>
@@ -45,12 +46,20 @@ const CwvComparison = ({ heartbeats }: any) => {
                                     <div key={heartbeat.id} className="space-y-1">
                                         <div className="flex justify-between items-center text-sm">
                                             <div className="flex items-center gap-1">
-                                                {heartbeat.platform.type === 'mobile' ? (
-                                                    <Smartphone className="h-3 w-3 text-gray-500" />
-                                                ) : (
-                                                    <Monitor className="h-3 w-3 text-gray-500" />
-                                                )}
-                                                <span className="text-gray-500">{heartbeat.platform.type}</span>
+                                                {heartbeat.platform.type === 'mobile' ? <Smartphone className='h-3 w-3 text-gray-500' /> : <Monitor className='h-3 w-3 text-gray-500' />}
+                                                <TooltipProvider>
+                                                    <Tooltip>
+                                                        <TooltipTrigger>
+                                                            <span>
+                                                                {heartbeat.platform.type.charAt(0).toUpperCase() +
+                                                                    heartbeat.platform.type.slice(1)}
+                                                            </span>
+                                                        </TooltipTrigger>
+                                                        <TooltipContent>
+                                                            <>{heartbeat.platform.user_agent}</>
+                                                        </TooltipContent>
+                                                    </Tooltip>
+                                                </TooltipProvider>
                                             </div>
                                             <span className={`font-bold ${color}`}>
                                                 {vital.name === 'CLS' ? value.toFixed(2) : formatTime(value)}
@@ -117,12 +126,20 @@ const CwvComparison = ({ heartbeats }: any) => {
                                 return (
                                     <div key={heartbeat.id} className="flex justify-between items-center">
                                         <div className="flex items-center gap-1 text-xs text-gray-500">
-                                            {heartbeat.platform.type === 'mobile' ? (
-                                                <Smartphone className="h-3 w-3" />
-                                            ) : (
-                                                <Monitor className="h-3 w-3" />
-                                            )}
-                                            <span>{heartbeat.platform.type}</span>
+                                            {heartbeat.platform.type === 'mobile' ? <Smartphone className='h-3 w-3 text-gray-500' /> : <Monitor className='h-3 w-3 text-gray-500' />}
+                                            <TooltipProvider>
+                                                <Tooltip>
+                                                    <TooltipTrigger>
+                                                        <span>
+                                                            {heartbeat.platform.type.charAt(0).toUpperCase() +
+                                                                heartbeat.platform.type.slice(1)}
+                                                        </span>
+                                                    </TooltipTrigger>
+                                                    <TooltipContent>
+                                                        <>{heartbeat.platform.user_agent}</>
+                                                    </TooltipContent>
+                                                </Tooltip>
+                                            </TooltipProvider>
                                         </div>
                                         <p className="text-lg font-bold">{metric.format(value)}</p>
                                     </div>
