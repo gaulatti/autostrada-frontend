@@ -59,7 +59,7 @@ const OverallGrade = ({ heartbeat }: any) => {
                     </p>
                     <div className="flex mt-2">
                         <Button asChild variant="outline" size="1" className="flex items-center gap-1">
-                            <NavLink to={`/heartbeats/${heartbeat.slug}`}>
+                            <NavLink to={`/scans/heartbeats/${heartbeat.slug}`}>
                                 View Details <ArrowRight className="h-3 w-3 ml-1" />
                             </NavLink>
                         </Button>
