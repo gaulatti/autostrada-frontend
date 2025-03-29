@@ -41,7 +41,7 @@ const getProgressColor = (score: number) => {
  *   - `color`: The corresponding Tailwind CSS text color class for the grade.
  */
 const calculateGrade = (performance: number, accessibility: number, bestPractices: number, seo: number) => {
-  const weightedScore = performance * 0.5 + accessibility * 0.2 + bestPractices * 0.15 + seo * 0.15;
+  const weightedScore = performance * 0.4 + accessibility * 0.2 + bestPractices * 0.2 + seo * 0.2;
 
   if (weightedScore >= 97) return { grade: 'A+', color: 'text-green-600' };
   if (weightedScore >= 93) return { grade: 'A', color: 'text-green-600' };
