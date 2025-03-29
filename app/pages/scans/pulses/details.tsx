@@ -3,11 +3,10 @@ import { useParams } from 'react-router';
 import { Method, useAPI } from '~/clients/api';
 import { Breadcrumbs, type BreadcrumbItem } from '~/components/breadcrumbs';
 import { SiteHeader } from '~/components/header';
+import { CoreWebVitals } from '~/components/metrics/cwv';
+import { Grades } from '~/components/metrics/grades';
 import { OverallGrade } from '~/components/metrics/overall-grade';
-import { CwvComparison } from '~/components/scans/cwv-comparison';
-import { GradesComparison } from '~/components/scans/grades-comparison';
 import { ReportHeader } from '~/components/scans/report-header';
-import { transformHeartbeat } from '~/utils/dashboards';
 
 export function meta() {
   return [{ title: 'Pulses Report - Autostrada' }];
@@ -20,7 +19,31 @@ const breadcrumbItems: BreadcrumbItem[] = [
   { title: 'Pulse Report' },
 ];
 
-const Page = () => {
+/**
+ * Component: PulseReport
+ *
+ * This component renders a detailed report for a specific pulse, including its overall grades,
+ * header information, score comparison, and Core Web Vitals comparison. It fetches the pulse data
+ * using the `useAPI` hook and dynamically displays the content based on the retrieved data.
+ *
+ * @returns {JSX.Element} The rendered PulseReport component.
+ *
+ * @remarks
+ * - Displays a loading state if the pulse data is not yet available.
+ * - Utilizes several child components such as `OverallGrade`, `ReportHeader`, `Grades`, and `CoreWebVitals`
+ *   to structure the report.
+ *
+ * @dependencies
+ * - `useParams` for extracting the `slug` parameter from the URL.
+ * - `useAPI` for fetching pulse data from the API.
+ * - `SiteHeader`, `Breadcrumbs`, `OverallGrade`, `ReportHeader`, `Grades`, and `CoreWebVitals` components.
+ *
+ * @example
+ * ```tsx
+ * <PulseReport />
+ * ```
+ */
+const PulseReport = () => {
   const { slug } = useParams();
   const { data } = useAPI(Method.GET, [], `pulses/${slug}`);
 
@@ -29,7 +52,7 @@ const Page = () => {
   }
 
   const pulse = data.pulse;
-  const heartbeats = (pulse.heartbeats || []).map(transformHeartbeat);
+  const { heartbeats } = pulse
 
   return (
     <>
@@ -46,16 +69,13 @@ const Page = () => {
         <ReportHeader pulse={pulse} />
 
         {/* Score Comparison */}
-        <GradesComparison heartbeats={heartbeats} />
+        <Grades heartbeats={heartbeats} />
 
         {/* Core Web Vitals Comparison */}
-        <CwvComparison heartbeats={heartbeats} />
-
-        {/* Tabs for Opportunities and Resources */}
-        {/* <Opportunities /> */}
+        <CoreWebVitals heartbeats={heartbeats} />
       </Flex>
     </>
   );
 };
 
-export default Page;
+export default PulseReport;

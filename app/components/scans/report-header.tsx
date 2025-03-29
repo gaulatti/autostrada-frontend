@@ -1,6 +1,20 @@
 import { URLNavbar } from '../url-navbar';
 
-const ReportHeader = ({ pulse }: any) => {
+/**
+ * A React functional component that renders a report header with information about a pulse or heartbeat.
+ *
+ * @param {Object} props - The props object.
+ * @param {any} props.pulse - The primary pulse object containing details such as the URL and creation date.
+ * @param {any} props.heartbeat - An optional heartbeat object, used as a fallback to extract the pulse if `pulse` is not provided.
+ *
+ * @returns {JSX.Element} A header element containing the URL navigation bar, a comparison badge, and the test date.
+ */
+const ReportHeader = ({ pulse, heartbeat }: any) => {
+
+  if (!pulse && heartbeat) {
+    pulse = heartbeat.pulse
+  }
+
   return (
     <header className='space-y-2'>
       <div className='flex gap-3 items-center text-sm text-gray-500 dark:text-gray-400'>

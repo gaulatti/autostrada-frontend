@@ -3,27 +3,56 @@ import { AlertCircle, Clock, Database, Image, Monitor, Smartphone, Zap } from 'l
 import { formatTime } from '~/utils/dashboards';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 
-const CwvComparison = ({ heartbeats }: any) => {
+/**
+ * CoreWebVitals is a React component that displays metrics related to Core Web Vitals
+ * and other performance metrics for a given set of heartbeats.
+ *
+ * @param {Object} props - The component props.
+ * @param {Array<any>} props.heartbeats - An array of heartbeat objects containing
+ * performance data for various platforms.
+ *
+ * @returns {JSX.Element} A React component that renders Core Web Vitals and other
+ * performance metrics in a grid layout, with visual indicators for metric values.
+ *
+ * ### Core Web Vitals:
+ * - Largest Contentful Paint (LCP)
+ * - Cumulative Layout Shift (CLS)
+ * - Time to Interactive (TTI)
+ *
+ * ### Other Metrics:
+ * - First Contentful Paint (FCP)
+ * - Speed Index (SI)
+ * - Total Blocking Time (TBT)
+ * - Time to First Byte (TTFB)
+ *
+ * Each metric is displayed with:
+ * - A name and icon.
+ * - A list of values for each heartbeat, color-coded based on thresholds.
+ * - A progress bar indicating the relative value of the metric.
+ *
+ * The component also includes tooltips for platform details (e.g., user agent).
+ */
+const CoreWebVitals = ({ heartbeats }: any) => {
     return (<>
         <section>
-            <h2 className="text-xl font-bold mb-4">Core Web Vitals Comparison</h2>
+            <h2 className="text-xl font-bold mb-4">Core Web Vitals</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {[
                     {
                         name: 'Largest Contentful Paint (LCP)',
-                        accessor: (heartbeat: any) => heartbeat.timings.LCP,
+                        accessor: (heartbeat: any) => heartbeat.cwv.lcp,
                         icon: <Image className="h-5 w-5" />,
                         max: 4000,
                     },
                     {
                         name: 'Cumulative Layout Shift (CLS)',
-                        accessor: (heartbeat: any) => heartbeat.timings.CLS,
+                        accessor: (heartbeat: any) => heartbeat.cwv.cls,
                         icon: <AlertCircle className="h-5 w-5" />,
                         max: 0.5,
                     },
                     {
                         name: 'Time to Interactive (TTI)',
-                        accessor: (heartbeat: any) => heartbeat.timings.TTI,
+                        accessor: (heartbeat: any) => heartbeat.cwv.tti,
                         icon: <Clock className="h-5 w-5" />,
                         max: 7000,
                     },
@@ -87,30 +116,30 @@ const CwvComparison = ({ heartbeats }: any) => {
 
         {/* Other Metrics Comparison */}
         <section>
-            <h2 className="text-xl font-bold mb-4">Other Metrics Comparison</h2>
+            <h2 className="text-xl font-bold mb-4">Other Metrics</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {[
                     {
                         name: 'First Contentful Paint (FCP)',
-                        accessor: (heartbeat: any) => heartbeat.timings.FCP,
+                        accessor: (heartbeat: any) => heartbeat.cwv.fcp,
                         format: formatTime,
                         icon: <Clock className="h-5 w-5" />,
                     },
                     {
                         name: 'Speed Index (SI)',
-                        accessor: (heartbeat: any) => heartbeat.timings.SI,
+                        accessor: (heartbeat: any) => heartbeat.cwv.si,
                         format: formatTime,
                         icon: <Zap className="h-5 w-5" />,
                     },
                     {
                         name: 'Total Blocking Time (TBT)',
-                        accessor: (heartbeat: any) => heartbeat.timings.TBT,
+                        accessor: (heartbeat: any) => heartbeat.cwv.tbt,
                         format: (v: number) => v + 'ms',
                         icon: <Clock className="h-5 w-5" />,
                     },
                     {
                         name: 'Time to First Byte (TTFB)',
-                        accessor: (heartbeat: any) => heartbeat.timings.TTFB,
+                        accessor: (heartbeat: any) => heartbeat.cwv.ttfb,
                         format: (v: number) => v + 'ms',
                         icon: <Database className="h-5 w-5" />,
                     },
@@ -152,4 +181,4 @@ const CwvComparison = ({ heartbeats }: any) => {
         </section></>)
 }
 
-export { CwvComparison };
+export { CoreWebVitals };

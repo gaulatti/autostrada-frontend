@@ -3,29 +3,57 @@ import { AlertCircle, ExternalLink, FileText, Monitor, Smartphone, Zap } from 'l
 import { getProgressColor, getScoreColor } from '~/utils/dashboards';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 
-const GradesComparison = ({ heartbeats }: any) => (
+/**
+ * The `Grades` component renders a section displaying various metrics (Performance, Accessibility,
+ * Best Practices, and SEO) for a list of heartbeats. Each metric is displayed as a card containing
+ * platform-specific scores and progress bars.
+ *
+ * @param {Object} props - The props for the component.
+ * @param {any[]} props.heartbeats - An array of heartbeat objects containing platform and grade data.
+ *
+ * @returns {JSX.Element} A section containing metric cards with scores and progress bars for each heartbeat.
+ *
+ * ### Example
+ * ```tsx
+ * const heartbeats = [
+ *   {
+ *     id: 1,
+ *     platform: { type: 'mobile', user_agent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X)' },
+ *     grades: { performance: 85, accessibility: 90, best_practices: 80, seo: 95 },
+ *   },
+ *   {
+ *     id: 2,
+ *     platform: { type: 'desktop', user_agent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' },
+ *     grades: { performance: 75, accessibility: 85, best_practices: 70, seo: 80 },
+ *   },
+ * ];
+ *
+ * <Grades heartbeats={heartbeats} />
+ * ```
+ */
+const Grades = ({ heartbeats }: any) => (
   <section>
-    <h2 className='text-xl font-bold mb-4'>Score Comparison</h2>
+    <h2 className='text-xl font-bold mb-4'>Grades</h2>
     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
       {[
         {
           name: 'Performance',
-          accessor: (heartbeat: any) => heartbeat.performance,
+          accessor: (heartbeat: any) => heartbeat.grades.performance,
           icon: <Zap className='h-5 w-5' />,
         },
         {
           name: 'Accessibility',
-          accessor: (heartbeat: any) => heartbeat.accessibility,
+          accessor: (heartbeat: any) => heartbeat.grades.accessibility,
           icon: <AlertCircle className='h-5 w-5' />,
         },
         {
           name: 'Best Practices',
-          accessor: (heartbeat: any) => heartbeat.bestPractices,
+          accessor: (heartbeat: any) => heartbeat.grades.best_practices,
           icon: <FileText className='h-5 w-5' />,
         },
         {
           name: 'SEO',
-          accessor: (heartbeat: any) => heartbeat.seo,
+          accessor: (heartbeat: any) => heartbeat.grades.seo,
           icon: <ExternalLink className='h-5 w-5' />,
         },
       ].map((metric) => (
@@ -71,4 +99,4 @@ const GradesComparison = ({ heartbeats }: any) => (
   </section>
 );
 
-export { GradesComparison };
+export { Grades };

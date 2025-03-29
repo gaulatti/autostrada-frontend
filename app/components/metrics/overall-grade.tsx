@@ -4,12 +4,32 @@ import { NavLink } from 'react-router';
 import { calculateGrade } from '~/utils/dashboards';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 
-const OverallGrade = ({ heartbeat }: any) => {
+/**
+ * The `OverallGrade` component displays an overall grade card for a given heartbeat.
+ * It calculates the grade based on performance, accessibility, best practices, and SEO scores.
+ * The component also provides an optional link to view detailed information about the heartbeat.
+ *
+ * @param {Object} props - The properties object.
+ * @param {Object} props.heartbeat - The heartbeat data containing grades and platform information.
+ * @param {Object} props.heartbeat.grades - The grades object with performance, accessibility, best practices, and SEO scores.
+ * @param {number} props.heartbeat.grades.performance - The performance score (0-100).
+ * @param {number} props.heartbeat.grades.accessibility - The accessibility score (0-100).
+ * @param {number} props.heartbeat.grades.best_practices - The best practices score (0-100).
+ * @param {number} props.heartbeat.grades.seo - The SEO score (0-100).
+ * @param {Object} props.heartbeat.platform - The platform information for the heartbeat.
+ * @param {string} props.heartbeat.platform.type - The platform type (e.g., "mobile" or "desktop").
+ * @param {string} props.heartbeat.platform.user_agent - The user agent string for the platform.
+ * @param {string} props.heartbeat.slug - The unique identifier for the heartbeat used in the details link.
+ * @param {boolean} [props.showLink=true] - Whether to show the "View Details" link.
+ *
+ * @returns {JSX.Element} A card component displaying the overall grade and related information.
+ */
+const OverallGrade = ({ heartbeat, showLink = true }: any) => {
     const grade = calculateGrade(
-        heartbeat.performance,
-        heartbeat.accessibility,
-        heartbeat.bestPractices,
-        heartbeat.seo
+        heartbeat.grades.performance,
+        heartbeat.grades.accessibility,
+        heartbeat.grades.best_practices,
+        heartbeat.grades.seo
     );
     return (
         <Card key={heartbeat.id} className="p-6 relative overflow-hidden">
@@ -35,7 +55,7 @@ const OverallGrade = ({ heartbeat }: any) => {
                     </TooltipProvider>
                 </div>
             </div>
-            <div className="flex items-start gap-6 mt-4">
+            <div className="flex items-center gap-6 m-4">
                 <div className="flex-shrink-0">
                     <div
                         className={`w-20 h-20 rounded-full flex items-center justify-center bg-opacity-20 ${grade.grade.startsWith('A')
@@ -52,18 +72,20 @@ const OverallGrade = ({ heartbeat }: any) => {
                         </span>
                     </div>
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-2 flex-col justify-between">
                     <h2 className="text-xl font-bold">Overall Grade: {grade.grade}</h2>
                     <p className="text-gray-600 dark:text-gray-300">
                         Performance: {heartbeat.grades.performance}/100, Accessibility: {heartbeat.grades.accessibility}/100, Best Practices: {heartbeat.grades.best_practices}/100, SEO: {heartbeat.grades.seo}/100.
                     </p>
-                    <div className="flex mt-2">
-                        <Button asChild variant="outline" size="1" className="flex items-center gap-1">
-                            <NavLink to={`/scans/heartbeats/${heartbeat.slug}`}>
-                                View Details <ArrowRight className="h-3 w-3 ml-1" />
-                            </NavLink>
-                        </Button>
-                    </div>
+                    {showLink &&
+                        <div className="flex mt-2">
+                            <Button asChild variant="outline" size="1" className="flex items-center gap-1">
+                                <NavLink to={`/scans/heartbeats/${heartbeat.slug}`}>
+                                    View Details <ArrowRight className="h-3 w-3 ml-1" />
+                                </NavLink>
+                            </Button>
+                        </div>
+                    }
                 </div>
             </div>
         </Card>
