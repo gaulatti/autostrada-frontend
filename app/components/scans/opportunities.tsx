@@ -1,6 +1,7 @@
 import { Box, Card, Tabs } from '@radix-ui/themes';
 import { AlertCircle, Clock, Code, Database, ExternalLink, FileText, Image } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 
 /**
  * The `Opportunities` component renders a tabbed interface displaying opportunities for improvement
@@ -38,29 +39,43 @@ const Opportunities = ({ heartbeat: { report } }: any) => {
                         <Card className='p-4'>
                             <h3 className='text-lg font-semibold mb-4'>Opportunities for Improvement</h3>
                             <div className='space-y-4'>
-                                {report.opportunities.map((opportunity: any) => (
-                                    <div
-                                        key={opportunity.id}
-                                        className='flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors'
-                                    >
-                                        <div className='flex items-center gap-3'>
-                                            <div
-                                                className={`p-2 rounded-full ${opportunity.savings !== '0ms'
-                                                    ? 'bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300'
-                                                    : 'bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400'
-                                                    }`}
-                                            >
-                                                {opportunity.savings !== '0ms' ? <AlertCircle className='h-4 w-4' /> : <Clock className='h-4 w-4' />}
+                                {report.opportunities.map((opportunity: any) => {
+                                    return (
+                                        <div
+                                            key={opportunity.id}
+                                            className='flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors'
+                                        >
+                                            <div className='flex items-center gap-3'>
+                                                <div
+                                                    className={`p-2 rounded-full ${opportunity.savings !== '0ms'
+                                                        ? 'bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300'
+                                                        : 'bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400'}`}
+                                                >
+                                                    {opportunity.savings !== '0ms' ? <AlertCircle className='h-4 w-4' /> : <Clock className='h-4 w-4' />}
+                                                </div>
+
+                                                <TooltipProvider>
+                                                    <Tooltip>
+                                                        <TooltipTrigger>
+                                                            <span className='font-medium'>
+                                                                {opportunity.title}
+                                                            </span>
+                                                        </TooltipTrigger>
+                                                        <TooltipContent>
+                                                            <ReactMarkdown>{opportunity.description}</ReactMarkdown>
+                                                        </TooltipContent>
+                                                    </Tooltip>
+                                                </TooltipProvider>
+
                                             </div>
-                                            <span className='font-medium'>{opportunity.title}</span>
+                                            <div className='flex items-center'>
+                                                {opportunity.savings !== '0ms' && (
+                                                    <span className='text-sm font-medium text-amber-600 dark:text-amber-400 mr-2'>Potential savings: {opportunity.savings}</span>
+                                                )}
+                                            </div>
                                         </div>
-                                        <div className='flex items-center'>
-                                            {opportunity.savings !== '0ms' && (
-                                                <span className='text-sm font-medium text-amber-600 dark:text-amber-400 mr-2'>Potential savings: {opportunity.savings}</span>
-                                            )}
-                                        </div>
-                                    </div>
-                                ))}
+                                    );
+                                })}
                             </div>
                             <div className='mt-4 text-sm text-gray-500 dark:text-gray-400'>
                                 <p>Showing {report.opportunities.length} opportunities.</p>
