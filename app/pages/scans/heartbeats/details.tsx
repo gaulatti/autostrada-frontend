@@ -38,7 +38,7 @@ const HeartbeatReport = () => {
 
   const breadcrumbItems: BreadcrumbItem[] = [
     { title: 'Home', link: '/' },
-    { title: 'Pulses', link: '/pulses' },
+    { title: 'Pulses', link: '/' },
     { title: 'Heartbeat Detail', link: `/heartbeats/${slug}` },
   ];
 
