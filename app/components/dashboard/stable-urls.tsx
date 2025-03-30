@@ -21,7 +21,7 @@ interface StableUrlsProps {
 
 const StableUrls = ({ data }: { data: StableUrlsProps }) => {
   if (!data) {
-    return <></>
+    return <></>;
   }
 
   return (
