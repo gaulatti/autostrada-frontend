@@ -9,29 +9,13 @@ import { useFeatureFlags } from '~/hooks/useFeatureFlags';
 import { Logo } from './ui/logo';
 
 const data = {
-  sections: [{
-    name: "Metrics",
-    items: [
-      {
-        title: 'Core Web Vitals',
-        url: '/metrics/core-web-vitals',
-        icon: ChartNoAxesCombined,
-        isActive: true,
-      },
-      {
-        title: 'Grades',
-        url: '/metrics/grades',
-        icon: BookOpenCheck,
-        isActive: true,
-      },
-    ],
-  },
+  sections: [
   {
     name: "Scans",
     items: [
       {
         title: 'Pulses',
-        url: '/scans/pulses',
+        url: '/',
         icon: HeartPulse,
         isActive: true,
       },

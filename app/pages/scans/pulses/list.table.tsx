@@ -29,7 +29,9 @@ export const columns: ColumnDef<Pulse>[] = [
         value && (
           <Link asChild>
             <NavLink to={`/scans/pulses/${value}`}>
-              <code><>{value}</></code>
+              <code>
+                <>{value}</>
+              </code>
             </NavLink>
           </Link>
         )
@@ -41,7 +43,7 @@ export const columns: ColumnDef<Pulse>[] = [
     accessorKey: 'url',
     header: 'URL',
     cell: ({ cell }) => {
-      const value = cell.getValue() as { slug: string, url: string };
+      const value = cell.getValue() as { slug: string; url: string };
       return (
         value && (
           <Link asChild>
@@ -100,7 +102,7 @@ export const columns: ColumnDef<Pulse>[] = [
         ''
       );
     },
-  }
+  },
 ];
 
 const DataTable = () => {
@@ -134,7 +136,7 @@ const DataTable = () => {
   const totalPages = useMemo(() => Math.ceil((data?.count || 0) / pageSize), [data, pageSize]);
 
   return (
-    <div className='m-4'>
+    <>
       <div className='rounded-md border'>
         <Table>
           <TableHeader>
@@ -168,7 +170,7 @@ const DataTable = () => {
       <div className='flex items-center justify-between space-x-2 py-4'>
         <PaginationControls currentPage={page} totalPages={totalPages} onPageChange={setPage} />
       </div>
-    </div>
+    </>
   );
 };
 

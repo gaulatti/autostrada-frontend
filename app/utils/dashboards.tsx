@@ -22,11 +22,11 @@ const getScoreColor = (score: number) => {
  *                - If the score is below 50, the function returns 'red'.
  * @returns A string representing the color associated with the score.
  */
-const getProgressColor = (score: number) => {
-  if (score >= 90) return 'green';
-  if (score >= 50) return 'amber';
-  return 'red';
-};
+const getProgressColor = (value: number) => {
+  if (value >= 90) return "#22c55e"
+  if (value >= 75) return "#eab308"
+  return "#ef4444"
+}
 
 /**
  * Calculates the grade and corresponding color based on weighted scores for performance,
