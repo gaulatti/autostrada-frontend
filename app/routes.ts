@@ -4,12 +4,6 @@ export default [
   layout('./layouts/private.tsx', [
     index('./pages/scans/pulses/index.tsx'),
     /**
-     * Metrics
-     */
-    route('/metrics/core-web-vitals', './pages/metrics/cwv/index.tsx'),
-    route('/metrics/grades', './pages/metrics/grades/index.tsx'),
-
-    /**
      * Scans
      */
     route('/scans/platforms', './pages/scans/platforms/index.tsx'),
