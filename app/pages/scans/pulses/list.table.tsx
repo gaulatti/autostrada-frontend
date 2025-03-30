@@ -3,6 +3,7 @@ import { type ColumnDef, flexRender, getCoreRowModel, type SortingState, useReac
 import { ArrowUpDown } from 'lucide-react';
 import moment from 'moment';
 import { useMemo, useState } from 'react';
+import type { DateRange } from 'react-day-picker';
 import { NavLink } from 'react-router';
 import { Method, useAPI } from '~/clients/api';
 import { PaginationControls } from '~/components/pagination-controls';
@@ -105,7 +106,7 @@ export const columns: ColumnDef<Pulse>[] = [
   },
 ];
 
-const DataTable = () => {
+const DataTable = ({ timeRange }: { timeRange?: DateRange }) => {
   const [page, setPage] = useState(1);
   const [pageSize] = useState(20);
   const [random, randomize] = useRandom();
@@ -119,7 +120,7 @@ const DataTable = () => {
     return {};
   }, [sorting]);
 
-  const queryParams = useMemo(() => ({ page, pageSize, random, ...sortingParams }), [page, pageSize, sortingParams, random]);
+  const queryParams = useMemo(() => ({ page, pageSize, random, ...sortingParams, ...timeRange }), [page, pageSize, sortingParams, timeRange, random]);
   const { data } = useAPI(Method.GET, [], `pulses`, queryParams);
 
   const table = useReactTable({

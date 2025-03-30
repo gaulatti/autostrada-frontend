@@ -1,6 +1,7 @@
 import { Theme } from '@radix-ui/themes';
 import '@radix-ui/themes/styles.css';
 import { Amplify, type ResourcesConfig } from 'aws-amplify';
+import moment from 'moment';
 import type { JSX } from 'react';
 import { Provider } from 'react-redux';
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router';
@@ -36,6 +37,28 @@ const userPoolId = import.meta.env.VITE_COGNITO_USER_POOL_ID;
 const userPoolClientId = import.meta.env.VITE_COGNITO_CLIENT_ID;
 const userPoolDomain = import.meta.env.VITE_USER_POOL_DOMAIN;
 const fqdn = import.meta.env.VITE_FQDN;
+
+/**
+ * Set relative time formats.
+ */
+moment.updateLocale('en', {
+  relativeTime: {
+    future: 'in %s',
+    past: '%s ago',
+    s: '%ss',
+    ss: '%ss',
+    m: '1m',
+    mm: '%dm',
+    h: '1h',
+    hh: '%dh',
+    d: '1d',
+    dd: '%dd',
+    M: '1M',
+    MM: '%dM',
+    y: '1y',
+    yy: '%dy',
+  },
+});
 
 /**
  * Configuration for the AWS Amplify library.
@@ -86,7 +109,7 @@ export function Layout({ children }: { children: React.ReactNode }): JSX.Element
         <meta charSet='utf-8' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <meta name='anthem' content='https://www.youtube.com/watch?v=TaqJ6UDSRHA' />
-        <link rel="icon" href="/favicon.png"></link>
+        <link rel='icon' href='/favicon.png'></link>
         <Meta />
         <Links />
       </head>
