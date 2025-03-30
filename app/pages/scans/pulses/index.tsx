@@ -1,6 +1,6 @@
 import { Flex } from '@radix-ui/themes';
 import { Breadcrumbs, type BreadcrumbItem } from '~/components/breadcrumbs';
-import { MostStableUrls } from '~/components/dashboard/stable-urls';
+import { StableUrls } from '~/components/dashboard/stable-urls';
 import { SummaryCards } from '~/components/dashboard/summary';
 import { SiteHeader } from '~/components/header';
 import { Button } from '~/components/ui/button';
@@ -48,6 +48,24 @@ const RangeSelector = ({ setTimeRange, timeRange }: any) => {
     );
 };
 
+const data = {
+    desktop: [
+        { name: 'example.com/home', score: 95, variation: 3, trend: [92, 94, 93, 95, 96, 94, 95] },
+        { name: 'example.com/about', score: 89, variation: 5, trend: [85, 83, 86, 88, 90, 87, 89] },
+        { name: 'example.com/products', score: 83, variation: 6, trend: [78, 76, 80, 82, 84, 81, 83] },
+    ],
+    mobile: [
+        { name: 'example.com/home', score: 88, variation: 4, trend: [85, 86, 87, 89, 90, 88, 88] },
+        { name: 'example.com/about', score: 82, variation: 6, trend: [78, 76, 80, 83, 85, 81, 82] },
+        { name: 'example.com/products', score: 76, variation: 8, trend: [70, 68, 74, 76, 80, 75, 76] },
+    ],
+    comparison: [
+        { name: 'example.com/home', desktop: 95, mobile: 88, diff: 7 },
+        { name: 'example.com/about', desktop: 89, mobile: 82, diff: 7 },
+        { name: 'example.com/products', desktop: 83, mobile: 76, diff: 7 },
+    ],
+};
+
 const Page = () => {
     const [timeRange, setTimeRange] = useState('7d');
     return (
@@ -56,7 +74,7 @@ const Page = () => {
             <Flex className='m-6' gap='6' direction='column'>
                 <Breadcrumbs items={breadcrumbItems} />
                 <SummaryCards />
-                <MostStableUrls />
+                <StableUrls data={data} />
                 <DataTable />
             </Flex>
         </>
