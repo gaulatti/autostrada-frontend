@@ -13,16 +13,13 @@ const breadcrumbItems: BreadcrumbItem[] = [
         link: '/',
     },
     {
-        title: 'Scans',
-    },
-    {
         title: 'Urls',
-        link: '/targets/urls',
+        link: '/urls',
     },
 ]
 
 
-const Page = () => {
+const Urls = () => {
     return (
         <>
             <SiteHeader title='Urls' />
@@ -34,4 +31,4 @@ const Page = () => {
     );
 };
 
-export default Page;
+export default Urls;

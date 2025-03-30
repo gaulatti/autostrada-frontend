@@ -21,7 +21,7 @@ export const columns: ColumnDef<Url>[] = [
       return (
         value && (
           <Link asChild>
-            <NavLink to={`/scans/pulses/${value}`}>
+            <NavLink to={`/pulses/${value}`}>
               <code><>{value}</></code>
             </NavLink>
           </Link>
@@ -37,7 +37,7 @@ export const columns: ColumnDef<Url>[] = [
       return (
         value && (
           <Link asChild>
-            <NavLink to={`/targets/urls/${value.slug}`}>
+            <NavLink to={`/urls/${value.slug}`}>
               <>{value.url}</>
             </NavLink>
           </Link>

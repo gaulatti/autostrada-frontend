@@ -12,13 +12,6 @@ export function meta() {
   return [{ title: 'Pulses - Autostrada' }];
 }
 
-const breadcrumbItems: BreadcrumbItem[] = [
-  { title: 'Home', link: '/' },
-  { title: 'Scans' },
-  { title: 'Pulses', link: '/scans/pulses' },
-  { title: 'Heartbeat Detail' },
-];
-
 /**
  * HeartbeatReport component renders the detailed report of a specific heartbeat.
  *
@@ -42,6 +35,12 @@ const breadcrumbItems: BreadcrumbItem[] = [
 const HeartbeatReport = () => {
   const { slug } = useParams();
   const { data } = useAPI(Method.GET, [], `heartbeats/${slug}`);
+
+  const breadcrumbItems: BreadcrumbItem[] = [
+    { title: 'Home', link: '/' },
+    { title: 'Pulses', link: '/pulses' },
+    { title: 'Heartbeat Detail', link: `/heartbeats/${slug}` },
+  ];
 
   return (
     data && (

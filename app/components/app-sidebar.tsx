@@ -1,4 +1,4 @@
-import { Activity, BookOpenCheck, Cable, ChartNoAxesCombined, FileCode, FolderKanban, Group, HeartPulse, LayoutList, MonitorSmartphone, Newspaper, Radar, Tv } from 'lucide-react';
+import { Activity, HeartPulse, LayoutList, Newspaper, Radar, Tv } from 'lucide-react';
 import * as React from 'react';
 import { NavMain } from '~/components/nav-main';
 import { NavProjects } from '~/components/nav-projects';
@@ -19,43 +19,43 @@ const data = {
         icon: HeartPulse,
         isActive: true,
       },
-      {
-        title: 'Projects',
-        url: '/scans/projects',
-        icon: FolderKanban,
-        isActive: true,
-      },
-      {
-        title: 'Providers',
-        url: '/scans/providers',
-        icon: Cable,
-        isActive: true,
-      },
-      {
-        title: 'Platforms',
-        url: '/scans/platforms',
-        icon: MonitorSmartphone,
-        isActive: true,
-      },
+      // {
+      //   title: 'Projects',
+      //   url: '/scans/projects',
+      //   icon: FolderKanban,
+      //   isActive: true,
+      // },
+      // {
+      //   title: 'Providers',
+      //   url: '/scans/providers',
+      //   icon: Cable,
+      //   isActive: true,
+      // },
+      // {
+      //   title: 'Platforms',
+      //   url: '/scans/platforms',
+      //   icon: MonitorSmartphone,
+      //   isActive: true,
+      // },
     ]
   },
-  {
-    name: "Targets",
-    items: [
-      {
-        title: 'Clusters',
-        url: '/targets/clusters',
-        icon: Group,
-        isActive: true,
-      },
-      {
-        title: 'Urls',
-        url: '/targets/urls',
-        icon: FileCode,
-        isActive: true,
-      }
-    ]
-  }
+  // {
+  //   name: "Targets",
+  //   items: [
+  //     {
+  //       title: 'Clusters',
+  //       url: '/targets/clusters',
+  //       icon: Group,
+  //       isActive: true,
+  //     },
+  //     {
+  //       title: 'Urls',
+  //       url: '/targets/urls',
+  //       icon: FileCode,
+  //       isActive: true,
+  //     }
+  //   ]
+  // }
   ],
   projects: [
     {

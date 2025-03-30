@@ -5,34 +5,30 @@ import { DataTable } from './list.table';
 import { Plus } from 'lucide-react';
 
 export function meta() {
-    return [{ title: 'Clusters - Autostrada' }];
+  return [{ title: 'Clusters - Autostrada' }];
 }
 
 const breadcrumbItems: BreadcrumbItem[] = [
-    {
-        title: 'Home',
-        link: '/',
-    },
-    {
-        title: 'Scans',
-    },
-    {
-        title: 'Clusters',
-        link: '/targets/clusters',
-    },
-]
+  {
+    title: 'Home',
+    link: '/',
+  },
+  {
+    title: 'Clusters',
+    link: '/clusters',
+  },
+];
 
-
-const Page = () => {
-    return (
-        <>
-            <SiteHeader title='Clusters' button={{ action: () => alert('lala'), icon: <Plus /> }}/>
-            <Flex className='m-6' gap='3' direction='column'>
-                <Breadcrumbs items={breadcrumbItems} />
-                <DataTable />
-            </Flex>
-        </>
-    );
+const Clusters = () => {
+  return (
+    <>
+      <SiteHeader title='Clusters' button={{ action: () => alert('lala'), icon: <Plus /> }} />
+      <Flex className='m-6' gap='3' direction='column'>
+        <Breadcrumbs items={breadcrumbItems} />
+        <DataTable />
+      </Flex>
+    </>
+  );
 };
 
-export default Page;
+export default Clusters;

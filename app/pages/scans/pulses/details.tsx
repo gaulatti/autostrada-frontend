@@ -7,17 +7,11 @@ import { CoreWebVitals } from '~/components/metrics/cwv';
 import { Grades } from '~/components/metrics/grades';
 import { OverallGrade } from '~/components/metrics/overall-grade';
 import { ReportHeader } from '~/components/scans/report-header';
+import { OverlaySpinner } from '~/components/spinners';
 
 export function meta() {
   return [{ title: 'Pulses Report - Autostrada' }];
 }
-
-const breadcrumbItems: BreadcrumbItem[] = [
-  { title: 'Home', link: '/' },
-  { title: 'Scans' },
-  { title: 'Pulses', link: '/scans/pulses' },
-  { title: 'Pulse Report' },
-];
 
 /**
  * Component: PulseReport
@@ -47,8 +41,15 @@ const PulseReport = () => {
   const { slug } = useParams();
   const { data } = useAPI(Method.GET, [], `pulses/${slug}`);
 
+
+const breadcrumbItems: BreadcrumbItem[] = [
+  { title: 'Home', link: '/' },
+  { title: 'Pulses', link: '/' },
+  { title: 'Pulse Report', link: `/pulses/${slug}` },
+];
+
   if (!data?.pulse) {
-    return <div>Loading...</div>;
+    return <OverlaySpinner />;
   }
 
   const pulse = data.pulse;

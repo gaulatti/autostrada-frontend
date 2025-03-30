@@ -13,11 +13,8 @@ const breadcrumbItems: BreadcrumbItem[] = [
         link: '/',
     },
     {
-        title: 'Scans',
-    },
-    {
         title: 'Providers',
-        link: '/scans/providers',
+        link: '/providers',
     },
 ]
 

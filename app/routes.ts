@@ -6,17 +6,18 @@ export default [
     /**
      * Scans
      */
-    route('/scans/platforms', './pages/scans/platforms/index.tsx'),
-    route('/scans/projects', './pages/scans/projects/index.tsx'),
-    route('/scans/providers', './pages/scans/providers/index.tsx'),
-    route('/scans/pulses/:slug', './pages/scans/pulses/details.tsx'),
-    route('/scans/heartbeats/:slug', './pages/scans/heartbeats/details.tsx'),
+    route('/platforms', './pages/scans/platforms/index.tsx'),
+    route('/projects', './pages/scans/projects/index.tsx'),
+    route('/providers', './pages/scans/providers/index.tsx'),
+    route('/pulses/:slug', './pages/scans/pulses/details.tsx'),
+    route('/heartbeats/:slug', './pages/scans/heartbeats/details.tsx'),
 
     /**
      * Targets
      */
-    route('/targets/clusters', './pages/targets/clusters/index.tsx'),
-    route('/targets/urls', './pages/targets/urls/index.tsx'),
+    route('/clusters', './pages/targets/clusters/index.tsx'),
+    route('/urls', './pages/targets/urls/index.tsx'),
+    route('/urls/:slug', './pages/targets/urls/detail.tsx'),
   ]),
   route('/logout', './pages/auth/logout.tsx'),
   route('/login', './pages/auth/login.tsx'),

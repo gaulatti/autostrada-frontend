@@ -14,11 +14,8 @@ const breadcrumbItems: BreadcrumbItem[] = [
         link: '/',
     },
     {
-        title: 'Scans',
-    },
-    {
         title: 'Projects',
-        link: '/scans/projects',
+        link: '/projects',
     },
 ]
 
@@ -26,7 +23,7 @@ const breadcrumbItems: BreadcrumbItem[] = [
 const Page = () => {
     return (
         <>
-            <SiteHeader title='Projects'  button={{ action: () => alert('lala'), icon: <Plus /> }}/>
+            <SiteHeader title='Projects' button={{ action: () => alert('lala'), icon: <Plus /> }} />
             <Flex className='m-6' gap='3' direction='column'>
                 <Breadcrumbs items={breadcrumbItems} />
                 <DataTable />
