@@ -1,23 +1,18 @@
-import { Button, Link } from '@radix-ui/themes';
+import { Link } from '@radix-ui/themes';
 import { type ColumnDef, flexRender, getCoreRowModel, type SortingState, useReactTable } from '@tanstack/react-table';
-import { ArrowUpDown } from 'lucide-react';
-import moment from 'moment';
 import { useMemo, useState } from 'react';
-import type { DateRange } from 'react-day-picker';
 import { NavLink } from 'react-router';
 import { Method, useAPI } from '~/clients/api';
 import { PaginationControls } from '~/components/pagination-controls';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip';
 import { useRandom } from '~/hooks/useRandom';
-import type { Pulse } from '~/pages/scans/pulses/list.table';
 
 export type Url = {
   slug: string;
   url: { slug: string; url: string };
 };
 
-export const columns: ColumnDef<Pulse>[] = [
+export const columns: ColumnDef<Url>[] = [
   {
     accessorKey: 'slug',
     header: 'Slug',
@@ -26,10 +21,8 @@ export const columns: ColumnDef<Pulse>[] = [
       return (
         value && (
           <Link asChild>
-            <NavLink to={`/pulses/${value}`}>
-              <code>
-                <>{value}</>
-              </code>
+            <NavLink to={`/urls/${value}`}>
+              <code><>{value}</></code>
             </NavLink>
           </Link>
         )
@@ -37,56 +30,24 @@ export const columns: ColumnDef<Pulse>[] = [
     },
   },
   {
-    accessorKey: 'createdAt',
-    header: ({ column }) => (
-      <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-        Created
-        <ArrowUpDown className='ml-2 h-4 w-4' />
-      </Button>
-    ),
-    cell: ({ cell }) => {
-      const value = cell.getValue();
-      return value ? (
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>{moment().diff(value, 'hours') < 24 ? moment(value).fromNow() : moment(value).format('MMM D, YYYY [at] HH:mm')}</TooltipTrigger>
-            <TooltipContent>
-              <>{value}</>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      ) : (
-        ''
-      );
-    },
-  },
-  {
-    accessorKey: 'updatedAt',
-    header: ({ column }) => (
-      <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-        Updated
-        <ArrowUpDown className='ml-2 h-4 w-4' />
-      </Button>
-    ),
-    cell: ({ cell }) => {
-      const value = cell.getValue();
-      return value ? (
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>{moment().diff(value, 'hours') < 24 ? moment(value).fromNow() : moment(value).format('MMM D, YYYY [at] HH:mm')}</TooltipTrigger>
-            <TooltipContent>
-              <>{value}</>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      ) : (
-        ''
+    accessorKey: 'url',
+    header: 'URL',
+    cell: ({ cell, row }) => {
+      const value = row.original;
+      return (
+        value && (
+          <Link asChild>
+            <NavLink to={`/urls/${value.slug}`}>
+              <>{value.url}</>
+            </NavLink>
+          </Link>
+        )
       );
     },
   },
 ];
 
-const DataTable = ({ slug, timeRange }: { slug: string; timeRange?: DateRange }) => {
+const DataTable = () => {
   const [page, setPage] = useState(1);
   const [pageSize] = useState(20);
   const [random, randomize] = useRandom();
@@ -99,8 +60,8 @@ const DataTable = ({ slug, timeRange }: { slug: string; timeRange?: DateRange })
     return {};
   }, [sorting]);
 
-  const queryParams = useMemo(() => ({ page, pageSize, random, ...sortingParams, ...timeRange }), [page, pageSize, sortingParams, random, timeRange]);
-  const { data } = useAPI(Method.GET, [], `urls/${slug}/pulses`, queryParams);
+  const queryParams = useMemo(() => ({ page, pageSize, random, ...sortingParams }), [page, pageSize, sortingParams, random]);
+  const { data } = useAPI(Method.GET, [], `urls`, queryParams);
 
   const table = useReactTable({
     data: data?.rows ?? [],
