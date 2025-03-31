@@ -12,26 +12,31 @@ import {
   SidebarMenuItem,
   SidebarMenuSub,
   SidebarMenuSubButton,
-  SidebarMenuSubItem
+  SidebarMenuSubItem,
 } from '~/components/ui/sidebar';
+import { useFeatureFlags } from '~/hooks/useFeatureFlags';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './ui/collapsible';
 
 export function NavMain({
   sections,
 }: {
   sections: {
-    name: string, items: {
+    name: string;
+    items: {
       title: string;
       url: string;
       icon?: LucideIcon;
+      slug?: string;
       isActive?: boolean;
       items?: {
         title: string;
         url: string;
       }[];
     }[];
-  }[]
+  }[];
 }) {
+  const featureEnabled = useFeatureFlags();
+
   return (
     <SidebarGroup>
       {sections.map(({ name, items }) => (
@@ -66,16 +71,18 @@ export function NavMain({
                     </SidebarMenuItem>
                   </Collapsible>
                 ) : (
-                  <SidebarMenuItem>
-                    <SidebarMenuButton tooltip={item.title}>
-                      {item.icon && <item.icon />}
-                      <Link asChild>
-                        <NavLink to={item.url}>
-                          <span>{item.title}</span>
-                        </NavLink>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
+                  featureEnabled(item.slug).isEnabled() && (
+                    <SidebarMenuItem>
+                      <SidebarMenuButton tooltip={item.title}>
+                        {item.icon && <item.icon />}
+                        <Link asChild>
+                          <NavLink to={item.url}>
+                            <span>{item.title}</span>
+                          </NavLink>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  )
                 )}
               </>
             ))}

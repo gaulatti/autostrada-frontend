@@ -28,12 +28,12 @@ import { getFeatureFlags } from '../state/selectors/featureFlags';
  * }
  * ```
  */
-const useFeatureFlags = (): ((flagName: string) => { isEnabled: () => boolean, treatment: () => 'C' | 'T1' | 'T2' | 'T3' }) => {
+const useFeatureFlags = (): ((flagName?: string) => { isEnabled: () => boolean, treatment: () => 'C' | 'T1' | 'T2' | 'T3' }) => {
   /**
    * Retrieve the feature flags from the Redux store.
    */
   const featureFlags = useSelector(getFeatureFlags);
-  return (flagName: string) => {
+  return (flagName?: string) => {
     const feature = featureFlags.find((flag) => flag.slug === flagName);
     return {
       isEnabled: () => (feature?.default_value || 'C') != 'C',

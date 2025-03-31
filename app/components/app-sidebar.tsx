@@ -1,7 +1,6 @@
-import { HeartPulse, LayoutList, Newspaper, Radar, Tv, User } from 'lucide-react';
+import { FileCode, HeartPulse, LayoutList, Newspaper, Radar, Tv, User } from 'lucide-react';
 import * as React from 'react';
 import { NavMain } from '~/components/nav-main';
-import { NavProjects } from '~/components/nav-projects';
 import { NavUser } from '~/components/nav-user';
 import { TeamSwitcher } from '~/components/team-switcher';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail, useSidebar } from '~/components/ui/sidebar';
@@ -18,6 +17,7 @@ const data = {
           url: '/',
           icon: HeartPulse,
           isActive: true,
+          slug: 'O55KuRrIodma8kTP2Ium7',
         },
         // {
         //   title: 'Projects',
@@ -39,23 +39,24 @@ const data = {
         // },
       ],
     },
-    // {
-    //   name: "Targets",
-    //   items: [
-    //     {
-    //       title: 'Clusters',
-    //       url: '/targets/clusters',
-    //       icon: Group,
-    //       isActive: true,
-    //     },
-    //     {
-    //       title: 'Urls',
-    //       url: '/targets/urls',
-    //       icon: FileCode,
-    //       isActive: true,
-    //     }
-    //   ]
-    // }
+    {
+      name: 'Targets',
+      items: [
+        //     {
+        //       title: 'Clusters',
+        //       url: '/targets/clusters',
+        //       icon: Group,
+        //       isActive: true,
+        //     },
+        {
+          title: 'Urls',
+          url: '/urls',
+          icon: FileCode,
+          isActive: true,
+          slug: 'mdYDhWgQMjgxHstc2O0mG',
+        },
+      ],
+    },
   ],
   projects: [
     {
@@ -98,7 +99,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         {featureEnabled('NjAifRCOjQn6XL8n1oI3E').isEnabled() && <NavMain sections={data.sections} />}
-        <NavProjects projects={data.projects} />
+        {/* <NavProjects projects={data.projects} /> */}
       </SidebarContent>
       <SidebarFooter>
         <NavUser />
