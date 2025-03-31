@@ -29,7 +29,6 @@ const Page = () => {
     <>
       <SiteHeader title='Pulses' actions={<DatePickerWithRange onUpdate={setTimeRange} />} />
       <Flex className='m-6' gap='6' direction='column'>
-        <Breadcrumbs items={breadcrumbItems} />
         <SummaryCards data={data} />
         <StableUrls data={data?.stability} />
         <DataTable timeRange={timeRange} />
