@@ -8,6 +8,8 @@ import { Grades } from '~/components/metrics/grades';
 import { OverallGrade } from '~/components/metrics/overall-grade';
 import { ReportHeader } from '~/components/scans/report-header';
 import { OverlaySpinner } from '~/components/spinners';
+import { useFeatureFlags } from '~/hooks/useFeatureFlags';
+import { Forbidden } from '~/pages/403';
 
 export function meta() {
   return [{ title: 'Pulses Report - Autostrada' }];
@@ -40,30 +42,39 @@ export function meta() {
 const PulseReport = () => {
   const { slug } = useParams();
   const { data } = useAPI(Method.GET, [], `pulses/${slug}`);
+  const featureFlags = useFeatureFlags();
 
-
-const breadcrumbItems: BreadcrumbItem[] = [
-  { title: 'Home', link: '/' },
-  { title: 'Pulses', link: '/' },
-  { title: 'Pulse Report', link: `/pulses/${slug}` },
-];
+  const breadcrumbItems: BreadcrumbItem[] = [
+    { title: 'Home', link: '/' },
+    { title: 'Pulses', link: '/' },
+    { title: 'Pulse Report', link: `/pulses/${slug}` },
+  ];
 
   if (!data?.pulse) {
     return <OverlaySpinner />;
   }
 
   const pulse = data.pulse;
-  const { heartbeats } = pulse
+  const { heartbeats } = pulse;
+
+  /**
+   * Phased opening
+   */
+  if (!featureFlags('ANVTKEb8xZTxCGdJPeHyb').isEnabled()) {
+    return <Forbidden />;
+  }
 
   return (
     <>
-      <SiteHeader title="Pulse Report" />
-      <Flex className="m-6" gap="3" direction="column">
+      <SiteHeader title='Pulse Report' />
+      <Flex className='m-6' gap='3' direction='column'>
         <Breadcrumbs items={breadcrumbItems} />
 
         {/* Overall Grades */}
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {heartbeats.map((heartbeat: any) => <OverallGrade heartbeat={heartbeat} />)}
+        <section className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+          {heartbeats.map((heartbeat: any) => (
+            <OverallGrade heartbeat={heartbeat} />
+          ))}
         </section>
 
         {/* Header */}

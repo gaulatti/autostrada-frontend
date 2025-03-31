@@ -7,6 +7,8 @@ import { SummaryCards } from '~/components/dashboard/summary';
 import { DatePickerWithRange } from '~/components/date-picker-with-range';
 import { SiteHeader } from '~/components/header';
 import { OverlaySpinner } from '~/components/spinners';
+import { useFeatureFlags } from '~/hooks/useFeatureFlags';
+import { Forbidden } from '~/pages/403';
 import { DataTable } from './list.table';
 
 export function meta() {
@@ -42,8 +44,16 @@ export function meta() {
  */
 const Page = () => {
   const [timeRange, setTimeRange] = useState<DateRange>();
+  const featureEnabled = useFeatureFlags();
   const queryParams = useMemo(() => ({ ...timeRange }), [timeRange]);
   const { data } = useAPI(Method.GET, [], `pulses/stats`, queryParams);
+
+  /**
+   * Phased opening
+   */
+  if (!featureEnabled('O55KuRrIodma8kTP2Ium7').isEnabled()) {
+    return <Forbidden />;
+  }
 
   return (
     <>

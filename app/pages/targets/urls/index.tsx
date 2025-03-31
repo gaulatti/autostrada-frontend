@@ -1,34 +1,60 @@
 import { Flex } from '@radix-ui/themes';
+import { useMemo, useState } from 'react';
+import type { DateRange } from 'react-day-picker';
+import { Method, useAPI } from '~/clients/api';
 import { Breadcrumbs, type BreadcrumbItem } from '~/components/breadcrumbs';
+import { PerformantUrls } from '~/components/dashboard/performant.urls';
+import { DatePickerWithRange } from '~/components/date-picker-with-range';
 import { SiteHeader } from '~/components/header';
+import { OverlaySpinner } from '~/components/spinners';
+import { useFeatureFlags } from '~/hooks/useFeatureFlags';
 import { DataTable } from './list.table';
+import { Forbidden } from '~/pages/403';
 
 export function meta() {
-    return [{ title: 'Urls - Autostrada' }];
+  return [{ title: 'Urls - Autostrada' }];
 }
 
 const breadcrumbItems: BreadcrumbItem[] = [
-    {
-        title: 'Home',
-        link: '/',
-    },
-    {
-        title: 'Urls',
-        link: '/urls',
-    },
-]
-
+  {
+    title: 'Home',
+    link: '/',
+  },
+  {
+    title: 'Urls',
+    link: '/urls',
+  },
+];
 
 const Urls = () => {
-    return (
-        <>
-            <SiteHeader title='Urls' />
-            <Flex className='m-6' gap='3' direction='column'>
-                <Breadcrumbs items={breadcrumbItems} />
-                <DataTable />
-            </Flex>
-        </>
-    );
+  const [timeRange, setTimeRange] = useState<DateRange>();
+  const queryParams = useMemo(() => ({ ...timeRange }), [timeRange]);
+  const { data } = useAPI(Method.GET, [], `urls/stats`, queryParams);
+  const featureFlags = useFeatureFlags();
+
+  /**
+   * Phased opening
+   */
+  if (!featureFlags('mdYDhWgQMjgxHstc2O0mG').isEnabled()) {
+    return <Forbidden />;
+  }
+
+  return (
+    <>
+      <SiteHeader title='Urls' actions={<DatePickerWithRange onUpdate={setTimeRange} />} />
+      <Flex className='m-6' gap='3' direction='column'>
+        {data ? (
+          <>
+            <Breadcrumbs items={breadcrumbItems} />
+            <PerformantUrls data={data?.stability} />
+            <DataTable />
+          </>
+        ) : (
+          <OverlaySpinner />
+        )}
+      </Flex>
+    </>
+  );
 };
 
 export default Urls;

@@ -13,6 +13,8 @@ import { DatePickerWithRange } from '~/components/date-picker-with-range';
 import { SiteHeader } from '~/components/header';
 import { ReportHeader } from '~/components/scans/report-header';
 import { OverlaySpinner } from '~/components/spinners';
+import { useFeatureFlags } from '~/hooks/useFeatureFlags';
+import { Forbidden } from '~/pages/403';
 import { DataTable } from './detail.table';
 export function meta() {
   return [{ title: 'Url Report - Autostrada' }];
@@ -60,6 +62,7 @@ const UrlDetail = () => {
   const [timeRange, setTimeRange] = useState<DateRange>();
   const queryParams = useMemo(() => ({ ...timeRange }), [timeRange]);
   const { data } = useAPI(Method.GET, [], `urls/${slug}`, queryParams);
+  const featureFlags = useFeatureFlags();
 
   const breadcrumbItems: BreadcrumbItem[] = [
     {
@@ -75,6 +78,13 @@ const UrlDetail = () => {
       link: `/urls/${slug}`,
     },
   ];
+
+  /**
+   * Phased opening
+   */
+  if (!featureFlags('eP84UUn8qcnTsf0cbTeoM').isEnabled()) {
+    return <Forbidden />;
+  }
 
   return (
     <>

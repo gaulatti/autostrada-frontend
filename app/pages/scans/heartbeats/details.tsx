@@ -8,6 +8,8 @@ import { Grades } from '~/components/metrics/grades';
 import { OverallGrade } from '~/components/metrics/overall-grade';
 import { Opportunities } from '~/components/scans/opportunities';
 import { ReportHeader } from '~/components/scans/report-header';
+import { useFeatureFlags } from '~/hooks/useFeatureFlags';
+import { Forbidden } from '~/pages/403';
 export function meta() {
   return [{ title: 'Pulses - Autostrada' }];
 }
@@ -35,12 +37,20 @@ export function meta() {
 const HeartbeatReport = () => {
   const { slug } = useParams();
   const { data } = useAPI(Method.GET, [], `heartbeats/${slug}`);
+  const featureFlags = useFeatureFlags();
 
   const breadcrumbItems: BreadcrumbItem[] = [
     { title: 'Home', link: '/' },
     { title: 'Pulses', link: '/' },
     { title: 'Heartbeat Detail', link: `/heartbeats/${slug}` },
   ];
+
+  /**
+   * Phased opening
+   */
+  if (!featureFlags('4aJnwTZcKE8BP8MToXQJC').isEnabled()) {
+    return <Forbidden />;
+  }
 
   return (
     data && (

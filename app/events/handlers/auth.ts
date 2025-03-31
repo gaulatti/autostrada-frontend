@@ -46,6 +46,7 @@ function* checkSession(): unknown {
      * If the user is not authenticated, dispatch the setAuthLoaded action.
      */
     yield put(setAuthLoaded());
+    yield put(setKickoff());
   }
 }
 
