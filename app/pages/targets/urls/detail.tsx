@@ -4,57 +4,57 @@ import type { DateRange } from 'react-day-picker';
 import { useParams } from 'react-router';
 import { Method, useAPI } from '~/clients/api';
 import { Breadcrumbs, type BreadcrumbItem } from '~/components/breadcrumbs';
+import { CwvHistory } from '~/components/dashboard/cards/cwv.history';
+import { GradesRadial } from '~/components/dashboard/cards/grades.radial';
 import { TimeOfDay } from '~/components/dashboard/cards/time.day';
 import { StableUrls } from '~/components/dashboard/stable-urls';
 import { UrlSummaryCards } from '~/components/dashboard/url.summary';
 import { DatePickerWithRange } from '~/components/date-picker-with-range';
 import { SiteHeader } from '~/components/header';
+import { ReportHeader } from '~/components/scans/report-header';
 import { OverlaySpinner } from '~/components/spinners';
 import { DataTable } from './list.table';
 export function meta() {
   return [{ title: 'Url Report - Autostrada' }];
 }
 
-const cwvHistoryData = {
-  desktop: [
-    { date: 'Mar 21', lcp: 2.1, fid: 0.08, cls: 0.12, ttfb: 0.35 },
-    { date: 'Mar 22', lcp: 2.3, fid: 0.09, cls: 0.14, ttfb: 0.38 },
-    { date: 'Mar 23', lcp: 2.0, fid: 0.07, cls: 0.11, ttfb: 0.32 },
-    { date: 'Mar 24', lcp: 1.9, fid: 0.06, cls: 0.1, ttfb: 0.3 },
-    { date: 'Mar 25', lcp: 1.8, fid: 0.06, cls: 0.09, ttfb: 0.28 },
-    { date: 'Mar 26', lcp: 2.0, fid: 0.07, cls: 0.1, ttfb: 0.31 },
-    { date: 'Mar 27', lcp: 1.9, fid: 0.07, cls: 0.1, ttfb: 0.3 },
-  ],
-  mobile: [
-    { date: 'Mar 21', lcp: 2.8, fid: 0.12, cls: 0.18, ttfb: 0.45 },
-    { date: 'Mar 22', lcp: 3.0, fid: 0.14, cls: 0.19, ttfb: 0.48 },
-    { date: 'Mar 23', lcp: 2.7, fid: 0.11, cls: 0.16, ttfb: 0.42 },
-    { date: 'Mar 24', lcp: 2.5, fid: 0.1, cls: 0.15, ttfb: 0.4 },
-    { date: 'Mar 25', lcp: 2.4, fid: 0.09, cls: 0.14, ttfb: 0.38 },
-    { date: 'Mar 26', lcp: 2.6, fid: 0.11, cls: 0.15, ttfb: 0.41 },
-    { date: 'Mar 27', lcp: 2.5, fid: 0.1, cls: 0.15, ttfb: 0.4 },
-  ],
-};
-
-const gradesData = {
-  desktop: [
-    { metric: 'Performance', value: 85 },
-    { metric: 'Accessibility', value: 92 },
-    { metric: 'SEO', value: 88 },
-    { metric: 'Best Practices', value: 90 },
-    { metric: 'Security', value: 95 },
-    { metric: 'Aesthetics', value: 82 },
-  ],
-  mobile: [
-    { metric: 'Performance', value: 78 },
-    { metric: 'Accessibility', value: 85 },
-    { metric: 'SEO', value: 90 },
-    { metric: 'Best Practices', value: 82 },
-    { metric: 'Security', value: 88 },
-    { metric: 'Aesthetics', value: 75 },
-  ],
-};
-
+/**
+ * The `UrlDetail` component is responsible for rendering the detailed view of a specific URL report.
+ * It fetches data based on the URL slug and an optional time range, and displays various statistics
+ * and visualizations related to the URL's performance and stability.
+ *
+ * @component
+ *
+ * @returns {JSX.Element} The rendered URL detail page.
+ *
+ * @remarks
+ * - This component uses the `useParams` hook to extract the `slug` parameter from the URL.
+ * - The `useAPI` hook is used to fetch data for the specific URL, with support for time range filtering.
+ * - The `useMemo` hook is used to optimize the query parameters for the API call.
+ *
+ * @example
+ * ```tsx
+ * <Route path="/urls/:slug" element={<UrlDetail />} />
+ * ```
+ *
+ * @dependencies
+ * - `SiteHeader`: Displays the page header with a title and a date range picker.
+ * - `Breadcrumbs`: Renders the breadcrumb navigation for the page.
+ * - `ReportHeader`: Displays the main header information for the URL report.
+ * - `UrlSummaryCards`: Shows summary statistics for the URL.
+ * - `CwvHistory`: Visualizes the Core Web Vitals history.
+ * - `GradesRadial`: Displays grades in a radial chart format.
+ * - `StableUrls`: Shows stability-related data for the URL.
+ * - `TimeOfDay`: Visualizes data based on the time of day.
+ * - `DataTable`: Renders a table of detailed data for the URL.
+ * - `OverlaySpinner`: Displays a loading spinner while data is being fetched.
+ *
+ * @hooks
+ * - `useParams`: Extracts the `slug` parameter from the route.
+ * - `useState`: Manages the state of the selected time range.
+ * - `useMemo`: Optimizes the query parameters for the API call.
+ * - `useAPI`: Fetches data from the API based on the `slug` and `timeRange`.
+ */
 const UrlDetail = () => {
   const { slug } = useParams();
   const [timeRange, setTimeRange] = useState<DateRange>();
@@ -83,11 +83,13 @@ const UrlDetail = () => {
         <Breadcrumbs items={breadcrumbItems} />
         {slug && data ? (
           <>
+            <ReportHeader url={data} />
             <UrlSummaryCards data={data!.stats} />
-            {/* <div className='grid grid-cols-2 gap-6'>
-          <CwvHistory data={cwvHistoryData} />
-          <GradesRadial data={gradesData} />
-        </div> */}
+
+            <div className='grid grid-cols-2 gap-6'>
+              <CwvHistory data={data!.stats.history} />
+              <GradesRadial data={data!.stats.grades} />
+            </div>
             <StableUrls data={data!.stats.stability} />
             <TimeOfDay data={data!.stats.timeOfDay} />
             <DataTable slug={slug} timeRange={timeRange} />

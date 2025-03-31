@@ -9,6 +9,38 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/com
 import { ChartContainer, ChartTooltip } from '~/components/ui/chart';
 import { getProgressColor } from '~/utils/dashboards';
 
+/**
+ * The `TimeOfDay` component displays performance variations across different hours of the day
+ * for both desktop and mobile platforms using scatter charts.
+ *
+ * @param {Object} props - The component props.
+ * @param {Object} props.data - The performance data for desktop and mobile platforms.
+ * @param {Array} props.data.desktop - Array of performance data points for desktop.
+ * @param {Array} props.data.mobile - Array of performance data points for mobile.
+ *
+ * @returns {JSX.Element} A card component containing scatter charts for desktop and mobile performance.
+ *
+ * @remarks
+ * - The scatter charts display performance scores (0-100) against the hour of the day (0-24).
+ * - Includes tooltips for detailed information on each data point.
+ * - Reference lines are used to indicate performance thresholds: "Good" (90+) and "Needs Improvement" (75-89).
+ *
+ * @example
+ * ```tsx
+ * const data = {
+ *   desktop: [
+ *     { timeDecimal: 9.5, performance: 85, slug: 'example-slug', date: '2023-01-01', hour: '09:30' },
+ *     { timeDecimal: 14.0, performance: 92, slug: 'example-slug', date: '2023-01-01', hour: '14:00' },
+ *   ],
+ *   mobile: [
+ *     { timeDecimal: 10.0, performance: 78, slug: 'example-slug', date: '2023-01-01', hour: '10:00' },
+ *     { timeDecimal: 16.5, performance: 88, slug: 'example-slug', date: '2023-01-01', hour: '16:30' },
+ *   ],
+ * };
+ *
+ * <TimeOfDay data={data} />
+ * ```
+ */
 const TimeOfDay = ({ data }) => {
   return (
     <Card>

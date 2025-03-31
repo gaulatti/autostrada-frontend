@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 /**
  * Determines the CSS class for the text color based on the given score.
  *
@@ -109,4 +111,23 @@ const transformHeartbeat = (hb: any) => ({
   slug: hb.slug
 });
 
-export { calculateGrade, formatTime, getProgressColor, getScoreColor, transformHeartbeat };
+/**
+ * Formats a given Date object into a localized date string.
+ *
+ * @param value - The Date object to be formatted.
+ * @returns A string representing the formatted date in the localized format.
+ */
+const dateFormatter = (value: Date) => {
+  return moment(value).format('L');
+};
+
+/**
+ * Formats a given Date object into a localized string representation.
+ *
+ * @param value - The Date object to be formatted.
+ * @returns A string representing the formatted date and time in a localized format.
+ */
+const labelFormatter = (value: Date) => {
+  return moment(value).format('LLL');
+};
+export { labelFormatter, dateFormatter, calculateGrade, formatTime, getProgressColor, getScoreColor, transformHeartbeat };

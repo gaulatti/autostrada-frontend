@@ -3,6 +3,20 @@ import { PolarAngleAxis, PolarGrid, PolarRadiusAxis, RadarChart, Radar as RadarC
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '~/components/ui/chart';
 
+/**
+ * GradesRadial is a React component that renders a comparison of performance grades
+ * between desktop and mobile platforms using radar charts. It displays two radar charts
+ * side by side, each representing the performance metrics for a specific platform.
+ *
+ * @param {Object} props - The component props.
+ * @param {Object} props.data - The data object containing performance metrics for both platforms.
+ * @param {Array} props.data.desktop - The data array for the desktop platform, where each object
+ * contains a `metric` (string) and a `value` (number).
+ * @param {Array} props.data.mobile - The data array for the mobile platform, where each object
+ * contains a `metric` (string) and a `value` (number).
+ *
+ * @returns {JSX.Element} A card component with radar charts comparing desktop and mobile performance.
+ */
 const GradesRadial = ({ data }) => {
   return (
     <Card className='col-span-2 2xl:col-span-1'>
@@ -11,7 +25,7 @@ const GradesRadial = ({ data }) => {
           <Radar className='w-5 h-5' />
           Grades comparison
         </CardTitle>
-        <CardDescription>Comparing performance aspects across platforms</CardDescription>
+        <CardDescription>Comparing performance aspects across platforms.</CardDescription>
       </CardHeader>
       <CardContent>
         <div className='grid md:grid-cols-2 gap-4'>
@@ -22,7 +36,7 @@ const GradesRadial = ({ data }) => {
             </div>
             <ChartContainer
               config={{
-                value: { label: 'Score', color: 'hsl(var(--chart-1))' },
+                value: { label: 'Score', color: 'hsl(var(--amber-9))' },
               }}
               className='h-[200px] w-full'
             >
@@ -31,7 +45,7 @@ const GradesRadial = ({ data }) => {
                 <PolarAngleAxis dataKey='metric' />
                 <PolarRadiusAxis domain={[0, 100]} />
                 <ChartTooltip content={<ChartTooltipContent />} />
-                <RadarComponent name='Desktop' dataKey='value' stroke='var(--color-value)' fill='var(--color-value)' fillOpacity={0.6} />
+                <RadarComponent name='Desktop' dataKey='value' stroke='var(--amber-9)' fill='var(--amber-9)' fillOpacity={0.6} />
               </RadarChart>
             </ChartContainer>
           </div>
@@ -42,7 +56,7 @@ const GradesRadial = ({ data }) => {
             </div>
             <ChartContainer
               config={{
-                value: { label: 'Score', color: 'hsl(var(--chart-2))' },
+                value: { label: 'Score', color: 'hsl(var(--red-9))' },
               }}
               className='h-[200px] w-full'
             >
@@ -51,7 +65,7 @@ const GradesRadial = ({ data }) => {
                 <PolarAngleAxis dataKey='metric' />
                 <PolarRadiusAxis domain={[0, 100]} />
                 <ChartTooltip content={<ChartTooltipContent />} />
-                <RadarComponent name='Mobile' dataKey='value' stroke='var(--color-value)' fill='var(--color-value)' fillOpacity={0.6} />
+                <RadarComponent name='Mobile' dataKey='value' stroke='var(--red-9)' fill='var(--red-9)' fillOpacity={0.6} />
               </RadarChart>
             </ChartContainer>
           </div>

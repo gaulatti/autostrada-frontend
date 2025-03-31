@@ -9,19 +9,27 @@ import { URLNavbar } from '../url-navbar';
  *
  * @returns {JSX.Element} A header element containing the URL navigation bar, a comparison badge, and the test date.
  */
-const ReportHeader = ({ pulse, heartbeat }: any) => {
+const ReportHeader = ({ pulse, heartbeat, url }: { pulse?: any; heartbeat?: any; url?: any }) => {
+  let fqdn;
+  if (url) {
+    fqdn = url.url;
+  } else if (heartbeat) {
+    fqdn = heartbeat.pulse.url.url;
+  } else if (pulse) {
+    fqdn = pulse.url.url;
+  }
 
   if (!pulse && heartbeat) {
-    pulse = heartbeat.pulse
+    pulse = heartbeat.pulse;
   }
 
   return (
     <header className='space-y-2'>
       <div className='flex gap-3 items-center text-sm text-gray-500 dark:text-gray-400'>
-        <URLNavbar url={pulse.url.url} />
+        <URLNavbar url={fqdn} />
         <span className='px-2 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100 text-xs rounded-full'>Comparison</span>
       </div>
-      <div className='text-sm text-gray-500 dark:text-gray-400'>Tested on: {new Date(pulse.createdAt).toLocaleString()}</div>
+      {pulse && <div className='text-sm text-gray-500 dark:text-gray-400'>Tested on: {new Date(pulse.createdAt).toLocaleString()}</div>}
     </header>
   );
 };
