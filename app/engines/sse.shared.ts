@@ -10,10 +10,9 @@ let eventSource: EventSource | null = null;
 
 function initEventSource(): void {
   if (eventSource) return;
-
-  const sseUrl = globalScope.location.origin.includes('localhost')
-    ? `http://localhost:${import.meta.env.VITE_API_PORT}/notifications`
-    : `${import.meta.env.VITE_API_FQDN}/notifications`;
+  const sseUrl = import.meta.env.VITE_API_FQDN
+    ? `${import.meta.env.VITE_API_FQDN}/notifications`
+    : `http://localhost:${import.meta.env.VITE_API_PORT}/notifications`;
 
   eventSource = new EventSource(sseUrl);
 

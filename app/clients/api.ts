@@ -31,9 +31,7 @@ export enum Method {
  */
 const sendRequest = async (method: Method, url: string = '', data?: any): Promise<any> => {
   const { tokens } = await fetchAuthSession();
-  const fullURL = window.location.origin.includes('localhost')
-    ? `http://localhost:${import.meta.env.VITE_API_PORT}/${url}`
-    : `${import.meta.env.VITE_API_FQDN}/${url}`;
+  const fullURL = import.meta.env.VITE_API_FQDN ? `${import.meta.env.VITE_API_FQDN}/${url}` : `http://localhost:${import.meta.env.VITE_API_PORT}/${url}`;
 
   const config = {
     headers: {
