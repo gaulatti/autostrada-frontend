@@ -86,7 +86,7 @@ const StableUrls = ({ data }: { data: StableUrlsProps }) => {
             <Smartphone className='w-5 h-5' />
             Mobile Performance
           </CardTitle>
-          {data.desktop.length > 1 && <CardDescription>Most stable URLs (less performance oscillation)</CardDescription>}
+          {data.mobile.length > 1 && <CardDescription>Most stable URLs (less performance oscillation)</CardDescription>}
         </CardHeader>
         <CardContent>
           <div className='space-y-4'>
@@ -126,7 +126,7 @@ const StableUrls = ({ data }: { data: StableUrlsProps }) => {
             <Smartphone className='w-5 h-5' />
             Desktop vs Mobile
           </CardTitle>
-          <CardDescription>Performance gap between platforms</CardDescription>
+          {data.differences.length > 1 && <CardDescription>Performance gap between platforms</CardDescription>}
         </CardHeader>
         <CardContent>
           <div className='space-y-4'>
