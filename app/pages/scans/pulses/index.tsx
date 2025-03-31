@@ -2,24 +2,44 @@ import { Flex } from '@radix-ui/themes';
 import { useMemo, useState } from 'react';
 import type { DateRange } from 'react-day-picker';
 import { Method, useAPI } from '~/clients/api';
-import { Breadcrumbs, type BreadcrumbItem } from '~/components/breadcrumbs';
 import { StableUrls } from '~/components/dashboard/stable-urls';
 import { SummaryCards } from '~/components/dashboard/summary';
 import { DatePickerWithRange } from '~/components/date-picker-with-range';
 import { SiteHeader } from '~/components/header';
+import { OverlaySpinner } from '~/components/spinners';
 import { DataTable } from './list.table';
 
 export function meta() {
   return [{ title: 'Pulses - Autostrada' }];
 }
 
-const breadcrumbItems: BreadcrumbItem[] = [
-  {
-    title: 'Home',
-    link: '/',
-  },
-];
-
+/**
+ * The `Page` component represents the main view for displaying pulse statistics.
+ * It includes a header, a date range picker, and various data visualizations.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered component.
+ *
+ * @remarks
+ * - Utilizes the `useState` hook to manage the selected date range (`timeRange`).
+ * - Uses the `useMemo` hook to create query parameters based on the selected date range.
+ * - Fetches data from the `pulses/stats` API endpoint using the `useAPI` hook.
+ * - Displays a loading spinner (`OverlaySpinner`) while data is being fetched.
+ * - Renders summary cards, stability URLs, and a data table when data is available.
+ *
+ * @dependencies
+ * - `SiteHeader`: Displays the page title and actions (e.g., date picker).
+ * - `DatePickerWithRange`: Allows the user to select a date range.
+ * - `SummaryCards`: Displays summary statistics based on the fetched data.
+ * - `StableUrls`: Displays stability-related URLs from the fetched data.
+ * - `DataTable`: Displays detailed data within the selected time range.
+ * - `OverlaySpinner`: Displays a loading spinner while data is being fetched.
+ *
+ * @example
+ * ```tsx
+ * <Page />
+ * ```
+ */
 const Page = () => {
   const [timeRange, setTimeRange] = useState<DateRange>();
   const queryParams = useMemo(() => ({ ...timeRange }), [timeRange]);
@@ -29,9 +49,15 @@ const Page = () => {
     <>
       <SiteHeader title='Pulses' actions={<DatePickerWithRange onUpdate={setTimeRange} />} />
       <Flex className='m-6' gap='6' direction='column'>
-        <SummaryCards data={data} />
-        <StableUrls data={data?.stability} />
-        <DataTable timeRange={timeRange} />
+        {data ? (
+          <>
+            <SummaryCards data={data} />
+            <StableUrls data={data?.stability} />
+            <DataTable timeRange={timeRange} />
+          </>
+        ) : (
+          <OverlaySpinner />
+        )}
       </Flex>
     </>
   );
