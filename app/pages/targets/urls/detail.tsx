@@ -13,7 +13,7 @@ import { DatePickerWithRange } from '~/components/date-picker-with-range';
 import { SiteHeader } from '~/components/header';
 import { ReportHeader } from '~/components/scans/report-header';
 import { OverlaySpinner } from '~/components/spinners';
-import { DataTable } from './list.table';
+import { DataTable } from './detail.table';
 export function meta() {
   return [{ title: 'Url Report - Autostrada' }];
 }
