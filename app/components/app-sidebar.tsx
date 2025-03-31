@@ -1,4 +1,4 @@
-import { Activity, HeartPulse, LayoutList, Newspaper, Radar, Tv } from 'lucide-react';
+import { HeartPulse, LayoutList, Newspaper, Radar, Tv, User } from 'lucide-react';
 import * as React from 'react';
 import { NavMain } from '~/components/nav-main';
 import { NavProjects } from '~/components/nav-projects';
@@ -10,59 +10,54 @@ import { Logo } from './ui/logo';
 
 const data = {
   sections: [
-  {
-    name: "Scans",
-    items: [
-      {
-        title: 'Pulses',
-        url: '/',
-        icon: HeartPulse,
-        isActive: true,
-      },
-      // {
-      //   title: 'Projects',
-      //   url: '/scans/projects',
-      //   icon: FolderKanban,
-      //   isActive: true,
-      // },
-      // {
-      //   title: 'Providers',
-      //   url: '/scans/providers',
-      //   icon: Cable,
-      //   isActive: true,
-      // },
-      // {
-      //   title: 'Platforms',
-      //   url: '/scans/platforms',
-      //   icon: MonitorSmartphone,
-      //   isActive: true,
-      // },
-    ]
-  },
-  // {
-  //   name: "Targets",
-  //   items: [
-  //     {
-  //       title: 'Clusters',
-  //       url: '/targets/clusters',
-  //       icon: Group,
-  //       isActive: true,
-  //     },
-  //     {
-  //       title: 'Urls',
-  //       url: '/targets/urls',
-  //       icon: FileCode,
-  //       isActive: true,
-  //     }
-  //   ]
-  // }
+    {
+      name: 'Scans',
+      items: [
+        {
+          title: 'Pulses',
+          url: '/',
+          icon: HeartPulse,
+          isActive: true,
+        },
+        // {
+        //   title: 'Projects',
+        //   url: '/scans/projects',
+        //   icon: FolderKanban,
+        //   isActive: true,
+        // },
+        // {
+        //   title: 'Providers',
+        //   url: '/scans/providers',
+        //   icon: Cable,
+        //   isActive: true,
+        // },
+        // {
+        //   title: 'Platforms',
+        //   url: '/scans/platforms',
+        //   icon: MonitorSmartphone,
+        //   isActive: true,
+        // },
+      ],
+    },
+    // {
+    //   name: "Targets",
+    //   items: [
+    //     {
+    //       title: 'Clusters',
+    //       url: '/targets/clusters',
+    //       icon: Group,
+    //       isActive: true,
+    //     },
+    //     {
+    //       title: 'Urls',
+    //       url: '/targets/urls',
+    //       icon: FileCode,
+    //       isActive: true,
+    //     }
+    //   ]
+    // }
   ],
   projects: [
-    {
-      name: 'Autostrada',
-      url: '//autostrada.gaulatti.com',
-      icon: Activity,
-    },
     {
       name: 'Ariston',
       url: '//ariston.gaulatti.com',
@@ -79,6 +74,11 @@ const data = {
       icon: Radar,
     },
     {
+      name: 'Pompeii',
+      url: '//pompeii.gaulatti.com',
+      icon: User,
+    },
+    {
       name: 'Wiphala',
       url: '//wiphala.gaulatti.com',
       icon: LayoutList,
@@ -87,8 +87,8 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { state } = useSidebar()
-  const featureEnabled = useFeatureFlags()
+  const { state } = useSidebar();
+  const featureEnabled = useFeatureFlags();
 
   return (
     <Sidebar collapsible='icon' {...props}>
