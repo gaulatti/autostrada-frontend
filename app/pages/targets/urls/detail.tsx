@@ -4,12 +4,13 @@ import type { DateRange } from 'react-day-picker';
 import { useParams } from 'react-router';
 import { Method, useAPI } from '~/clients/api';
 import { Breadcrumbs, type BreadcrumbItem } from '~/components/breadcrumbs';
+import { TimeOfDay } from '~/components/dashboard/cards/time.day';
+import { StableUrls } from '~/components/dashboard/stable-urls';
+import { UrlSummaryCards } from '~/components/dashboard/url.summary';
 import { DatePickerWithRange } from '~/components/date-picker-with-range';
 import { SiteHeader } from '~/components/header';
 import { OverlaySpinner } from '~/components/spinners';
 import { DataTable } from './list.table';
-import { UrlSummaryCards } from '~/components/dashboard/url.summary';
-import { StableUrls } from '~/components/dashboard/stable-urls';
 export function meta() {
   return [{ title: 'Url Report - Autostrada' }];
 }
@@ -33,51 +34,6 @@ const cwvHistoryData = {
     { date: 'Mar 26', lcp: 2.6, fid: 0.11, cls: 0.15, ttfb: 0.41 },
     { date: 'Mar 27', lcp: 2.5, fid: 0.1, cls: 0.15, ttfb: 0.4 },
   ],
-};
-
-const generateTimeOfDayData = (isMobile = false) => {
-  const hours = Array.from({ length: 24 }, (_, i) => i);
-  const result = [];
-
-  // Performance penalty for mobile
-  const mobilePenalty = isMobile ? Math.random() * 4 : 0;
-
-  hours.forEach((hour) => {
-    const basePerformance =
-      hour >= 0 && hour < 6
-        ? 75 + Math.random() * 25 - mobilePenalty
-        : hour >= 6 && hour < 12
-        ? 50 + Math.random() * 25 - mobilePenalty
-        : hour >= 12 && hour < 18
-        ? 100 - Math.random() * 50 - mobilePenalty
-        : 75 + Math.random() * 25 - mobilePenalty;
-
-    const pointCount = 15 + Math.floor(Math.random() * 15);
-
-    for (let i = 0; i < pointCount; i++) {
-      const variation = Math.random() * 10 - 5; // -5 to +5
-      const performance = Math.min(100, Math.max(50, basePerformance + variation));
-      const minute = Math.floor(Math.random() * 60);
-      const formattedHour = hour.toString().padStart(2, '0');
-      const formattedMinute = minute.toString().padStart(2, '0');
-      const timeDecimal = hour + minute / 60;
-
-      result.push({
-        hour: `${formattedHour}:${formattedMinute}`,
-        hourNum: hour,
-        minuteNum: minute,
-        timeDecimal: timeDecimal,
-        performance: Math.round(performance),
-      });
-    }
-  });
-
-  return result;
-};
-
-const timeOfDayData = {
-  desktop: generateTimeOfDayData(false),
-  mobile: generateTimeOfDayData(true),
 };
 
 const gradesData = {
@@ -119,7 +75,7 @@ const UrlDetail = () => {
       link: `/urls/${slug}`,
     },
   ];
-  console.log({ data })
+
   return (
     <>
       <SiteHeader title='URL Report' actions={<DatePickerWithRange onUpdate={setTimeRange} />} />
@@ -127,13 +83,13 @@ const UrlDetail = () => {
         <Breadcrumbs items={breadcrumbItems} />
         {slug && data ? (
           <>
-            <UrlSummaryCards data={data!.stats}/>
+            <UrlSummaryCards data={data!.stats} />
             {/* <div className='grid grid-cols-2 gap-6'>
           <CwvHistory data={cwvHistoryData} />
           <GradesRadial data={gradesData} />
         </div> */}
             <StableUrls data={data!.stats.stability} />
-            {/* <TimeOfDay data={timeOfDayData} /> */}
+            <TimeOfDay data={data!.stats.timeOfDay} />
             <DataTable slug={slug} timeRange={timeRange} />
           </>
         ) : (

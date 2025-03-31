@@ -1,6 +1,8 @@
 'use client';
 
+import { Link } from '@radix-ui/themes';
 import { Clock, Laptop, Smartphone } from 'lucide-react';
+import { NavLink } from 'react-router';
 
 import { CartesianGrid, ReferenceLine, Scatter, ScatterChart, XAxis, YAxis } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
@@ -15,7 +17,7 @@ const TimeOfDay = ({ data }) => {
           <Clock className='w-5 h-5' />
           Time-of-Day Performance
         </CardTitle>
-        <CardDescription>Performance variations across different hours of the day (hundreds of datapoints)</CardDescription>
+        <CardDescription>Performance variations across different hours of the day.</CardDescription>
       </CardHeader>
       <CardContent>
         <div className='grid md:grid-cols-2 gap-4'>
@@ -37,16 +39,14 @@ const TimeOfDay = ({ data }) => {
                   dataKey='timeDecimal'
                   name='Time'
                   domain={[0, 24]}
-                  tickCount={12}
                   label={{ value: 'Hour of Day', position: 'insideBottomRight', offset: -10 }}
                   ticks={[0, 6, 9, 11, 12, 13, 14, 15, 17, 20, 24]}
-                  tickFormatter={(value) => Math.floor(value)}
                 />
                 <YAxis
                   type='number'
                   dataKey='performance'
                   name='Performance'
-                  domain={[50, 100]}
+                  domain={[0, 100]}
                   label={{ value: 'Performance Score', angle: -90, position: 'insideLeft' }}
                 />
 
@@ -57,6 +57,10 @@ const TimeOfDay = ({ data }) => {
                       const data = payload[0].payload;
                       return (
                         <div className='bg-background border rounded-md shadow-md p-2'>
+                          <Link asChild>
+                            <NavLink to={`/heartbeats/${data.slug}`}>View Heartbeat</NavLink>
+                          </Link>
+                          <p className='font-medium'>Date: {data.date}</p>
                           <p className='font-medium'>Time: {data.hour}</p>
                           <p className='text-sm'>Performance: {data.performance}</p>
                           <p className='text-sm text-muted-foreground'>
@@ -101,16 +105,14 @@ const TimeOfDay = ({ data }) => {
                   dataKey='timeDecimal'
                   name='Time'
                   domain={[0, 24]}
-                  tickCount={12}
                   label={{ value: 'Hour of Day', position: 'insideBottomRight', offset: -10 }}
                   ticks={[0, 6, 9, 11, 12, 13, 14, 15, 17, 20, 24]}
-                  tickFormatter={(value) => Math.floor(value)}
                 />
                 <YAxis
                   type='number'
                   dataKey='performance'
                   name='Performance'
-                  domain={[50, 100]}
+                  domain={[0, 100]}
                   label={{ value: 'Performance Score', angle: -90, position: 'insideLeft' }}
                 />
 
@@ -121,6 +123,9 @@ const TimeOfDay = ({ data }) => {
                       const data = payload[0].payload;
                       return (
                         <div className='bg-background border rounded-md shadow-md p-2'>
+                          <Link asChild>
+                            <NavLink to={`/heartbeats/${data.slug}`}>View Heartbeat</NavLink>
+                          </Link>
                           <p className='font-medium'>Time: {data.hour}</p>
                           <p className='text-sm'>Performance: {data.performance}</p>
                           <p className='text-sm text-muted-foreground'>
