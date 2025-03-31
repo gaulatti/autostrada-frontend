@@ -1,17 +1,15 @@
 import { Flex } from '@radix-ui/themes';
-import { ChevronDown } from 'lucide-react';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
+import type { DateRange } from 'react-day-picker';
 import { useParams } from 'react-router';
+import { Method, useAPI } from '~/clients/api';
 import { Breadcrumbs, type BreadcrumbItem } from '~/components/breadcrumbs';
-import { CwvHistory } from '~/components/dashboard/cards/cwv.history';
-import { GradesRadial } from '~/components/dashboard/cards/grades.radial';
-import { TimeOfDay } from '~/components/dashboard/cards/time.day';
-import { StableUrls } from '~/components/dashboard/stable-urls';
-import { UrlSummaryCards } from '~/components/dashboard/url.summary';
+import { DatePickerWithRange } from '~/components/date-picker-with-range';
 import { SiteHeader } from '~/components/header';
-import { Button } from '~/components/ui/button';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '~/components/ui/dropdown-menu';
+import { OverlaySpinner } from '~/components/spinners';
 import { DataTable } from './list.table';
+import { UrlSummaryCards } from '~/components/dashboard/url.summary';
+import { StableUrls } from '~/components/dashboard/stable-urls';
 export function meta() {
   return [{ title: 'Url Report - Autostrada' }];
 }
@@ -82,40 +80,6 @@ const timeOfDayData = {
   mobile: generateTimeOfDayData(true),
 };
 
-/**
- * A dropdown-based range selector component for selecting a time range.
- *
- * @param {Object} props - The props for the RangeSelector component.
- * @param {(timeRange: string) => void} props.setTimeRange - A callback function to update the selected time range.
- * @param {string} props.timeRange - The currently selected time range.
- *                                    Possible values are '7d', '30d', '90d', or 'Custom'.
- *
- * @returns {JSX.Element} A dropdown menu allowing the user to select a time range.
- */
-const RangeSelector = ({ setTimeRange, timeRange }: any) => {
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant='outline' size='sm'>
-          {timeRange === '7d' ? 'Last 7 days' : timeRange === '30d' ? 'Last 30 days' : timeRange === '90d' ? 'Last 90 days' : 'Custom'}
-          <ChevronDown className='w-4 h-4 ml-2' />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align='end'>
-        <DropdownMenuItem onClick={() => setTimeRange('7d')}>Last 7 days</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTimeRange('30d')}>Last 30 days</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTimeRange('90d')}>Last 90 days</DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
-};
-
-const data = {
-  desktop: [{ name: 'example.com/home', score: 95, variation: 3, trend: [92, 94, 93, 95, 96, 94, 95] }],
-  mobile: [{ name: 'example.com/home', score: 88, variation: 4, trend: [85, 86, 87, 89, 90, 88, 88] }],
-  comparison: [{ name: 'example.com/home', desktop: 95, mobile: 88, diff: 7 }],
-};
-
 const gradesData = {
   desktop: [
     { metric: 'Performance', value: 85 },
@@ -137,7 +101,10 @@ const gradesData = {
 
 const UrlDetail = () => {
   const { slug } = useParams();
-  const [timeRange, setTimeRange] = useState('7d');
+  const [timeRange, setTimeRange] = useState<DateRange>();
+  const queryParams = useMemo(() => ({ ...timeRange }), [timeRange]);
+  const { data } = useAPI(Method.GET, [], `urls/${slug}`, queryParams);
+
   const breadcrumbItems: BreadcrumbItem[] = [
     {
       title: 'Home',
@@ -152,19 +119,26 @@ const UrlDetail = () => {
       link: `/urls/${slug}`,
     },
   ];
+  console.log({ data })
   return (
     <>
-      <SiteHeader title='URL Report' actions={<RangeSelector timeRange={timeRange} setTimeRange={setTimeRange} />} />
+      <SiteHeader title='URL Report' actions={<DatePickerWithRange onUpdate={setTimeRange} />} />
       <Flex className='m-6' gap='6' direction='column'>
         <Breadcrumbs items={breadcrumbItems} />
-        <UrlSummaryCards />
-        <div className='grid grid-cols-2 gap-6'>
+        {slug && data ? (
+          <>
+            <UrlSummaryCards data={data!.stats}/>
+            {/* <div className='grid grid-cols-2 gap-6'>
           <CwvHistory data={cwvHistoryData} />
           <GradesRadial data={gradesData} />
-        </div>
-        <StableUrls data={data} />
-        <TimeOfDay data={timeOfDayData} />
-        <DataTable />
+        </div> */}
+            <StableUrls data={data!.stats.stability} />
+            {/* <TimeOfDay data={timeOfDayData} /> */}
+            <DataTable slug={slug} timeRange={timeRange} />
+          </>
+        ) : (
+          <OverlaySpinner />
+        )}
       </Flex>
     </>
   );

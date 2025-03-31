@@ -47,7 +47,7 @@ const StableUrls = ({ data }: { data: StableUrlsProps }) => {
             <Laptop className='w-5 h-5' />
             Desktop Performance
           </CardTitle>
-          <CardDescription>Most stable URLs (less performance oscillation)</CardDescription>
+          {data.desktop.length > 1 && <CardDescription>Most stable URLs (less performance oscillation)</CardDescription>}
         </CardHeader>
         <CardContent>
           <div className='space-y-4'>
@@ -66,7 +66,7 @@ const StableUrls = ({ data }: { data: StableUrlsProps }) => {
                     <div className='w-full h-8'>
                       <ResponsiveContainer className='w-full' height={30}>
                         <LineChart data={url.grades!.map((value, i) => ({ value, index: i }))}>
-                        <CartesianGrid />
+                          <CartesianGrid />
                           <Line type='monotone' dataKey='value' stroke={getProgressColor(url.average!)} strokeWidth={2} dot={false} />
                           <YAxis domain={[url.average! - url.variation!, url.average! + url.variation!]} hide />
                         </LineChart>
@@ -86,7 +86,7 @@ const StableUrls = ({ data }: { data: StableUrlsProps }) => {
             <Smartphone className='w-5 h-5' />
             Mobile Performance
           </CardTitle>
-          <CardDescription>Most stable URLs (less performance oscillation)</CardDescription>
+          {data.desktop.length > 1 && <CardDescription>Most stable URLs (less performance oscillation)</CardDescription>}
         </CardHeader>
         <CardContent>
           <div className='space-y-4'>
