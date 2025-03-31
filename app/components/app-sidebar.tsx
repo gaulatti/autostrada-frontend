@@ -93,7 +93,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible='icon' {...props}>
       <SidebarHeader>
-        {state !== 'collapsed' && <Logo to='/'>autostrada</Logo>}
+        {state !== 'collapsed' ? <Logo to='/'>autostrada</Logo> : <img src='/favicon.png' />}
         <TeamSwitcher />
       </SidebarHeader>
       <SidebarContent>
