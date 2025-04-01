@@ -1,4 +1,4 @@
-import { addWeeks, format } from 'date-fns';
+import { addWeeks, format, set } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
 import * as React from 'react';
 import { useEffect, useMemo } from 'react';
@@ -20,8 +20,17 @@ export function DatePickerWithRange({ className, onUpdate }: DatePickerWithRange
     to: now,
   });
 
+  /**
+   * When selecting a date in a range, include boundaries as well.
+   * https://github.com/gaulatti/autostrada-frontend/issues/2
+   */
   useEffect(() => {
-    onUpdate(date);
+    if (date?.to) {
+      const adjustedTo = set(date.to, { hours: 23, minutes: 59, seconds: 59 });
+      onUpdate({ ...date, to: adjustedTo });
+    } else {
+      onUpdate(date);
+    }
   }, [date]);
 
   return (
