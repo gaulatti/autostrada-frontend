@@ -12,6 +12,11 @@ import { getStore } from './state';
 import { initGA, RouteChangeTracker } from './utils/google.analytics';
 
 /**
+ * Initializing i18n
+ */
+import './i18n';
+
+/**
  * This is important. It enables the OAuth listener for the Auth module.
  *
  * For some reason this is not required in local development, but it is
