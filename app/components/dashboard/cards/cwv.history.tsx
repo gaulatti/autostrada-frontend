@@ -51,13 +51,13 @@ const CwvHistory = ({ data }) => {
                 <XAxis dataKey='date' tickFormatter={dateFormatter} />
                 <YAxis />
                 <ChartTooltip content={<ChartTooltipContent labelKey='date' labelFormatter={labelFormatter} />} />
-                <Line type='monotone' dataKey='lcp' stroke={colors.lcp} strokeWidth={2} dot={{ r: 0 }} activeDot={{ r: 6 }} />
-                <Line type='monotone' dataKey='fid' stroke={colors.fid} strokeWidth={2} dot={{ r: 0 }} activeDot={{ r: 6 }} />
-                <Line type='monotone' dataKey='ttfb' stroke={colors.ttfb} strokeWidth={2} dot={{ r: 0 }} activeDot={{ r: 6 }} />
-                <Line type='monotone' dataKey='dcl' stroke={colors.dcl} strokeWidth={2} dot={{ r: 0 }} activeDot={{ r: 6 }} />
-                <Line type='monotone' dataKey='tti' stroke={colors.tti} strokeWidth={2} dot={{ r: 0 }} activeDot={{ r: 6 }} />
-                <Line type='monotone' dataKey='si' stroke={colors.si} strokeWidth={2} dot={{ r: 0 }} activeDot={{ r: 6 }} />
-                <Line type='monotone' dataKey='tbt' stroke={colors.tbt} strokeWidth={2} dot={{ r: 0 }} activeDot={{ r: 6 }} />
+                <Line type='monotone' dataKey='lcp' stroke={colors.lcp} strokeWidth={1} dot={{ r: 0 }} activeDot={{ r: 6 }} />
+                <Line type='monotone' dataKey='fid' stroke={colors.fid} strokeWidth={1} dot={{ r: 0 }} activeDot={{ r: 6 }} />
+                <Line type='monotone' dataKey='ttfb' stroke={colors.ttfb} strokeWidth={1} dot={{ r: 0 }} activeDot={{ r: 6 }} />
+                <Line type='monotone' dataKey='dcl' stroke={colors.dcl} strokeWidth={1} dot={{ r: 0 }} activeDot={{ r: 6 }} />
+                <Line type='monotone' dataKey='tti' stroke={colors.tti} strokeWidth={1} dot={{ r: 0 }} activeDot={{ r: 6 }} />
+                <Line type='monotone' dataKey='si' stroke={colors.si} strokeWidth={1} dot={{ r: 0 }} activeDot={{ r: 6 }} />
+                <Line type='monotone' dataKey='tbt' stroke={colors.tbt} strokeWidth={1} dot={{ r: 0 }} activeDot={{ r: 6 }} />
               </LineChart>
             </ChartContainer>
           </div>
@@ -84,13 +84,13 @@ const CwvHistory = ({ data }) => {
                 <XAxis dataKey='date' tickFormatter={dateFormatter} />
                 <YAxis />
                 <ChartTooltip content={<ChartTooltipContent labelKey='date' labelFormatter={labelFormatter} />} />
-                <Line type='monotone' dataKey='lcp' stroke={colors.lcp} strokeWidth={2} dot={{ r: 0 }} activeDot={{ r: 6 }} />
-                <Line type='monotone' dataKey='fid' stroke={colors.fid} strokeWidth={2} dot={{ r: 0 }} activeDot={{ r: 6 }} />
-                <Line type='monotone' dataKey='ttfb' stroke={colors.ttfb} strokeWidth={2} dot={{ r: 0 }} activeDot={{ r: 6 }} />
-                <Line type='monotone' dataKey='dcl' stroke={colors.dcl} strokeWidth={2} dot={{ r: 0 }} activeDot={{ r: 6 }} />
-                <Line type='monotone' dataKey='tti' stroke={colors.tti} strokeWidth={2} dot={{ r: 0 }} activeDot={{ r: 6 }} />
-                <Line type='monotone' dataKey='si' stroke={colors.si} strokeWidth={2} dot={{ r: 0 }} activeDot={{ r: 6 }} />
-                <Line type='monotone' dataKey='tbt' stroke={colors.tbt} strokeWidth={2} dot={{ r: 0 }} activeDot={{ r: 6 }} />
+                <Line type='monotone' dataKey='lcp' stroke={colors.lcp} strokeWidth={1} dot={{ r: 0 }} activeDot={{ r: 6 }} />
+                <Line type='monotone' dataKey='fid' stroke={colors.fid} strokeWidth={1} dot={{ r: 0 }} activeDot={{ r: 6 }} />
+                <Line type='monotone' dataKey='ttfb' stroke={colors.ttfb} strokeWidth={1} dot={{ r: 0 }} activeDot={{ r: 6 }} />
+                <Line type='monotone' dataKey='dcl' stroke={colors.dcl} strokeWidth={1} dot={{ r: 0 }} activeDot={{ r: 6 }} />
+                <Line type='monotone' dataKey='tti' stroke={colors.tti} strokeWidth={1} dot={{ r: 0 }} activeDot={{ r: 6 }} />
+                <Line type='monotone' dataKey='si' stroke={colors.si} strokeWidth={1} dot={{ r: 0 }} activeDot={{ r: 6 }} />
+                <Line type='monotone' dataKey='tbt' stroke={colors.tbt} strokeWidth={1} dot={{ r: 0 }} activeDot={{ r: 6 }} />
               </LineChart>
             </ChartContainer>
           </div>
