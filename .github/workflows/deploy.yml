@@ -41,6 +41,7 @@ jobs:
           VITE_API_FQDN: ${{ vars.VITE_API_FQDN }}
           VITE_USER_POOL_DOMAIN: ${{ vars.VITE_USER_POOL_DOMAIN }}
           VITE_FQDN: ${{ vars.VITE_FQDN }}
+          VITE_GOOGLE_ANALYTICS: ${{ secrets.VITE_GOOGLE_ANALYTICS }}
         run: |
           npm run build
 

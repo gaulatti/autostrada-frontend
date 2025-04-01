@@ -2,13 +2,14 @@ import { Theme } from '@radix-ui/themes';
 import '@radix-ui/themes/styles.css';
 import { Amplify, type ResourcesConfig } from 'aws-amplify';
 import moment from 'moment';
-import type { JSX } from 'react';
+import { useEffect, type JSX } from 'react';
 import { Provider } from 'react-redux';
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router';
 import type { Route } from './+types/root';
 import './app.css';
 import { useDarkMode } from './hooks/useDarkMode';
 import { getStore } from './state';
+import { initGA, RouteChangeTracker } from './utils/google.analytics';
 
 /**
  * This is important. It enables the OAuth listener for the Auth module.
@@ -103,6 +104,10 @@ const { store } = getStore();
 export function Layout({ children }: { children: React.ReactNode }): JSX.Element {
   const { isDarkMode } = useDarkMode();
 
+  useEffect(() => {
+    initGA();
+  }, []);
+
   return (
     <html lang='en'>
       <head>
@@ -115,6 +120,7 @@ export function Layout({ children }: { children: React.ReactNode }): JSX.Element
       </head>
       <body>
         <Provider store={store}>
+          <RouteChangeTracker />
           <Theme appearance={isDarkMode ? 'dark' : 'light'} accentColor='orange' grayColor='sand' radius='large'>
             {children}
             <ScrollRestoration />
