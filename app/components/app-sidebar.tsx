@@ -87,14 +87,52 @@ const data = {
   ],
 };
 
+/**
+ * The `AppSidebar` component is a wrapper around the `Sidebar` component that provides
+ * additional functionality and layout for the application's sidebar. It includes features
+ * such as a responsive logo, team switcher, navigation sections, and user navigation.
+ *
+ * @param props - The props passed to the `Sidebar` component.
+ *
+ * @remarks
+ * - The component uses the `useSidebar` hook to manage sidebar state and behavior.
+ * - A `ResizeObserver` is used to dynamically determine if the sidebar is wide enough
+ *   to display the full logo or a smaller icon.
+ * - Feature flags are utilized to conditionally render navigation sections.
+ *
+ * @returns A JSX element representing the application sidebar.
+ *
+ * @example
+ * ```tsx
+ * <AppSidebar />
+ * ```
+ */
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { state } = useSidebar();
   const featureEnabled = useFeatureFlags();
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const [isWideEnough, setIsWideEnough] = React.useState(false);
+
+  /**
+   * Make sure full logo is only shown if there's enough space.
+   */
+  React.useEffect(() => {
+    const observer = new ResizeObserver(([entry]) => {
+      setIsWideEnough(entry.contentRect.width >= 160);
+    });
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   return (
     <Sidebar collapsible='icon' {...props}>
-      <SidebarHeader>
-        {state !== 'collapsed' ? <Logo to='/'>autostrada</Logo> : <img src='/favicon.png' />}
+      <SidebarHeader style={{ overflow: 'hidden' }} ref={containerRef}>
+        {isWideEnough ? <Logo to='/'>autostrada</Logo> : <img src='/favicon.png' className='w-8' />}
         <TeamSwitcher />
       </SidebarHeader>
       <SidebarContent>

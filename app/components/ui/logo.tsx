@@ -1,5 +1,5 @@
-import { NavLink } from 'react-router';
 import styled from '@emotion/styled';
+import { NavLink } from 'react-router';
 
 /**
  * A styled component that represents the logo in the sidebar.
@@ -16,13 +16,10 @@ import styled from '@emotion/styled';
  */
 const Logo = styled(NavLink)`
   height: 66px;
-  display: inline-block;
-  padding-right: 1rem;
   line-height: 66px;
   font-size: 2rem;
   text-align: center;
   font-family: 'Comodo', sans-serif;
 `;
-
 
 export { Logo };
