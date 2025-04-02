@@ -146,7 +146,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarContent>
       <SidebarFooter>
         <Select.Root
-          defaultValue='en'
+          defaultValue={i18n.language}
           onValueChange={(value) => {
             i18n.changeLanguage(value);
           }}
