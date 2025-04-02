@@ -1,10 +1,9 @@
 import { Laptop, LineChartIcon, Smartphone } from 'lucide-react';
-import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '~/components/ui/chart';
 import { dateFormatter, labelFormatter } from '~/utils/dashboards';
-import { useTranslation } from 'react-i18next';
 
 const CwvHistory = ({ data }) => {
   const { t } = useTranslation(); // Added hook
@@ -35,7 +34,7 @@ const CwvHistory = ({ data }) => {
           <div>
             <div className='text-center mb-2 flex items-center justify-center'>
               <Laptop className='w-5 h-5 mr-1' />
-              <span className='font-medium'>Desktop</span>
+              <span className='font-medium'>{t('dashboard.desktop')}</span>
             </div>
             <ChartContainer
               config={{
@@ -68,7 +67,7 @@ const CwvHistory = ({ data }) => {
           <div>
             <div className='text-center mb-2 flex items-center justify-center'>
               <Smartphone className='w-5 h-5 mr-1' />
-              <span className='font-medium'>Mobile</span>
+              <span className='font-medium'>{t('dashboard.mobile')}</span>
             </div>
             <ChartContainer
               config={{
