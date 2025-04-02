@@ -15,9 +15,13 @@ import { teamsLifecycle } from './teams';
  * @generator
  */
 function* lifecycle() {
-  yield fork(authLifecycle);
-  yield fork(kickoffLifecycle);
-  yield fork(teamsLifecycle);
+  if (typeof window !== 'undefined' && typeof SharedWorker !== 'undefined') {
+    yield fork(authLifecycle);
+    yield fork(kickoffLifecycle);
+    yield fork(teamsLifecycle);
+  } else {
+    console.warn('Sagas are only available on browser runtime.');
+  }
 }
 
 export { lifecycle };

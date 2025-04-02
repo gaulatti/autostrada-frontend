@@ -15,6 +15,12 @@ const lifecycleReducer = (state: State = defaultStore, action: ReduxAction) => {
         ...state,
         kickoffReady: true,
       };
+
+    case 'HYDRATE_FROM_WORKER':
+      return {
+        ...state,
+        ...action.payload,
+      };
     default:
       return state;
   }

@@ -1,6 +1,7 @@
 import { type Store, configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import { lifecycle } from '../events/sagas';
+import { initWorkerBridge, sendStateToWorker } from './bridge';
 import { reducers } from './reducers';
 let store: Store;
 
@@ -85,6 +86,27 @@ const getStore = () => {
       reducer: reducers,
       middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }).concat(sagaMiddleware).concat(logger),
     });
+
+    /**
+     * Reusing state across tabs via Shared Worker.
+     */
+    let isHydrating = false;
+    if (typeof window !== 'undefined' && typeof SharedWorker !== 'undefined') {
+      store.subscribe(() => {
+        if (isHydrating) return;
+        const state = store.getState();
+        sendStateToWorker(state);
+      });
+      initWorkerBridge((data) => {
+        if (data.type === 'SYNC_STATE') {
+          isHydrating = true;
+          store.dispatch({ type: 'HYDRATE_FROM_WORKER', payload: data.payload });
+          isHydrating = false;
+        }
+      });
+    } else {
+      console.warn('SharedWorker not available, skipping worker bridge.');
+    }
 
     sagaMiddleware.run(lifecycle);
   }
