@@ -38,7 +38,7 @@ const Breadcrumbs = ({ items }: { items: BreadcrumbItem[] }): JSX.Element => {
       <BreadcrumbList>
         {items.map((item, index) => (
           <>
-            <BreadcrumbItem className='hidden md:block'>
+            <BreadcrumbItem>
               {item.link ? (
                 <BreadcrumbLink asChild>
                   <NavLink to={item.link}>{item.title}</NavLink>
