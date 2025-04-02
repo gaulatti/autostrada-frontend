@@ -1,3 +1,4 @@
+import { Select } from '@radix-ui/themes';
 import { FileCode, HeartPulse, LayoutList, Newspaper, Radar, Tv, User } from 'lucide-react';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -131,6 +132,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     };
   }, []);
 
+  const { i18n } = useTranslation();
+
   return (
     <Sidebar collapsible='icon' {...props}>
       <SidebarHeader style={{ overflow: 'hidden' }} ref={containerRef}>
@@ -142,6 +145,25 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {/* <NavProjects projects={data.projects} /> */}
       </SidebarContent>
       <SidebarFooter>
+        <Select.Root
+          defaultValue='en'
+          onValueChange={(value) => {
+            i18n.changeLanguage(value);
+          }}
+        >
+          <Select.Trigger />
+          <Select.Content>
+            <Select.Group>
+              <Select.Label>Language</Select.Label>
+              <Select.Item value='en'>English</Select.Item>
+              <Select.Item value='es'>Spanish</Select.Item>
+              <Select.Item value='pt'>Portuguese</Select.Item>
+              <Select.Item value='it'>Italian</Select.Item>
+              <Select.Item value='fr'>French</Select.Item>
+              <Select.Item value='de'>German</Select.Item>
+            </Select.Group>
+          </Select.Content>
+        </Select.Root>
         <NavUser />
       </SidebarFooter>
       <SidebarRail />
