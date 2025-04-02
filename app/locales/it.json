@@ -42,7 +42,8 @@
     "speed-index": "Speed Index (SI)",
     "total-blocking-time": "Total Blocking Time (TBT)",
     "time-to-first-byte": "Time to First Byte (TTFB)",
-    "performance-score": "Punteggio delle prestazioni"
+    "performance-score": "Punteggio delle prestazioni",
+    "other-metrics": "Altre metriche"
   },
   "scans": {
     "opportunities": "Opportunità",
