@@ -1,13 +1,10 @@
-'use client';
-
 import { Link } from '@radix-ui/themes';
 import { Clock, Laptop, Smartphone } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router';
-
-import { CartesianGrid, ReferenceLine, Scatter, ScatterChart, XAxis, YAxis } from 'recharts';
+import { CartesianGrid, ReferenceLine, ResponsiveContainer, Scatter, ScatterChart, XAxis, YAxis } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
-import { ChartContainer, ChartTooltip } from '~/components/ui/chart';
+import { ChartTooltip } from '~/components/ui/chart';
 import { getProgressColor } from '~/utils/dashboards';
 
 /**
@@ -60,12 +57,8 @@ const TimeOfDay = ({ data }) => {
               <Laptop className='w-5 h-5 mr-1' />
               <span className='font-medium'>{t('dashboard.desktop')}</span>
             </div>
-            <ChartContainer
-              config={{
-                performance: { label: t('metrics.performance'), color: 'hsl(var(--chart-1))' },
-              }}
-              className='h-[300px] w-full'
-            >
+
+            <ResponsiveContainer className='w-full' height={300}>
               <ScatterChart accessibilityLayer margin={{ top: 20, right: 30, left: 20, bottom: 10 }}>
                 <CartesianGrid strokeDasharray='3 3' />
                 <XAxis
@@ -94,9 +87,15 @@ const TimeOfDay = ({ data }) => {
                           <Link asChild>
                             <NavLink to={`/heartbeats/${data.slug}`}>{t('metrics.view-details')}</NavLink>
                           </Link>
-                          <p className='font-medium'>{t('dashboard.date')}: {data.date}</p>
-                          <p className='font-medium'>{t('dashboard.time')}: {data.hour}</p>
-                          <p className='text-sm'>{t('metrics.performance')}: {data.performance}</p>
+                          <p className='font-medium'>
+                            {t('dashboard.date')}: {data.date}
+                          </p>
+                          <p className='font-medium'>
+                            {t('dashboard.time')}: {data.hour}
+                          </p>
+                          <p className='text-sm'>
+                            {t('metrics.performance')}: {data.performance}
+                          </p>
                           <p className='text-sm text-muted-foreground'>
                             {data.performance >= 90 ? t('dashboard.good') : data.performance >= 75 ? t('dashboard.needs-improvement') : t('dashboard.poor')}
                           </p>
@@ -119,19 +118,14 @@ const TimeOfDay = ({ data }) => {
                 <ReferenceLine y={90} stroke='#22c55e' strokeDasharray='3 3' label={t('dashboard.good')} />
                 <ReferenceLine y={75} stroke='#eab308' strokeDasharray='3 3' label={t('dashboard.needs-improvement')} />
               </ScatterChart>
-            </ChartContainer>
+            </ResponsiveContainer>
           </div>
           <div>
             <div className='text-center mb-2 flex items-center justify-center'>
               <Smartphone className='w-5 h-5 mr-1' />
               <span className='font-medium'>{t('dashboard.mobile')}</span>
             </div>
-            <ChartContainer
-              config={{
-                performance: { label: t('metrics.performance'), color: 'hsl(var(--chart-2))' },
-              }}
-              className='h-[300px] w-full'
-            >
+            <ResponsiveContainer className='w-full' height={300}>
               <ScatterChart accessibilityLayer margin={{ top: 20, right: 30, left: 20, bottom: 10 }}>
                 <CartesianGrid strokeDasharray='3 3' />
                 <XAxis
@@ -160,8 +154,12 @@ const TimeOfDay = ({ data }) => {
                           <Link asChild>
                             <NavLink to={`/heartbeats/${data.slug}`}>{t('metrics.view-details')}</NavLink>
                           </Link>
-                          <p className='font-medium'>{t('dashboard.time')}: {data.hour}</p>
-                          <p className='text-sm'>{t('metrics.performance')}: {data.performance}</p>
+                          <p className='font-medium'>
+                            {t('dashboard.time')}: {data.hour}
+                          </p>
+                          <p className='text-sm'>
+                            {t('metrics.performance')}: {data.performance}
+                          </p>
                           <p className='text-sm text-muted-foreground'>
                             {data.performance >= 90 ? t('dashboard.good') : data.performance >= 75 ? t('dashboard.needs-improvement') : t('dashboard.poor')}
                           </p>
@@ -184,7 +182,7 @@ const TimeOfDay = ({ data }) => {
                 <ReferenceLine y={90} stroke='#22c55e' strokeDasharray='3 3' label={t('dashboard.good')} />
                 <ReferenceLine y={75} stroke='#eab308' strokeDasharray='3 3' label={t('dashboard.needs-improvement')} />
               </ScatterChart>
-            </ChartContainer>
+            </ResponsiveContainer>
           </div>
         </div>
       </CardContent>

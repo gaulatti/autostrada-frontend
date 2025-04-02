@@ -85,7 +85,7 @@ const DataTable = () => {
   const totalPages = useMemo(() => Math.ceil((data?.count || 0) / pageSize), [data, pageSize]);
 
   return (
-    <div className='m-4'>
+    <div>
       <div className='rounded-md border'>
         <Table>
           <TableHeader>

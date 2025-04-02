@@ -52,7 +52,6 @@ const handleConnection = (port: MessagePort) => {
 
   port.onmessage = (event: MessageEvent<MessageData>) => {
     const { type, payload } = event.data;
-    console.log(payload);
     switch (type) {
       case 'SET_STATE':
         sharedState = { ...sharedState, ...payload };

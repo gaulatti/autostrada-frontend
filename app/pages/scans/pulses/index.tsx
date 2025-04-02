@@ -11,10 +11,10 @@ import { OverlaySpinner } from '~/components/spinners';
 import { useFeatureFlags } from '~/hooks/useFeatureFlags';
 import { Forbidden } from '~/pages/403';
 import { DataTable } from './list.table';
+import i18n from '~/i18n';
 
 export function meta() {
-  const { t } = useTranslation();
-  return [{ title: t('scans.pulses') }];
+  return [{ title: i18n.t('scans.pulses') }];
 }
 
 /**

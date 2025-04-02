@@ -10,11 +10,11 @@ import { OverallGrade } from '~/components/metrics/overall-grade';
 import { ReportHeader } from '~/components/scans/report-header';
 import { OverlaySpinner } from '~/components/spinners';
 import { useFeatureFlags } from '~/hooks/useFeatureFlags';
+import i18n from '~/i18n';
 import { Forbidden } from '~/pages/403';
 
 export function meta() {
-  const { t } = useTranslation();
-  return [{ title: t('scans.pulse-details') }];
+  return [{ title: i18n.t('scans.pulse-details') }];
 }
 
 /**

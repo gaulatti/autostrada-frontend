@@ -17,10 +17,10 @@ import { OverlaySpinner } from '~/components/spinners';
 import { useFeatureFlags } from '~/hooks/useFeatureFlags';
 import { Forbidden } from '~/pages/403';
 import { DataTable } from './detail.table';
+import i18n from '~/i18n';
 
 export function meta() {
-  const { t } = useTranslation();
-  return [{ title: t('targets.url-detail') }];
+  return [{ title: i18n.t('targets.url-detail') }];
 }
 
 /**
