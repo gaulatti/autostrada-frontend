@@ -58,7 +58,8 @@
     "pulses": "Pulses",
     "pulses-table": "Tableau des pulses",
     "showing-opportunities": "Affichage de {{count}} opportunités.",
-    "comparison": "Comparaison"
+    "comparison": "Comparaison",
+    "section": "Pulses"
   },
   "targets": {
     "clusters": "Groupes",
@@ -66,7 +67,8 @@
     "url-detail-table": "Tableau des détails des URLs",
     "url-detail": "Détail de l'URL",
     "urls": "URLs",
-    "urls-table": "Tableau des URLs"
+    "urls-table": "Tableau des URLs",
+    "section": "Cibles"
   },
   "ui": {
     "user-avatar": "Avatar utilisateur",
