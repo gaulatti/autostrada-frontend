@@ -4,8 +4,11 @@ import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '~/components/ui/chart';
 import { dateFormatter, labelFormatter } from '~/utils/dashboards';
+import { useTranslation } from 'react-i18next';
 
 const CwvHistory = ({ data }) => {
+  const { t } = useTranslation(); // Added hook
+
   // Define colors from @radix-ui/themes (feel free to adjust these variables)
   const colors = {
     lcp: 'var(--red-11)',
@@ -22,9 +25,9 @@ const CwvHistory = ({ data }) => {
       <CardHeader>
         <CardTitle className='flex items-center gap-2'>
           <LineChartIcon className='w-5 h-5' />
-          Core Web Vitals History
+          {t('dashboard.core-web-vitals-history')}
         </CardTitle>
-        <CardDescription>Tracking key Core Web Vitals over time.</CardDescription>
+        <CardDescription>{t('dashboard.core-web-vitals-tracking')}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className='grid md:grid-cols-2 gap-4'>

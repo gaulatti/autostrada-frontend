@@ -1,13 +1,15 @@
+import { signInWithRedirect } from 'aws-amplify/auth';
+import { useTranslation } from 'react-i18next';
 import { Navigate } from 'react-router';
 import { Button } from '~/components/ui/button';
 import { Card, CardContent } from '~/components/ui/card';
 import { useAuthStatus } from '~/hooks/useAuth';
 import { cn } from '~/lib/utils';
 import { Logo } from './ui/logo';
-import { signInWithRedirect } from 'aws-amplify/auth';
 
 export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) {
   const { isAuthenticated, isLoaded } = useAuthStatus();
+  const { t } = useTranslation();
 
   /**
    * Redirect the user to the home page if they are authenticated.
@@ -23,8 +25,8 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
           <div className='flex flex-col gap-6 p-6 md:p-8'>
             <Logo to='/login'>autostrada</Logo>
             <div className='flex flex-col items-center text-center'>
-              <h1 className='text-2xl font-bold'>Welcome back</h1>
-              <p className='text-muted-foreground text-balance'>Login to your provider account</p>
+              <h1 className='text-2xl font-bold'>{t('auth.welcomeBack')}</h1>
+              <p className='text-muted-foreground text-balance'>{t('auth.loginToProviderAccount')}</p>
             </div>
             <div className='flex flex-col gap-4'>
               {/* <Button variant="outline" className="w-full">
@@ -43,20 +45,13 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
                     fill='currentColor'
                   />
                 </svg>
-                Login with Google
+                {t('auth.loginWithGoogle')}
               </Button>
             </div>
             <div className='text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4'>
-              By clicking continue, you agree to our <a href='#'>Terms of Service</a> and <a href='#'>Privacy Policy</a>.
+              {t('auth.agreeToTerms')} <a href='#'>{t('auth.termsOfService')}</a> {t('auth.and')} <a href='#'>{t('auth.privacyPolicy')}</a>.
             </div>
           </div>
-          {/* <div className="bg-muted relative hidden md:block">
-            <img
-              src="/placeholder.svg"
-              alt="Image"
-              className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-            />
-          </div> */}
         </CardContent>
       </Card>
     </div>

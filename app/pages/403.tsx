@@ -2,6 +2,7 @@ import { Button } from '@radix-ui/themes';
 import { ShieldAlert } from 'lucide-react';
 import { useCallback, type JSX } from 'react';
 import { useLocation, useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next'; // Added import
 
 /**
  * Forbidden component renders a 403 error page indicating access is denied.
@@ -18,6 +19,7 @@ import { useLocation, useNavigate } from 'react-router';
 const Forbidden = (): JSX.Element => {
     const navigate = useNavigate();
     const location = useLocation();
+    const { t } = useTranslation(); // Added hook
 
     /**
      * Handles the click event on the button to navigate to the home page.
@@ -33,13 +35,13 @@ const Forbidden = (): JSX.Element => {
             <div className='max-w-md w-full space-y-8 text-center'>
                 <ShieldAlert className='mx-auto h-24 w-24 text-muted-foreground' />
                 <h1 className='text-4xl font-bold'>403</h1>
-                <h2 className='text-2xl font-semibold'>Access Denied</h2>
+                <h2 className='text-2xl font-semibold'>{t('pages.403-forbidden')}</h2>
                 <p className='text-muted-foreground'>
-                    You don’t have permission to view this page. Please contact an administrator if you believe this is a mistake.
+                    {t('ui.access-denied-message')}
                 </p>
                 {!isHome && (
                     <Button onClick={handleClick} className='mt-4'>
-                        Go Home
+                        {t('navigation.home')}
                     </Button>
                 )}
             </div>

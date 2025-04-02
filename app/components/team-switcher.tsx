@@ -1,5 +1,6 @@
 import { Boxes, ChevronsUpDown, Plus } from "lucide-react"
 import * as React from "react"
+import { useTranslation } from 'react-i18next';
 
 import { useSelector } from 'react-redux'
 import {
@@ -24,6 +25,7 @@ export function TeamSwitcher() {
   const currentTeam = useSelector(getCurrentTeam)!;
   const teams = useSelector(getTeams);
   const [activeTeam, setActiveTeam] = React.useState(teams[0])
+  const { t } = useTranslation();
 
   if (!activeTeam) {
     return null
@@ -54,7 +56,7 @@ export function TeamSwitcher() {
             sideOffset={4}
           >
             <DropdownMenuLabel className="text-muted-foreground text-xs">
-              Teams
+              {t('navigation.teams')}
             </DropdownMenuLabel>
             {teams.map((team, index) => (
               <DropdownMenuItem
@@ -71,7 +73,7 @@ export function TeamSwitcher() {
               <div className="flex size-6 items-center justify-center rounded-md border bg-transparent">
                 <Plus className="size-4" />
               </div>
-              <div className="text-muted-foreground font-medium">Add team</div>
+              <div className="text-muted-foreground font-medium">{t('navigation.add-team')}</div>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

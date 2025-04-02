@@ -3,6 +3,7 @@ import { NavLink } from 'react-router';
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, YAxis } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
 import { getProgressColor } from '~/utils/dashboards';
+import { useTranslation } from 'react-i18next';
 
 interface UrlData {
   url: string;
@@ -61,6 +62,8 @@ interface PerformantUrlsProps {
  * ```
  */
 const PerformantUrls = ({ data }: { data: PerformantUrlsProps }) => {
+  const { t } = useTranslation();
+
   if (!data) {
     return <></>;
   }
@@ -71,9 +74,9 @@ const PerformantUrls = ({ data }: { data: PerformantUrlsProps }) => {
         <CardHeader>
           <CardTitle className='flex items-center gap-2'>
             <Laptop className='w-5 h-5' />
-            Desktop Performance
+            {t('dashboard.desktop-performance')}
           </CardTitle>
-          <CardDescription>Most performant URLs</CardDescription>
+          <CardDescription>{t('dashboard.most-performant-urls')}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className='space-y-4'>
@@ -110,9 +113,9 @@ const PerformantUrls = ({ data }: { data: PerformantUrlsProps }) => {
         <CardHeader>
           <CardTitle className='flex items-center gap-2'>
             <Smartphone className='w-5 h-5' />
-            Mobile Performance
+            {t('dashboard.mobile-performance')}
           </CardTitle>
-          <CardDescription>Most performant</CardDescription>
+          <CardDescription>{t('dashboard.most-performant-urls')}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className='space-y-4'>
@@ -150,9 +153,9 @@ const PerformantUrls = ({ data }: { data: PerformantUrlsProps }) => {
           <CardTitle className='flex items-center gap-2'>
             <Laptop className='w-5 h-5 mr-1' />
             <Smartphone className='w-5 h-5' />
-            Desktop vs Mobile
+            {t('dashboard.desktop-vs-mobile')}
           </CardTitle>
-          <CardDescription>Performance gap between platforms</CardDescription>
+          <CardDescription>{t('dashboard.performance-gap')}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className='space-y-4'>

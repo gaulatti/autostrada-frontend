@@ -1,6 +1,7 @@
 import { Flex } from '@radix-ui/themes';
 import { useMemo, useState } from 'react';
 import type { DateRange } from 'react-day-picker';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import { Method, useAPI } from '~/clients/api';
 import { Breadcrumbs, type BreadcrumbItem } from '~/components/breadcrumbs';
@@ -16,8 +17,10 @@ import { OverlaySpinner } from '~/components/spinners';
 import { useFeatureFlags } from '~/hooks/useFeatureFlags';
 import { Forbidden } from '~/pages/403';
 import { DataTable } from './detail.table';
+
 export function meta() {
-  return [{ title: 'Url Report - Autostrada' }];
+  const { t } = useTranslation();
+  return [{ title: t('targets.url-detail') }];
 }
 
 /**
@@ -63,20 +66,12 @@ const UrlDetail = () => {
   const queryParams = useMemo(() => ({ ...timeRange }), [timeRange]);
   const { data } = useAPI(Method.GET, [], `urls/${slug}`, queryParams);
   const featureFlags = useFeatureFlags();
+  const { t } = useTranslation();
 
   const breadcrumbItems: BreadcrumbItem[] = [
-    {
-      title: 'Home',
-      link: '/',
-    },
-    {
-      title: 'Urls',
-      link: '/urls',
-    },
-    {
-      title: 'URL Report',
-      link: `/urls/${slug}`,
-    },
+    { title: t('navigation.home'), link: '/' },
+    { title: t('targets.urls'), link: '/urls' },
+    { title: t('targets.url-detail'), link: `/urls/${slug}` },
   ];
 
   /**
@@ -88,7 +83,7 @@ const UrlDetail = () => {
 
   return (
     <>
-      <SiteHeader title='URL Report' actions={<DatePickerWithRange onUpdate={setTimeRange} />} />
+      <SiteHeader title={t('targets.url-detail')} actions={<DatePickerWithRange onUpdate={setTimeRange} />} />
       <Flex className='m-6' gap='6' direction='column'>
         <Breadcrumbs items={breadcrumbItems} />
         {slug && data ? (

@@ -6,6 +6,7 @@ import { Method, useAPI } from '~/clients/api';
 import { PaginationControls } from '~/components/pagination-controls';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table';
 import { useRandom } from '~/hooks/useRandom';
+import { useTranslation } from 'react-i18next';
 
 export type Cluster = {
   slug: string;
@@ -15,7 +16,10 @@ export type Cluster = {
 export const columns: ColumnDef<Cluster>[] = [
   {
     accessorKey: 'slug',
-    header: 'Slug',
+    header: ({ column }) => {
+      const { t } = useTranslation();
+      return t('ui.slug');
+    },
     cell: ({ cell }) => {
       const value = cell.getValue();
       return (
@@ -31,7 +35,10 @@ export const columns: ColumnDef<Cluster>[] = [
   },
   {
     accessorKey: 'name',
-    header: 'Name',
+    header: ({ column }) => {
+      const { t } = useTranslation();
+      return t('ui.name');
+    },
     cell: ({ cell }) => {
       const value = cell.getValue() as { slug: string, url: string };
       return (
@@ -52,6 +59,7 @@ const DataTable = () => {
   const [pageSize] = useState(20);
   const [random, randomize] = useRandom();
   const [sorting, setSorting] = useState<SortingState>([{ id: 'updatedAt', desc: true }]);
+  const { t } = useTranslation();
 
   const sortingParams = useMemo(() => {
     if (sorting.length > 0) {
@@ -101,7 +109,7 @@ const DataTable = () => {
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className='h-24 text-center'>
-                  No results.
+                  {t('ui.noResults')}
                 </TableCell>
               </TableRow>
             )}

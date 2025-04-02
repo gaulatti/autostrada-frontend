@@ -1,6 +1,7 @@
 import { Flex } from '@radix-ui/themes';
 import { useMemo, useState } from 'react';
 import type { DateRange } from 'react-day-picker';
+import { useTranslation } from 'react-i18next';
 import { Method, useAPI } from '~/clients/api';
 import { StableUrls } from '~/components/dashboard/stable-urls';
 import { SummaryCards } from '~/components/dashboard/summary';
@@ -12,11 +13,12 @@ import { Forbidden } from '~/pages/403';
 import { DataTable } from './list.table';
 
 export function meta() {
-  return [{ title: 'Pulses - Autostrada' }];
+  const { t } = useTranslation();
+  return [{ title: t('scans.pulses') }];
 }
 
 /**
- * The `Page` component represents the main view for displaying pulse statistics.
+ * The t('navigation.page') component represents the main view for displaying pulse statistics.
  * It includes a header, a date range picker, and various data visualizations.
  *
  * @component
@@ -47,6 +49,7 @@ const Page = () => {
   const featureEnabled = useFeatureFlags();
   const queryParams = useMemo(() => ({ ...timeRange }), [timeRange]);
   const { data } = useAPI(Method.GET, [], `pulses/stats`, queryParams);
+  const { t } = useTranslation();
 
   /**
    * Phased opening
@@ -57,7 +60,7 @@ const Page = () => {
 
   return (
     <>
-      <SiteHeader title='Pulses' actions={<DatePickerWithRange onUpdate={setTimeRange} />} />
+      <SiteHeader title={t('scans.pulses')} actions={<DatePickerWithRange onUpdate={setTimeRange} />} />
       <Flex className='m-6' gap='6' direction='column'>
         {data ? (
           <>

@@ -3,6 +3,7 @@ import { NavLink } from 'react-router';
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, YAxis } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
 import { getProgressColor } from '~/utils/dashboards';
+import { useTranslation } from 'react-i18next';
 
 interface UrlData {
   url: string;
@@ -35,6 +36,8 @@ interface StableUrlsProps {
  * @returns {JSX.Element} A grid layout with three cards displaying performance metrics and comparisons.
  */
 const StableUrls = ({ data }: { data: StableUrlsProps }) => {
+  const { t } = useTranslation();
+
   if (!data) {
     return <></>;
   }
@@ -45,9 +48,9 @@ const StableUrls = ({ data }: { data: StableUrlsProps }) => {
         <CardHeader>
           <CardTitle className='flex items-center gap-2'>
             <Laptop className='w-5 h-5' />
-            Desktop Performance
+            {t('dashboard.desktop-performance')}
           </CardTitle>
-          {data.desktop.length > 1 && <CardDescription>Most stable URLs (less performance oscillation)</CardDescription>}
+          {data.desktop.length > 1 && <CardDescription>{t('dashboard.most-stable-urls')}</CardDescription>}
         </CardHeader>
         <CardContent>
           <div className='space-y-4'>
@@ -84,9 +87,9 @@ const StableUrls = ({ data }: { data: StableUrlsProps }) => {
         <CardHeader>
           <CardTitle className='flex items-center gap-2'>
             <Smartphone className='w-5 h-5' />
-            Mobile Performance
+            {t('dashboard.mobile-performance')}
           </CardTitle>
-          {data.mobile.length > 1 && <CardDescription>Most stable URLs (less performance oscillation)</CardDescription>}
+          {data.mobile.length > 1 && <CardDescription>{t('dashboard.most-stable-urls')}</CardDescription>}
         </CardHeader>
         <CardContent>
           <div className='space-y-4'>
@@ -124,9 +127,9 @@ const StableUrls = ({ data }: { data: StableUrlsProps }) => {
           <CardTitle className='flex items-center gap-2'>
             <Laptop className='w-5 h-5 mr-1' />
             <Smartphone className='w-5 h-5' />
-            Desktop vs Mobile
+            {t('dashboard.desktop-vs-mobile')}
           </CardTitle>
-          {data.differences.length > 1 && <CardDescription>Performance gap between platforms</CardDescription>}
+          {data.differences.length > 1 && <CardDescription>{t('dashboard.performance-gap')}</CardDescription>}
         </CardHeader>
         <CardContent>
           <div className='space-y-4'>

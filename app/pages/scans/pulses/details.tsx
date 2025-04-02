@@ -1,4 +1,5 @@
 import { Flex } from '@radix-ui/themes';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import { Method, useAPI } from '~/clients/api';
 import { Breadcrumbs, type BreadcrumbItem } from '~/components/breadcrumbs';
@@ -12,7 +13,8 @@ import { useFeatureFlags } from '~/hooks/useFeatureFlags';
 import { Forbidden } from '~/pages/403';
 
 export function meta() {
-  return [{ title: 'Pulses Report - Autostrada' }];
+  const { t } = useTranslation();
+  return [{ title: t('scans.pulse-details') }];
 }
 
 /**
@@ -26,13 +28,13 @@ export function meta() {
  *
  * @remarks
  * - Displays a loading state if the pulse data is not yet available.
- * - Utilizes several child components such as `OverallGrade`, `ReportHeader`, `Grades`, and `CoreWebVitals`
+ * - Utilizes several child components such as `OverallGrade`, `ReportHeader`, t('metrics.grades'), and `CoreWebVitals`
  *   to structure the report.
  *
  * @dependencies
  * - `useParams` for extracting the `slug` parameter from the URL.
  * - `useAPI` for fetching pulse data from the API.
- * - `SiteHeader`, `Breadcrumbs`, `OverallGrade`, `ReportHeader`, `Grades`, and `CoreWebVitals` components.
+ * - `SiteHeader`, `Breadcrumbs`, `OverallGrade`, `ReportHeader`, t('metrics.grades'), and `CoreWebVitals` components.
  *
  * @example
  * ```tsx
@@ -43,11 +45,12 @@ const PulseReport = () => {
   const { slug } = useParams();
   const { data } = useAPI(Method.GET, [], `pulses/${slug}`);
   const featureFlags = useFeatureFlags();
+  const { t } = useTranslation();
 
   const breadcrumbItems: BreadcrumbItem[] = [
-    { title: 'Home', link: '/' },
-    { title: 'Pulses', link: '/' },
-    { title: 'Pulse Report', link: `/pulses/${slug}` },
+    { title: t('navigation.home'), link: '/' },
+    { title: t('scans.pulses'), link: '/' },
+    { title: t('scans.pulse-details'), link: `/pulses/${slug}` },
   ];
 
   if (!data?.pulse) {
@@ -66,7 +69,7 @@ const PulseReport = () => {
 
   return (
     <>
-      <SiteHeader title='Pulse Report' />
+      <SiteHeader title={t('scans.pulse-details')} />
       <Flex className='m-6' gap='3' direction='column'>
         <Breadcrumbs items={breadcrumbItems} />
 

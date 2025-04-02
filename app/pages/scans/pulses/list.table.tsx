@@ -4,6 +4,7 @@ import { ArrowUpDown } from 'lucide-react';
 import moment from 'moment';
 import { useMemo, useState } from 'react';
 import type { DateRange } from 'react-day-picker';
+import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router';
 import { Method, useAPI } from '~/clients/api';
 import { PaginationControls } from '~/components/pagination-controls';
@@ -23,7 +24,10 @@ export type Pulse = {
 export const columns: ColumnDef<Pulse>[] = [
   {
     accessorKey: 'slug',
-    header: 'Slug',
+    header: ({ column }) => {
+      const { t } = useTranslation();
+      return t('ui.slug');
+    },
     cell: ({ cell }) => {
       const value = cell.getValue();
       return (
@@ -58,12 +62,15 @@ export const columns: ColumnDef<Pulse>[] = [
   },
   {
     accessorKey: 'createdAt',
-    header: ({ column }) => (
-      <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-        Created
-        <ArrowUpDown className='ml-2 h-4 w-4' />
-      </Button>
-    ),
+    header: ({ column }) => {
+      const { t } = useTranslation();
+      return (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          {t('ui.created')}
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    },
     cell: ({ cell }) => {
       const value = cell.getValue();
       return value ? (
@@ -82,12 +89,15 @@ export const columns: ColumnDef<Pulse>[] = [
   },
   {
     accessorKey: 'updatedAt',
-    header: ({ column }) => (
-      <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-        Updated
-        <ArrowUpDown className='ml-2 h-4 w-4' />
-      </Button>
-    ),
+    header: ({ column }) => {
+      const { t } = useTranslation();
+      return (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          {t('ui.updated')}
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    },
     cell: ({ cell }) => {
       const value = cell.getValue();
       return value ? (
@@ -112,6 +122,7 @@ const DataTable = ({ timeRange }: { timeRange?: DateRange }) => {
   const [random, randomize] = useRandom();
   const [sorting, setSorting] = useState<SortingState>([{ id: 'updatedAt', desc: true }]);
   const { lastMessage } = useSSE();
+  const { t } = useTranslation();
 
   const sortingParams = useMemo(() => {
     if (sorting.length > 0) {
@@ -161,7 +172,7 @@ const DataTable = ({ timeRange }: { timeRange?: DateRange }) => {
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className='h-24 text-center'>
-                  No results.
+                  {t('ui.noResults')}
                 </TableCell>
               </TableRow>
             )}

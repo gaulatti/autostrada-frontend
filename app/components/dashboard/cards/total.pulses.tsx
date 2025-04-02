@@ -1,4 +1,5 @@
 import { Zap } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 
 /**
@@ -8,10 +9,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
  * @returns A JSX element representing the Total Pulses card.
  */
 const TotalPulses = ({ total }: { total: number }) => {
+  const { t } = useTranslation(); // Added hook
+
   return (
     <Card>
       <CardHeader className='flex flex-row items-center justify-between pb-2'>
-        <CardTitle className='text-sm font-medium'>Total Pulses</CardTitle>
+        <CardTitle className='text-sm font-medium'>{t('dashboard.total-pulses')}</CardTitle>
         <Zap className='w-4 h-4 text-muted-foreground' />
       </CardHeader>
       <CardContent>

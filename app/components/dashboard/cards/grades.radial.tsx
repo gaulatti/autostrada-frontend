@@ -1,4 +1,5 @@
 import { Laptop, Radar, Smartphone } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { PolarAngleAxis, PolarGrid, PolarRadiusAxis, RadarChart, Radar as RadarComponent } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '~/components/ui/chart';
@@ -18,21 +19,22 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from '~/components/
  * @returns {JSX.Element} A card component with radar charts comparing desktop and mobile performance.
  */
 const GradesRadial = ({ data }) => {
+  const { t } = useTranslation();
   return (
     <Card className='col-span-2 2xl:col-span-1'>
       <CardHeader>
         <CardTitle className='flex items-center gap-2'>
           <Radar className='w-5 h-5' />
-          Grades comparison
+          {t('dashboard.grades-comparison')}
         </CardTitle>
-        <CardDescription>Comparing performance aspects across platforms.</CardDescription>
+        <CardDescription>{t('dashboard.platform-comparison')}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className='grid md:grid-cols-2 gap-4'>
           <div>
             <div className='text-center mb-2 flex items-center justify-center'>
               <Laptop className='w-5 h-5 mr-1' />
-              <span className='font-medium'>Desktop</span>
+              <span className='font-medium'>{t('dashboard.desktop')}</span>
             </div>
             <ChartContainer
               config={{
@@ -45,14 +47,14 @@ const GradesRadial = ({ data }) => {
                 <PolarAngleAxis dataKey='metric' />
                 <PolarRadiusAxis domain={[0, 100]} />
                 <ChartTooltip content={<ChartTooltipContent />} />
-                <RadarComponent name='Desktop' dataKey='value' stroke='var(--amber-9)' fill='var(--amber-9)' fillOpacity={0.6} />
+                <RadarComponent name={t('dashboard.desktop')} dataKey='value' stroke='var(--amber-9)' fill='var(--amber-9)' fillOpacity={0.6} />
               </RadarChart>
             </ChartContainer>
           </div>
           <div>
             <div className='text-center mb-2 flex items-center justify-center'>
               <Smartphone className='w-5 h-5 mr-1' />
-              <span className='font-medium'>Mobile</span>
+              <span className='font-medium'>{t('dashboard.mobile')}</span>
             </div>
             <ChartContainer
               config={{
@@ -65,7 +67,7 @@ const GradesRadial = ({ data }) => {
                 <PolarAngleAxis dataKey='metric' />
                 <PolarRadiusAxis domain={[0, 100]} />
                 <ChartTooltip content={<ChartTooltipContent />} />
-                <RadarComponent name='Mobile' dataKey='value' stroke='var(--red-9)' fill='var(--red-9)' fillOpacity={0.6} />
+                <RadarComponent name={t('dashboard.mobile')} dataKey='value' stroke='var(--red-9)' fill='var(--red-9)' fillOpacity={0.6} />
               </RadarChart>
             </ChartContainer>
           </div>

@@ -1,5 +1,6 @@
 import { Flex, Link } from '@radix-ui/themes';
 import type { JSX } from 'react';
+import { useTranslation } from 'react-i18next'; // Added import
 
 /**
  * URLNavbar component.
@@ -9,12 +10,16 @@ import type { JSX } from 'react';
  * @returns {JSX.Element} - The rendered URLNavbar component.
  */
 const URLNavbar = ({ url }: { url: string }): JSX.Element => {
+  const { t } = useTranslation(); // Added hook
+
   return (
     <Flex gap='2' align='center' className='my-4'>
       <Link href={url} target='_blank'>
         <Flex gap='3' className='w-full'>
           <GlobeIcon className='w-5 h-5 text-muted-foreground' />
-          <div className='flex-1 text-sm font-mono text-muted-foreground overflow-hidden whitespace-nowrap text-ellipsis'>{url}</div>
+          <div className='flex-1 text-sm font-mono text-muted-foreground overflow-hidden whitespace-nowrap text-ellipsis'>
+            {t('navigation.urls')}: {url}
+          </div>
         </Flex>
       </Link>
     </Flex >

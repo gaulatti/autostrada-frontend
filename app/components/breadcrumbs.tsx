@@ -1,6 +1,7 @@
+import type { JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from './ui/breadcrumb';
-import type { JSX } from 'react';
 
 /**
  * Represents an individual breadcrumb item as a record of string key-value pairs.
@@ -22,7 +23,7 @@ export type BreadcrumbItem = Record<string, string>;
  * @example
  * ```tsx
  * const items = [
- *   { title: "Home", link: "/" },
+ *   { title: t('navigation.home'), link: "/" },
  *   { title: "Products", link: "/products" },
  *   { title: "Electronics" }
  * ];
@@ -31,6 +32,7 @@ export type BreadcrumbItem = Record<string, string>;
  * ```
  */
 const Breadcrumbs = ({ items }: { items: BreadcrumbItem[] }): JSX.Element => {
+  const { t } = useTranslation();
   return (
     <Breadcrumb>
       <BreadcrumbList>

@@ -4,6 +4,7 @@ import { ArrowUpDown } from 'lucide-react';
 import moment from 'moment';
 import { useMemo, useState } from 'react';
 import type { DateRange } from 'react-day-picker';
+import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router';
 import { Method, useAPI } from '~/clients/api';
 import { PaginationControls } from '~/components/pagination-controls';
@@ -38,12 +39,15 @@ export const columns: ColumnDef<Pulse>[] = [
   },
   {
     accessorKey: 'createdAt',
-    header: ({ column }) => (
-      <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-        Created
-        <ArrowUpDown className='ml-2 h-4 w-4' />
-      </Button>
-    ),
+    header: ({ column }) => {
+      const { t } = useTranslation();
+      return (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          {t('ui.created')}
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    },
     cell: ({ cell }) => {
       const value = cell.getValue();
       return value ? (
@@ -62,12 +66,15 @@ export const columns: ColumnDef<Pulse>[] = [
   },
   {
     accessorKey: 'updatedAt',
-    header: ({ column }) => (
-      <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-        Updated
-        <ArrowUpDown className='ml-2 h-4 w-4' />
-      </Button>
-    ),
+    header: ({ column }) => {
+      const { t } = useTranslation();
+      return (
+        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          {t('ui.updated')}
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    },
     cell: ({ cell }) => {
       const value = cell.getValue();
       return value ? (
@@ -91,6 +98,7 @@ const DataTable = ({ slug, timeRange }: { slug: string; timeRange?: DateRange })
   const [pageSize] = useState(20);
   const [random, randomize] = useRandom();
   const [sorting, setSorting] = useState<SortingState>([{ id: 'updatedAt', desc: true }]);
+  const { t } = useTranslation();
 
   const sortingParams = useMemo(() => {
     if (sorting.length > 0) {
@@ -140,7 +148,7 @@ const DataTable = ({ slug, timeRange }: { slug: string; timeRange?: DateRange })
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className='h-24 text-center'>
-                  No results.
+                  {t('ui.noResults')}
                 </TableCell>
               </TableRow>
             )}

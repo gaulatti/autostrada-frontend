@@ -1,4 +1,5 @@
 import { Flex } from '@radix-ui/themes';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import { Method, useAPI } from '~/clients/api';
 import { Breadcrumbs, type BreadcrumbItem } from '~/components/breadcrumbs';
@@ -11,7 +12,8 @@ import { ReportHeader } from '~/components/scans/report-header';
 import { useFeatureFlags } from '~/hooks/useFeatureFlags';
 import { Forbidden } from '~/pages/403';
 export function meta() {
-  return [{ title: 'Pulses - Autostrada' }];
+  const { t } = useTranslation();
+  return [{ title: t('scans.heartbeat-details') }];
 }
 
 /**
@@ -38,11 +40,12 @@ const HeartbeatReport = () => {
   const { slug } = useParams();
   const { data } = useAPI(Method.GET, [], `heartbeats/${slug}`);
   const featureFlags = useFeatureFlags();
+  const { t } = useTranslation();
 
   const breadcrumbItems: BreadcrumbItem[] = [
-    { title: 'Home', link: '/' },
-    { title: 'Pulses', link: '/' },
-    { title: 'Heartbeat Detail', link: `/heartbeats/${slug}` },
+    { title: t('navigation.home'), link: '/' },
+    { title: t('scans.pulses'), link: '/' },
+    { title: t('scans.heartbeat-details'), link: `/heartbeats/${slug}` },
   ];
 
   /**
@@ -55,7 +58,7 @@ const HeartbeatReport = () => {
   return (
     data && (
       <>
-        <SiteHeader title='Heartbeat Detail' />
+        <SiteHeader title={t('scans.heartbeat-details')} />
         <Flex className='m-6' gap='3' direction='column'>
           <Breadcrumbs items={breadcrumbItems} />
 

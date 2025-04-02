@@ -2,6 +2,7 @@ import { Button } from '@radix-ui/themes';
 import type { JSX } from 'react';
 import { Separator } from './ui/separator';
 import { SidebarTrigger } from './ui/sidebar';
+import { useTranslation } from 'react-i18next'; // Added import
 
 /**
  * A functional component that renders the site's header with a title, optional button, and additional actions.
@@ -16,13 +17,15 @@ import { SidebarTrigger } from './ui/sidebar';
  * @returns {JSX.Element} The rendered header component.
  */
 const SiteHeader = ({ title, button, actions }: { title: string; button?: { action: () => void; icon: JSX.Element }; actions?: JSX.Element }): JSX.Element => {
+  const { t } = useTranslation(); // Added hook
+
   return (
     <header className='group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 flex h-12 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear'>
       <div className='flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6 justify-between'>
         <section className='flex'>
           <SidebarTrigger className='-ml-1' />
           <Separator orientation='vertical' className='mx-2 data-[orientation=vertical]:h-4' />
-          <h1 className='text-base font-medium'>{title}</h1>
+          <h1 className='text-base font-medium'>{t(title)}</h1>
         </section>
         {actions}
         {button && <Button onClick={button.action}>{button.icon}</Button>}

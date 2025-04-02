@@ -14,7 +14,17 @@
     "urls-monitored": "URLs Monitored",
     "desktop-vs-mobile": "Desktop vs Mobile",
     "most-performant-urls": "Most performant URLs",
-    "most-stable-urls": "Most stable URLs (less performance oscillation)"
+    "most-stable-urls": "Most stable URLs (less performance oscillation)",
+    "hour-of-day": "Hour of Day",
+    "good": "Good",
+    "needs-improvement": "Needs Improvement",
+    "poor": "Poor",
+    "date": "Date",
+    "time": "Time",
+    "desktop-performance": "Desktop Performance",
+    "mobile-performance": "Mobile Performance",
+    "performance-gap": "Performance Gap",
+    "tested-on": "Tested on"
   },
   "metrics": {
     "core-web-vitals": "Core Web Vitals",
@@ -24,7 +34,15 @@
     "best-practices": "Best Practices",
     "seo": "SEO",
     "overall-grade": "Overall Grade",
-    "view-details": "View Details"
+    "view-details": "View Details",
+    "largest-contentful-paint": "Largest Contentful Paint (LCP)",
+    "cumulative-layout-shift": "Cumulative Layout Shift (CLS)",
+    "time-to-interactive": "Time to Interactive (TTI)",
+    "first-contentful-paint": "First Contentful Paint (FCP)",
+    "speed-index": "Speed Index (SI)",
+    "total-blocking-time": "Total Blocking Time (TBT)",
+    "time-to-first-byte": "Time to First Byte (TTFB)",
+    "performance-score": "Performance Score"
   },
   "scans": {
     "opportunities": "Opportunities",
@@ -38,7 +56,9 @@
     "providers-table": "Providers Table",
     "pulse-details": "Pulse Details",
     "pulses": "Pulses",
-    "pulses-table": "Pulses Table"
+    "pulses-table": "Pulses Table",
+    "showing-opportunities": "Showing {{count}} opportunities.",
+    "comparison": "Comparison"
   },
   "targets": {
     "clusters": "Clusters",
@@ -76,7 +96,16 @@
     "table-header": "Table Header",
     "table-row": "Table Row",
     "tab": "Tab",
-    "tooltip": "Tooltip"
+    "tooltip": "Tooltip",
+    "created": "Created",
+    "updated": "Actualizado",
+    "slug": "Slug",
+    "upgrade-to-pro": "Upgrade to Pro",
+    "account": "Account",
+    "billing": "Billing",
+    "notifications": "Notifications",
+    "page": "Page",
+    "of": "of"
   },
   "navigation": {
     "dashboard": "Dashboard",
@@ -90,14 +119,24 @@
     "print": "Print",
     "loading": "Loading",
     "switch-team": "Switch Team",
-    "urls": "URLs"
+    "urls": "URLs",
+    "teams": "Teams",
+    "add-team": "Add Team"
   },
   "auth": {
     "login-page": "Login Page",
     "logout-page": "Logout Page",
     "email": "Email",
     "password": "Password",
-    "login": "Login"
+    "login": "Login",
+    "logout": "Log out",
+    "welcomeBack": "Welcome Back",
+    "loginToProviderAccount": "Login to your provider account",
+    "loginWithGoogle": "Login with Google",
+    "agreeToTerms": "By continuing, you agree to our",
+    "termsOfService": "Terms of Service",
+    "privacyPolicy": "Privacy Policy",
+    "and": "and"
   },
   "pages": {
     "403-forbidden": "403 Forbidden",

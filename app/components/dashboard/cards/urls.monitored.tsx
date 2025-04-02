@@ -1,5 +1,6 @@
 import { Globe } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
+import { useTranslation } from 'react-i18next';
 
 /**
  * A React functional component that displays the number of monitored URLs
@@ -11,9 +12,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
  * @returns {JSX.Element} A card component displaying the monitored URLs count.
  */
 const UrlsMonitored = ({ amount }: { amount: number }) => {
+  const { t } = useTranslation(); // Added hook
+
   return (<Card>
     <CardHeader className='flex flex-row items-center justify-between pb-2'>
-      <CardTitle className='text-sm font-medium'>URLs Monitored</CardTitle>
+      <CardTitle className='text-sm font-medium'>{t('dashboard.urls-monitored')}</CardTitle>
       <Globe className='w-4 h-4 text-muted-foreground' />
     </CardHeader>
     <CardContent>
