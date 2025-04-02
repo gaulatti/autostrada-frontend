@@ -1,9 +1,9 @@
 import { Laptop, Smartphone } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router';
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, YAxis } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
 import { getProgressColor } from '~/utils/dashboards';
-import { useTranslation } from 'react-i18next';
 
 interface UrlData {
   url: string;
@@ -75,7 +75,7 @@ const StableUrls = ({ data }: { data: StableUrlsProps }) => {
                         </LineChart>
                       </ResponsiveContainer>
                     </div>
-                    <div className='ml-2 text-xs text-muted-foreground'>±{url.variation}%</div>
+                    <div className='ml-2 text-xs text-muted-foreground'>± {url.variation}</div>
                   </div>
                 </div>
               </NavLink>
@@ -114,7 +114,7 @@ const StableUrls = ({ data }: { data: StableUrlsProps }) => {
                         </LineChart>
                       </ResponsiveContainer>
                     </div>
-                    <div className='ml-2 text-xs text-muted-foreground'>±{url.variation}%</div>
+                    <div className='ml-2 text-xs text-muted-foreground'>± {url.variation}</div>
                   </div>
                 </div>
               </NavLink>
@@ -140,7 +140,7 @@ const StableUrls = ({ data }: { data: StableUrlsProps }) => {
                     <span className='text-sm font-medium truncate' title={url.url}>
                       {url.url}
                     </span>
-                    <span className='text-sm font-bold flex items-center'>{url.difference}%</span>
+                    <span className='text-sm font-bold flex items-center'>± {url.difference}</span>
                   </div>
                   <div className='flex items-center justify-between'>
                     <div className='flex items-center'>
@@ -159,8 +159,8 @@ const StableUrls = ({ data }: { data: StableUrlsProps }) => {
                       <div
                         className='h-full rounded-full'
                         style={{
-                          width: `${100 - (url.mobileAverage! / url.desktopAverage!) * 100}%`,
-                          backgroundColor: getProgressColor(url.mobileAverage!),
+                          width: `${url.difference}%`,
+                          backgroundColor: getProgressColor(url.difference!, true),
                         }}
                       ></div>
                     </div>

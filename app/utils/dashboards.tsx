@@ -16,19 +16,23 @@ const getScoreColor = (score: number) => {
 };
 
 /**
- * Determines the progress color based on the given score.
+ * Determines the color associated with a progress value.
  *
- * @param score - A numeric value representing the score.
- *                - If the score is 90 or above, the function returns 'green'.
- *                - If the score is between 50 (inclusive) and 89, the function returns 'amber'.
- *                - If the score is below 50, the function returns 'red'.
- * @returns A string representing the color associated with the score.
+ * @param value - The progress value as a percentage (0 to 100).
+ * @param inverted - Optional flag to invert the progress value. If `true`, the value is calculated as `100 - value`.
+ * @returns A string representing the hex color code:
+ * - `#22c55e` (green) for values >= 90.
+ * - `#eab308` (yellow) for values >= 75 and < 90.
+ * - `#ef4444` (red) for values < 75.
  */
-const getProgressColor = (value: number) => {
-  if (value >= 90) return "#22c55e"
-  if (value >= 75) return "#eab308"
-  return "#ef4444"
-}
+const getProgressColor = (value: number, inverted = false) => {
+  if (inverted) {
+    value = 100 - value;
+  }
+  if (value >= 90) return '#22c55e';
+  if (value >= 75) return '#eab308';
+  return '#ef4444';
+};
 
 /**
  * Calculates the grade and corresponding color based on weighted scores for performance,
@@ -108,7 +112,7 @@ const transformHeartbeat = (hb: any) => ({
   platform: hb.platform,
   id: hb.id,
   grades: hb.grades,
-  slug: hb.slug
+  slug: hb.slug,
 });
 
 /**
@@ -130,4 +134,4 @@ const dateFormatter = (value: Date) => {
 const labelFormatter = (value: Date) => {
   return moment(value).format('LLL');
 };
-export { labelFormatter, dateFormatter, calculateGrade, formatTime, getProgressColor, getScoreColor, transformHeartbeat };
+export { calculateGrade, dateFormatter, formatTime, getProgressColor, getScoreColor, labelFormatter, transformHeartbeat };
