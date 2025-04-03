@@ -1,16 +1,16 @@
 import { Link } from '@radix-ui/themes';
 import { type ColumnDef, flexRender, getCoreRowModel, type SortingState, useReactTable } from '@tanstack/react-table';
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router';
 import { Method, useAPI } from '~/clients/api';
 import { PaginationControls } from '~/components/pagination-controls';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table';
 import { useRandom } from '~/hooks/useRandom';
-import { useTranslation } from 'react-i18next';
 
 export type Cluster = {
   slug: string;
-  url: { slug: string; url: string };
+  name: string;
 };
 
 export const columns: ColumnDef<Cluster>[] = [
@@ -26,7 +26,9 @@ export const columns: ColumnDef<Cluster>[] = [
         value && (
           <Link asChild>
             <NavLink to={`/pulses/${value}`}>
-              <code><>{value}</></code>
+              <code>
+                <>{value}</>
+              </code>
             </NavLink>
           </Link>
         )
@@ -39,13 +41,13 @@ export const columns: ColumnDef<Cluster>[] = [
       const { t } = useTranslation();
       return t('ui.name');
     },
-    cell: ({ cell }) => {
-      const value = cell.getValue() as { slug: string, url: string };
+    cell: ({ cell, row }) => {
+      const value = cell.getValue();
       return (
         value && (
           <Link asChild>
-            <NavLink to={`/clusters/${value.slug}`}>
-              <>{value.url}</>
+            <NavLink to={`/clusters/${row.original.slug}`}>
+              <>{value}</>
             </NavLink>
           </Link>
         )
