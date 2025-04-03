@@ -24,7 +24,10 @@
     "desktop-performance": "Desempenho no Desktop",
     "mobile-performance": "Desempenho no Celular",
     "performance-gap": "Diferença de desempenho",
-    "tested-on": "Testado em"
+    "tested-on": "Testado em",
+    "most-performant-clusters": "Clusters mais performáticos",
+    "most-stable-clusters": "Clusters mais estáveis (menos variação de desempenho)",
+    "new-feature": "Nova Funcionalidade"
   },
   "metrics": {
     "core-web-vitals": "Core Web Vitals",
@@ -108,7 +111,9 @@
     "billing": "Faturamento",
     "notifications": "Notificações",
     "page": "Página",
-    "of": "de"
+    "of": "de",
+    "noResults": "Sem resultados",
+    "access-denied-message": "Você não tem permissão para acessar esta página."
   },
   "navigation": {
     "dashboard": "Painel",

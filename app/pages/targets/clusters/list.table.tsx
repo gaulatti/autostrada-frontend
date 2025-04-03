@@ -25,7 +25,7 @@ export const columns: ColumnDef<Cluster>[] = [
       return (
         value && (
           <Link asChild>
-            <NavLink to={`/pulses/${value}`}>
+            <NavLink to={`/clusters/${value}`}>
               <code>
                 <>{value}</>
               </code>

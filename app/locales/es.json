@@ -24,7 +24,10 @@
       "desktop-performance": "Rendimiento en computador",
       "mobile-performance": "Rendimiento en celular",
       "performance-gap": "Diferencia de rendimiento",
-      "tested-on": "Probado en"
+      "tested-on": "Probado en",
+      "new-feature": "Nueva Función",
+      "most-performant-clusters": "Clusters más eficientes",
+      "most-stable-clusters": "Clusters más estables (menos variación de rendimiento)"
     },
     "metrics": {
       "core-web-vitals": "Core Web Vitals",
@@ -108,7 +111,9 @@
       "billing": "Facturación",
       "notifications": "Notificaciones",
       "page": "Página",
-      "of": "de"
+      "of": "de",
+      "noResults": "Sin resultados",
+      "access-denied-message": "No tienes permiso para acceder a esta página."
     },
     "navigation": {
       "dashboard": "Panel",
@@ -138,7 +143,8 @@
       "agreeToTerms": "Al continuar, aceptas nuestros",
       "termsOfService": "Términos de servicio",
       "privacyPolicy": "Política de privacidad",
-      "and": "y"
+      "and": "y",
+      "logout": "Cerrar sesión"
     },
     "pages": {
       "403-forbidden": "403 – No tienes permiso",

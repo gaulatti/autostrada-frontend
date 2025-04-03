@@ -14,7 +14,9 @@
     "urls-monitored": "URLs Monitored",
     "desktop-vs-mobile": "Desktop vs Mobile",
     "most-performant-urls": "Most performant URLs",
+    "most-performant-clusters": "Most performant Clusters",
     "most-stable-urls": "Most stable URLs (less performance oscillation)",
+    "most-stable-clusters": "Most stable Clusters (less performance oscillation)",
     "hour-of-day": "Hour of Day",
     "good": "Good",
     "needs-improvement": "Needs Improvement",
@@ -24,7 +26,8 @@
     "desktop-performance": "Desktop Performance",
     "mobile-performance": "Mobile Performance",
     "performance-gap": "Performance Gap",
-    "tested-on": "Tested on"
+    "tested-on": "Tested on",
+    "new-feature": "New Feature"
   },
   "metrics": {
     "core-web-vitals": "Core Web Vitals",
@@ -108,7 +111,9 @@
     "billing": "Billing",
     "notifications": "Notifications",
     "page": "Page",
-    "of": "of"
+    "of": "of",
+    "noResults": "No Results",
+    "access-denied-message": "You do not have permission to access this page."
   },
   "navigation": {
     "dashboard": "Dashboard",

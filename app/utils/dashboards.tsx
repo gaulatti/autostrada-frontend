@@ -1,5 +1,23 @@
 import moment from 'moment';
 
+export type PerformanceData = {
+  url?: string;
+  name?: string;
+  slug: string;
+  average?: number;
+  grades?: number[];
+  variation?: number;
+  desktopAverage?: number;
+  mobileAverage?: number;
+  difference?: number;
+};
+
+export type PerformantDashboardProps = {
+  desktop: PerformanceData[];
+  mobile: PerformanceData[];
+  differences: PerformanceData[];
+};
+
 /**
  * Determines the CSS class for the text color based on the given score.
  *
