@@ -118,6 +118,8 @@ export function Layout({ children }: { children: React.ReactNode }): JSX.Element
     <html lang='en'>
       <head>
         <meta charSet='utf-8' />
+        <meta property="og:title" content="Autostrada" />
+        <meta property="og:image" content="https://autostrada.gaulatti.com/og.png" />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <meta name='anthem' content='https://www.youtube.com/watch?v=TaqJ6UDSRHA' />
         <meta name="description" content="X-Ray your frontend. From every angle. Bella Stronza style." />
