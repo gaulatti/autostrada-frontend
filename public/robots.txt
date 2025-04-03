@@ -1,6 +1,10 @@
+User-agent: facebookexternalhit
+Allow: /
+
 User-agent: *
 Disallow: /
 Allow: /$
 Allow: /clusters$
 Allow: /pulses$
 Allow: /urls$
+Allow: /og.png
