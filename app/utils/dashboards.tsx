@@ -18,38 +18,41 @@ export type PerformantDashboardProps = {
   differences: PerformanceData[];
 };
 
+
 /**
  * Determines the CSS class for the text color based on the given score.
  *
  * @param score - A numeric value representing the score.
- *                - If the score is 90 or above, it returns 'text-green-500'.
- *                - If the score is between 50 (inclusive) and 89, it returns 'text-amber-500'.
- *                - If the score is below 50, it returns 'text-red-500'.
+ *                - If the score is 90 or above, it returns 'text-green-700'.
+ *                - If the score is between 50 and 89 (inclusive), it returns 'text-amber-800'.
+ *                - If the score is below 50, it returns 'text-red-700'.
  * @returns A string representing the CSS class for the text color.
  */
 const getScoreColor = (score: number) => {
-  if (score >= 90) return 'text-green-500';
-  if (score >= 50) return 'text-amber-500';
-  return 'text-red-500';
+  if (score >= 90) return 'text-green-700';
+  if (score >= 50) return 'text-amber-800';
+  return 'text-red-700';
 };
 
+
 /**
- * Determines the color associated with a progress value.
+ * Determines the color representing progress based on a given value.
  *
- * @param value - The progress value as a percentage (0 to 100).
- * @param inverted - Optional flag to invert the progress value. If `true`, the value is calculated as `100 - value`.
- * @returns A string representing the hex color code:
- * - `#22c55e` (green) for values >= 90.
- * - `#eab308` (yellow) for values >= 75 and < 90.
- * - `#ef4444` (red) for values < 75.
+ * @param value - The progress value as a number between 0 and 100.
+ * @param inverted - Optional boolean indicating whether the progress value should be inverted (default is `false`).
+ *                    If `true`, the value is recalculated as `100 - value`.
+ * @returns A string representing a hex color code:
+ *          - `#15803d` (green) for values >= 90.
+ *          - `#92400e` (amber) for values >= 75 and < 90.
+ *          - `#b91c1c` (red) for values < 75.
  */
 const getProgressColor = (value: number, inverted = false) => {
   if (inverted) {
     value = 100 - value;
   }
-  if (value >= 90) return '#22c55e';
-  if (value >= 75) return '#eab308';
-  return '#ef4444';
+  if (value >= 90) return '#15803d';
+  if (value >= 75) return '#92400e';
+  return '#b91c1c';
 };
 
 /**
