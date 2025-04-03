@@ -120,6 +120,7 @@ export function Layout({ children }: { children: React.ReactNode }): JSX.Element
         <meta charSet='utf-8' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <meta name='anthem' content='https://www.youtube.com/watch?v=TaqJ6UDSRHA' />
+        <meta name="description" content="X-Ray your frontend. From every angle. Bella Stronza style.">
         <link rel='icon' href='/favicon.png'></link>
         <Meta />
         <Links />
