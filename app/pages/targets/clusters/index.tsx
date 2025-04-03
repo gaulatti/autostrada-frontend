@@ -3,6 +3,8 @@ import { Plus } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Breadcrumbs, type BreadcrumbItem } from '~/components/breadcrumbs';
 import { SiteHeader } from '~/components/header';
+import { useFeatureFlags } from '~/hooks/useFeatureFlags';
+import { Forbidden } from '~/pages/403';
 import { DataTable } from './list.table';
 
 export function meta() {
@@ -11,6 +13,7 @@ export function meta() {
 
 const Clusters = () => {
   const { t } = useTranslation();
+  const featureFlags = useFeatureFlags();
   const breadcrumbItems: BreadcrumbItem[] = [
     {
       title: t('navigation.home'),
@@ -21,6 +24,14 @@ const Clusters = () => {
       link: '/clusters',
     },
   ];
+
+  /**
+   * Phased opening
+   */
+  if (!featureFlags('6jraJ9xFy3nFzAYQzb40f').isEnabled()) {
+    return <Forbidden />;
+  }
+
   return (
     <>
       <SiteHeader title={t('targets.clusters')} button={{ action: () => alert('lala'), icon: <Plus /> }} />

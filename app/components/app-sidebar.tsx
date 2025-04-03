@@ -1,5 +1,5 @@
 import { Select } from '@radix-ui/themes';
-import { FileCode, HeartPulse, LayoutList, Newspaper, Radar, Tv, User } from 'lucide-react';
+import { Cable, FileCode, FolderKanban, Group, HeartPulse, LayoutList, MonitorSmartphone, Newspaper, Radar, Tv, User } from 'lucide-react';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavMain } from '~/components/nav-main';
@@ -47,35 +47,39 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             isActive: true,
             slug: 'O55KuRrIodma8kTP2Ium7',
           },
-          // {
-          //   title: t('scans.projects'),
-          //   url: '/scans/projects',
-          //   icon: FolderKanban,
-          //   isActive: true,
-          // },
-          // {
-          //   title: t('scans.providers'),
-          //   url: '/scans/providers',
-          //   icon: Cable,
-          //   isActive: true,
-          // },
-          // {
-          //   title: t('scans.platforms'),
-          //   url: '/scans/platforms',
-          //   icon: MonitorSmartphone,
-          //   isActive: true,
-          // },
+          {
+            title: t('scans.projects'),
+            url: '/scans/projects',
+            icon: FolderKanban,
+            isActive: true,
+            slug: 'i36vK5lfJkmINxPjPHsbr',
+          },
+          {
+            title: t('scans.providers'),
+            url: '/scans/providers',
+            icon: Cable,
+            isActive: true,
+            slug: 'VuZIHN9dGEBL0F6B4mZmw',
+          },
+          {
+            title: t('scans.platforms'),
+            url: '/scans/platforms',
+            icon: MonitorSmartphone,
+            isActive: true,
+            slug: 'YR9ZOXmPkSPNRhvjgXUUW',
+          },
         ],
       },
       {
         name: t('targets.section'),
         items: [
-          //     {
-          //       title: t('targets.clusters'),
-          //       url: '/targets/clusters',
-          //       icon: Group,
-          //       isActive: true,
-          //     },
+          {
+            title: t('targets.clusters'),
+            url: '/clusters',
+            icon: Group,
+            isActive: true,
+            slug: '6jraJ9xFy3nFzAYQzb40f',
+          },
           {
             title: t('targets.urls'),
             url: '/urls',
