@@ -74,7 +74,7 @@ export function NavUser() {
                   </div>
                 </div>
               </DropdownMenuLabel>
-              <DropdownMenuSeparator />
+              {/* <DropdownMenuSeparator />
               <DropdownMenuGroup>
                 <DropdownMenuItem>
                   <Sparkles />
@@ -95,7 +95,7 @@ export function NavUser() {
                   <Bell />
                   {t('ui.notifications')}
                 </DropdownMenuItem>
-              </DropdownMenuGroup>
+              </DropdownMenuGroup> */}
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => navigate('/logout')}>
                 <LogOut />
