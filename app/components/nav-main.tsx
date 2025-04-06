@@ -13,6 +13,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
+  useSidebar,
 } from '~/components/ui/sidebar';
 import { useFeatureFlags } from '~/hooks/useFeatureFlags';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './ui/collapsible';
@@ -36,6 +37,7 @@ export function NavMain({
   }[];
 }) {
   const featureEnabled = useFeatureFlags();
+  const { setOpenMobile, isMobile } = useSidebar();
 
   return (
     <SidebarGroup>
@@ -72,16 +74,24 @@ export function NavMain({
                   </Collapsible>
                 ) : (
                   featureEnabled(item.slug).isEnabled() && (
-                    <SidebarMenuItem>
-                      <SidebarMenuButton tooltip={item.title}>
-                        {item.icon && <item.icon />}
-                        <Link asChild>
-                          <NavLink to={item.url}>
+                    <Link
+                      asChild
+                      onClick={() => {
+                        if (isMobile) {
+                          setOpenMobile(false);
+                        }
+                      }}
+                      key={item.slug}
+                    >
+                      <NavLink to={item.url}>
+                        <SidebarMenuItem>
+                          <SidebarMenuButton tooltip={item.title}>
+                            {item.icon && <item.icon />}
                             <span>{item.title}</span>
-                          </NavLink>
-                        </Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
+                          </SidebarMenuButton>
+                        </SidebarMenuItem>
+                      </NavLink>
+                    </Link>
                   )
                 )}
               </>
