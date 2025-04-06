@@ -151,5 +151,21 @@
     "404-not-found": "404 Pagina non trovata",
     "select-date-range": "Seleziona intervallo di date",
     "header": "Intestazione"
+  },
+  "time": {
+    "future": "in %s",
+    "past": "%s fa",
+    "s": "1s",
+    "ss": "%ss",
+    "m": "1m",
+    "mm": "%dm",
+    "h": "1h",
+    "hh": "%dh",
+    "d": "1g",
+    "dd": "%dg",
+    "M": "1M",
+    "MM": "%dM",
+    "y": "1a",
+    "yy": "%da"
   }
 }

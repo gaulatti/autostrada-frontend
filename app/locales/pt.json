@@ -151,5 +151,21 @@
     "404-not-found": "404 Página não encontrada",
     "select-date-range": "Selecione o intervalo de datas",
     "header": "Cabeçalho"
+  },
+  "time": {
+    "future": "em %s",
+    "past": "há %s",
+    "s": "1s",
+    "ss": "%ss",
+    "m": "1m",
+    "mm": "%dm",
+    "h": "1h",
+    "hh": "%dh",
+    "d": "1d",
+    "dd": "%dd",
+    "M": "1M",
+    "MM": "%dM",
+    "y": "1a",
+    "yy": "%da"
   }
 }

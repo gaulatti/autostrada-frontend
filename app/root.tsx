@@ -15,7 +15,9 @@ import { useTranslation } from 'react-i18next';
 /**
  * Initializing i18n
  */
-import './i18n';
+import i18n from './i18n';
+const { t } = i18n;
+
 
 /**
  * This is important. It enables the OAuth listener for the Auth module.
@@ -50,20 +52,20 @@ const fqdn = import.meta.env.VITE_FQDN;
  */
 moment.updateLocale('en', {
   relativeTime: {
-    future: 'in %s',
-    past: '%s ago',
-    s: '%ss',
-    ss: '%ss',
-    m: '1m',
-    mm: '%dm',
-    h: '1h',
-    hh: '%dh',
-    d: '1d',
-    dd: '%dd',
-    M: '1M',
-    MM: '%dM',
-    y: '1y',
-    yy: '%dy',
+    future: i18n.t('time.future'),
+    past: i18n.t('time.past'),
+    s: i18n.t('time.s'),
+    ss: i18n.t('time.ss'),
+    m: i18n.t('time.m'),
+    mm: i18n.t('time.mm'),
+    h: i18n.t('time.h'),
+    hh: i18n.t('time.hh'),
+    d: i18n.t('time.d'),
+    dd: i18n.t('time.dd'),
+    M: i18n.t('time.M'),
+    MM: i18n.t('time.MM'),
+    y: i18n.t('time.y'),
+    yy: i18n.t('time.yy'),
   },
 });
 

@@ -151,5 +151,21 @@
     "404-not-found": "404 Seite nicht gefunden",
     "select-date-range": "Datumsbereich auswählen",
     "header": "Kopfzeile"
+  },
+  "time": {
+    "future": "in %s",
+    "past": "vor %s",
+    "s": "1s",
+    "ss": "%ss",
+    "m": "1m",
+    "mm": "%dm",
+    "h": "1h",
+    "hh": "%dh",
+    "d": "1T",
+    "dd": "%dT",
+    "M": "1M",
+    "MM": "%dM",
+    "y": "1J",
+    "yy": "%dJ"
   }
 }

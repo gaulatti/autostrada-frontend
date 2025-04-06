@@ -151,5 +151,21 @@
     "404-not-found": "404 Page Not Found",
     "select-date-range": "Select Date Range",
     "header": "Header"
+  },
+  "time": {
+    "future": "in %s",
+    "past": "%s ago",
+    "s": "1s",
+    "ss": "%ss",
+    "m": "1m",
+    "mm": "%dm",
+    "h": "1h",
+    "hh": "%dh",
+    "d": "1d",
+    "dd": "%dd",
+    "M": "1M",
+    "MM": "%dM",
+    "y": "1y",
+    "yy": "%dy"
   }
 }
