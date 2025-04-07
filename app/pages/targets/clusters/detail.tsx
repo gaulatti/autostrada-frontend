@@ -20,7 +20,7 @@ import { Forbidden } from '~/pages/403';
 import i18n from '~/i18n';
 
 export function meta() {
-  return [{ title: i18n.t('targets.url-detail') }];
+  return [{ title: i18n.t('targets.cluster-detail') }];
 }
 
 /**
@@ -64,14 +64,14 @@ const ClusterDetail = () => {
   const { slug } = useParams();
   const [timeRange, setTimeRange] = useState<DateRange>();
   const queryParams = useMemo(() => ({ ...timeRange }), [timeRange]);
-  const { data } = useAPI(Method.GET, [], `urls/${slug}`, queryParams);
+  const { data } = useAPI(Method.GET, [], `clusters/${slug}`, queryParams);
   const featureFlags = useFeatureFlags();
   const { t } = useTranslation();
 
   const breadcrumbItems: BreadcrumbItem[] = [
     { title: t('navigation.home'), link: '/' },
-    { title: t('targets.urls'), link: '/urls' },
-    { title: t('targets.url-detail'), link: `/urls/${slug}` },
+    { title: t('targets.clusters'), link: '/clusters' },
+    { title: t('targets.cluster-detail'), link: `/clusters/${slug}` },
   ];
 
   /**
@@ -83,7 +83,7 @@ const ClusterDetail = () => {
 
   return (
     <>
-      <SiteHeader title={t('targets.url-detail')} actions={<DatePickerWithRange onUpdate={setTimeRange} />} />
+      <SiteHeader title={t('targets.cluster-detail')} actions={<DatePickerWithRange onUpdate={setTimeRange} />} />
       <Flex className='m-6' gap='6' direction='column'>
         <Breadcrumbs items={breadcrumbItems} />
         {slug && data ? (
@@ -97,7 +97,7 @@ const ClusterDetail = () => {
             </div>
             <StableUrls data={data!.stats.stability} />
             <TimeOfDay data={data!.stats.timeOfDay} />
-            <DataTable slug={slug} timeRange={timeRange} />
+            {/* <DataTable slug={slug} timeRange={timeRange} /> */}
           </>
         ) : (
           <OverlaySpinner />

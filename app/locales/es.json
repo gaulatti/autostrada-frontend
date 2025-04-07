@@ -73,7 +73,9 @@
       "url-detail": "Detalle de URL",
       "urls": "URLs",
       "urls-table": "Tabla de URLs",
-      "section": "Targets"
+      "section": "Targets",
+      "cluster-detail": "Detalle del Cluster",
+      "cluster-detail-table": "Tabla de Detalles del Cluster"
     },
     "ui": {
       "user-avatar": "Avatar de usuario",

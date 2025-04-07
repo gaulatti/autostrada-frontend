@@ -73,7 +73,9 @@
     "url-detail": "Detalhe de URL",
     "urls": "URLs",
     "urls-table": "Tabela de URLs",
-    "section": "Alvos"
+    "section": "Alvos",
+    "cluster-detail": "Detalhe do Cluster",
+    "cluster-detail-table": "Tabela de Detalhes do Cluster"
   },
   "ui": {
     "user-avatar": "Avatar do usuário",

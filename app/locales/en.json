@@ -69,6 +69,8 @@
   "targets": {
     "clusters": "Clusters",
     "clusters-table": "Clusters Table",
+    "cluster-detail": "Cluster Detail",
+    "cluster-detail-table": "Cluster Detail Table",
     "url-detail-table": "URL Detail Table",
     "url-detail": "URL Detail",
     "urls": "URLs",

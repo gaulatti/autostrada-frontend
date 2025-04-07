@@ -73,7 +73,9 @@
     "url-detail": "Dettaglio dell'URL",
     "urls": "URL",
     "urls-table": "Tabella degli URL",
-    "section": "Obiettivi"
+    "section": "Obiettivi",
+    "cluster-detail": "Dettaglio del Cluster",
+    "cluster-detail-table": "Tabella dei Dettagli del Cluster"
   },
   "ui": {
     "user-avatar": "Avatar utente",
