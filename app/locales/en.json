@@ -27,7 +27,8 @@
     "mobile-performance": "Mobile Performance",
     "performance-gap": "Performance Gap",
     "tested-on": "Tested on",
-    "new-feature": "New Feature"
+    "new-feature": "New Feature",
+    "name": "Name"
   },
   "metrics": {
     "core-web-vitals": "Core Web Vitals",
@@ -113,7 +114,9 @@
     "page": "Page",
     "of": "of",
     "noResults": "No Results",
-    "access-denied-message": "You do not have permission to access this page."
+    "access-denied-message": "You do not have permission to access this page.",
+    "url": "URL",
+    "name": "Name"
   },
   "navigation": {
     "dashboard": "Dashboard",

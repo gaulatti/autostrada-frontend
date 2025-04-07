@@ -1,5 +1,5 @@
-import { URLNavbar } from '../url-navbar';
 import { useTranslation } from 'react-i18next';
+import { URLNavbar } from '../url-navbar';
 
 /**
  * A React functional component that renders a report header with information about a pulse or heartbeat.
@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
  * @returns {JSX.Element} A header element containing the URL navigation bar, a comparison badge, and the test date.
  */
 const ReportHeader = ({ pulse, heartbeat, url }: { pulse?: any; heartbeat?: any; url?: any }) => {
-  const { t } = useTranslation(); // Added hook
+  const { t } = useTranslation();
 
   let fqdn;
   if (url) {
@@ -32,7 +32,11 @@ const ReportHeader = ({ pulse, heartbeat, url }: { pulse?: any; heartbeat?: any;
         <URLNavbar url={fqdn} />
         <span className='px-2 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100 text-xs rounded-full'>{t('scans.comparison')}</span>
       </div>
-      {pulse && <div className='text-sm text-gray-500 dark:text-gray-400'>{t('dashboard.tested-on')}: {new Date(pulse.createdAt).toLocaleString()}</div>}
+      {pulse && (
+        <div className='text-sm text-gray-500 dark:text-gray-400'>
+          {t('dashboard.tested-on')}: {new Date(pulse.createdAt).toLocaleString()}
+        </div>
+      )}
     </header>
   );
 };

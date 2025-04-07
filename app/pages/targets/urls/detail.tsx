@@ -15,9 +15,9 @@ import { SiteHeader } from '~/components/header';
 import { ReportHeader } from '~/components/scans/report-header';
 import { OverlaySpinner } from '~/components/spinners';
 import { useFeatureFlags } from '~/hooks/useFeatureFlags';
+import i18n from '~/i18n';
 import { Forbidden } from '~/pages/403';
 import { DataTable } from './detail.table';
-import i18n from '~/i18n';
 
 export function meta() {
   return [{ title: i18n.t('targets.url-detail') }];
@@ -90,12 +90,11 @@ const UrlDetail = () => {
           <>
             <ReportHeader url={data} />
             <UrlSummaryCards data={data!.stats} />
-
             <div className='grid grid-cols-2 gap-6'>
               <CwvHistory data={data!.stats.history} />
               <GradesRadial data={data!.stats.grades} />
             </div>
-            <StableUrls data={data!.stats.stability} />
+            <StableUrls data={data!.stats.stability} solo={true} />
             <TimeOfDay data={data!.stats.timeOfDay} />
             <DataTable slug={slug} timeRange={timeRange} />
           </>

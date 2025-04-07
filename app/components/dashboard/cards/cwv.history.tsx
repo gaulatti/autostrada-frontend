@@ -6,7 +6,7 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from '~/components/
 import { dateFormatter, labelFormatter } from '~/utils/dashboards';
 
 const CwvHistory = ({ data }) => {
-  const { t } = useTranslation(); // Added hook
+  const { t } = useTranslation();
 
   // Define colors from @radix-ui/themes (feel free to adjust these variables)
   const colors = {

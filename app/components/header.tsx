@@ -1,8 +1,8 @@
 import { Button } from '@radix-ui/themes';
 import type { JSX } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Separator } from './ui/separator';
 import { SidebarTrigger } from './ui/sidebar';
-import { useTranslation } from 'react-i18next'; // Added import
 
 /**
  * A functional component that renders the site's header with a title, optional button, and additional actions.
@@ -17,7 +17,7 @@ import { useTranslation } from 'react-i18next'; // Added import
  * @returns {JSX.Element} The rendered header component.
  */
 const SiteHeader = ({ title, button, actions }: { title: string; button?: { action: () => void; icon: JSX.Element }; actions?: JSX.Element }): JSX.Element => {
-  const { t } = useTranslation(); // Added hook
+  const { t } = useTranslation();
 
   return (
     <header className='group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 flex h-12 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear'>

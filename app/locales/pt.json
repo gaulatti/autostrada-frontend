@@ -27,7 +27,8 @@
     "tested-on": "Testado em",
     "most-performant-clusters": "Clusters mais performáticos",
     "most-stable-clusters": "Clusters mais estáveis (menos variação de desempenho)",
-    "new-feature": "Nova Funcionalidade"
+    "new-feature": "Nova Funcionalidade",
+    "name": "Nome"
   },
   "metrics": {
     "core-web-vitals": "Core Web Vitals",
@@ -113,7 +114,9 @@
     "page": "Página",
     "of": "de",
     "noResults": "Sem resultados",
-    "access-denied-message": "Você não tem permissão para acessar esta página."
+    "access-denied-message": "Você não tem permissão para acessar esta página.",
+    "url": "URL",
+    "name": "Nome"
   },
   "navigation": {
     "dashboard": "Painel",

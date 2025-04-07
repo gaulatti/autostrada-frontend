@@ -27,7 +27,8 @@
     "tested-on": "Getestet auf",
     "new-feature": "Neue Funktion",
     "most-performant-clusters": "Leistungsstärkste Cluster",
-    "most-stable-clusters": "Stabilste Cluster (weniger Leistungsschwankungen)"
+    "most-stable-clusters": "Stabilste Cluster (weniger Leistungsschwankungen)",
+    "name": "Name"
   },
   "metrics": {
     "core-web-vitals": "Core Web Vitals",
@@ -113,7 +114,9 @@
     "page": "Seite",
     "of": "von",
     "noResults": "Keine Ergebnisse",
-    "access-denied-message": "Sie haben keine Berechtigung, auf diese Seite zuzugreifen."
+    "access-denied-message": "Sie haben keine Berechtigung, auf diese Seite zuzugreifen.",
+    "url": "URL",
+    "name": "Name"
   },
   "navigation": {
     "dashboard": "Dashboard",

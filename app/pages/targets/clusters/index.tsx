@@ -9,7 +9,6 @@ import { SiteHeader } from '~/components/header';
 import { useFeatureFlags } from '~/hooks/useFeatureFlags';
 import { Forbidden } from '~/pages/403';
 import { DataTable } from './list.table';
-import { PerformantUrls } from '~/components/dashboard/performant.urls';
 import { PerformantClusters } from '~/components/dashboard/performant.clusters';
 
 export function meta() {

@@ -27,7 +27,8 @@
     "tested-on": "Testé sur",
     "new-feature": "Nouvelle Fonctionnalité",
     "most-performant-clusters": "Clusters les plus performants",
-    "most-stable-clusters": "Clusters les plus stables (moins de variations de performance)"
+    "most-stable-clusters": "Clusters les plus stables (moins de variations de performance)",
+    "name": "Nom"
   },
   "metrics": {
     "core-web-vitals": "Core Web Vitals",
@@ -113,7 +114,9 @@
     "page": "Page",
     "of": "de",
     "noResults": "Aucun résultat",
-    "access-denied-message": "Vous n'avez pas la permission d'accéder à cette page."
+    "access-denied-message": "Vous n'avez pas la permission d'accéder à cette page.",
+    "url": "URL",
+    "name": "Nom"
   },
   "navigation": {
     "dashboard": "Tableau de bord",

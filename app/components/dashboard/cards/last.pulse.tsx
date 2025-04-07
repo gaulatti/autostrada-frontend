@@ -1,7 +1,7 @@
 import { Clock } from 'lucide-react';
 import moment from 'moment';
-import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { useTranslation } from 'react-i18next';
+import { DataCard } from './data.card';
 
 /**
  * A React component that displays the last recorded pulse time.
@@ -22,18 +22,20 @@ import { useTranslation } from 'react-i18next';
  * ```
  */
 const LastPulse = ({ time }: { time: Date }) => {
-  const { t } = useTranslation(); // Added hook
+  const { t } = useTranslation();
 
   return (
-    <Card>
-      <CardHeader className='flex flex-row items-center justify-between pb-2'>
-        <CardTitle className='text-sm font-medium'>{t('dashboard.last-pulse')}</CardTitle>
-        <Clock className='w-4 h-4 text-muted-foreground' />
-      </CardHeader>
-      <CardContent>
-        <div className='text-2xl font-bold'>{moment(time).fromNow()}</div>
-      </CardContent>
-    </Card>
+    <DataCard
+      backgroundColor='bg-slate-100'
+      textColor='text-slate-800'
+      header={
+        <div className='flex w-full justify-between'>
+          <span>{t('dashboard.last-pulse')}</span>
+          <Clock className='w-4 h-4 text-muted-foreground' />
+        </div>
+      }
+      main={<div className='text-2xl font-black'>{moment(time).fromNow()}</div>}
+    />
   );
 };
 

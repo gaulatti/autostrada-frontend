@@ -1,6 +1,6 @@
 import { BarChart3 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
+import { DataCard } from './data.card';
 
 /**
  * A React component that displays the average performance value inside a styled card.
@@ -11,16 +11,20 @@ import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
  */
 const AveragePerformance = ({ average }: { average: number }) => {
   const { t } = useTranslation();
+
+
   return (
-    <Card>
-      <CardHeader className='flex flex-row items-center justify-between pb-2'>
-        <CardTitle className='text-sm font-medium'>{t('dashboard.avg-performance')}</CardTitle>
-        <BarChart3 className='w-4 h-4 text-muted-foreground' />
-      </CardHeader>
-      <CardContent>
-        <div className='text-2xl font-bold'>{average}</div>
-      </CardContent>
-    </Card>
+    <DataCard
+      backgroundColor='bg-slate-100'
+      textColor='text-slate-800'
+      header={
+        <div className='flex w-full justify-between'>
+          <span>{t('dashboard.avg-performance')}</span>
+          <BarChart3 className='w-4 h-4 text-muted-foreground' />
+        </div>
+      }
+      main={<div className='text-2xl font-black'>{average}</div>}
+    />
   );
 };
 
