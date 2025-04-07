@@ -1,9 +1,9 @@
 import { Laptop, Smartphone } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router';
-import { CartesianGrid, Line, LineChart, ResponsiveContainer, YAxis } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
 import { getProgressColor } from '~/utils/dashboards';
+import { UrlPerformance } from './url.performance';
 
 interface UrlData {
   url: string;
@@ -54,31 +54,8 @@ const StableUrls = ({ data }: { data: StableUrlsProps }) => {
         </CardHeader>
         <CardContent>
           <div className='space-y-4'>
-            {data.desktop.map((url, index) => (
-              <NavLink to={`/urls/${url.slug}`} key={index} className='flex items-center justify-between h-[50px]'>
-                <div className='flex-1'>
-                  <div className='flex items-center justify-between mb-1'>
-                    <span className='text-sm font-medium truncate' title={url.url}>
-                      {url.url}
-                    </span>
-                    <span className='text-sm font-bold' style={{ color: getProgressColor(url.average!) }}>
-                      {url.average}
-                    </span>
-                  </div>
-                  <div className='flex items-center'>
-                    <div className='w-full h-8'>
-                      <ResponsiveContainer className='w-full' height={30}>
-                        <LineChart data={url.grades!.map((value, i) => ({ value, index: i }))}>
-                          <CartesianGrid />
-                          <Line type='monotone' dataKey='value' stroke={getProgressColor(url.average!)} strokeWidth={2} dot={false} />
-                          <YAxis domain={[url.average! - url.variation!, url.average! + url.variation!]} hide />
-                        </LineChart>
-                      </ResponsiveContainer>
-                    </div>
-                    <div className='ml-2 text-xs text-muted-foreground'>± {url.variation}</div>
-                  </div>
-                </div>
-              </NavLink>
+            {data.desktop.map((url) => (
+              <UrlPerformance url={url} />
             ))}
           </div>
         </CardContent>
@@ -93,31 +70,8 @@ const StableUrls = ({ data }: { data: StableUrlsProps }) => {
         </CardHeader>
         <CardContent>
           <div className='space-y-4'>
-            {data.mobile.map((url, index) => (
-              <NavLink to={`/urls/${url.slug}`} key={index} className='flex items-center justify-between h-[50px]'>
-                <div className='flex-1'>
-                  <div className='flex items-center justify-between mb-1'>
-                    <span className='text-sm font-medium truncate' title={url.url}>
-                      {url.url}
-                    </span>
-                    <span className='text-sm font-bold' style={{ color: getProgressColor(url.average!) }}>
-                      {url.average}
-                    </span>
-                  </div>
-                  <div className='flex items-center'>
-                    <div className='w-full h-8 pr-5'>
-                      <ResponsiveContainer className='w-full' height={30}>
-                        <LineChart data={url.grades!.map((value, i) => ({ value, index: i }))}>
-                          <CartesianGrid />
-                          <Line type='monotone' dataKey='value' stroke={getProgressColor(url.average!)} strokeWidth={2} dot={false} />
-                          <YAxis domain={[url.average! - url.variation!, url.average! + url.variation!]} hide />
-                        </LineChart>
-                      </ResponsiveContainer>
-                    </div>
-                    <div className='ml-2 text-xs text-muted-foreground'>± {url.variation}</div>
-                  </div>
-                </div>
-              </NavLink>
+            {data.mobile.map((url) => (
+              <UrlPerformance url={url} />
             ))}
           </div>
         </CardContent>

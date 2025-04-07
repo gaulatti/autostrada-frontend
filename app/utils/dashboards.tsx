@@ -51,7 +51,7 @@ const getProgressColor = (value: number, inverted = false) => {
     value = 100 - value;
   }
   if (value >= 90) return '#15803d';
-  if (value >= 75) return '#92400e';
+  if (value >= 75) return '#ea580c';
   return '#b91c1c';
 };
 
@@ -70,19 +70,19 @@ const getProgressColor = (value: number, inverted = false) => {
 const calculateGrade = (performance: number, accessibility: number, bestPractices: number, seo: number) => {
   const weightedScore = performance * 0.4 + accessibility * 0.2 + bestPractices * 0.2 + seo * 0.2;
 
-  if (weightedScore >= 97) return { grade: 'A+', color: 'text-green-600' };
-  if (weightedScore >= 93) return { grade: 'A', color: 'text-green-600' };
-  if (weightedScore >= 90) return { grade: 'A-', color: 'text-green-600' };
-  if (weightedScore >= 87) return { grade: 'B+', color: 'text-green-500' };
-  if (weightedScore >= 83) return { grade: 'B', color: 'text-green-500' };
-  if (weightedScore >= 80) return { grade: 'B-', color: 'text-green-500' };
-  if (weightedScore >= 77) return { grade: 'C+', color: 'text-amber-500' };
-  if (weightedScore >= 73) return { grade: 'C', color: 'text-amber-500' };
-  if (weightedScore >= 70) return { grade: 'C-', color: 'text-amber-500' };
-  if (weightedScore >= 67) return { grade: 'D+', color: 'text-amber-600' };
-  if (weightedScore >= 63) return { grade: 'D', color: 'text-amber-600' };
-  if (weightedScore >= 60) return { grade: 'D-', color: 'text-amber-600' };
-  return { grade: 'F', color: 'text-red-600' };
+  if (weightedScore >= 97) return { grade: 'A+', color: 'text-green-600', textColor: 'text-green-600' };
+  if (weightedScore >= 93) return { grade: 'A', color: 'text-green-600', textColor: 'text-green-600' };
+  if (weightedScore >= 90) return { grade: 'A-', color: 'text-green-600', textColor: 'text-green-600' };
+  if (weightedScore >= 87) return { grade: 'B+', color: 'text-green-500', textColor: 'text-green-500' };
+  if (weightedScore >= 83) return { grade: 'B', color: 'text-green-500', textColor: 'text-green-500' };
+  if (weightedScore >= 80) return { grade: 'B-', color: 'text-green-500', textColor: 'text-green-500' };
+  if (weightedScore >= 77) return { grade: 'C+', color: 'text-amber-400', textColor: 'text-amber-400' };
+  if (weightedScore >= 73) return { grade: 'C', color: 'text-amber-400', textColor: 'text-amber-400' };
+  if (weightedScore >= 70) return { grade: 'C-', color: 'text-amber-400', textColor: 'text-amber-400' };
+  if (weightedScore >= 67) return { grade: 'D+', color: 'text-amber-400', textColor: 'text-amber-400' };
+  if (weightedScore >= 63) return { grade: 'D', color: 'text-amber-400', textColor: 'text-amber-400' };
+  if (weightedScore >= 60) return { grade: 'D-', color: 'text-amber-400', textColor: 'text-amber-400' };
+  return { grade: 'F', color: 'text-red-600', textColor: 'text-red-600' };
 };
 
 /**
