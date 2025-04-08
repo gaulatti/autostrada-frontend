@@ -10,10 +10,13 @@ import { OverallGrade } from '~/components/metrics/overall-grade';
 import { Opportunities } from '~/components/scans/opportunities';
 import { ReportHeader } from '~/components/scans/report-header';
 import { useFeatureFlags } from '~/hooks/useFeatureFlags';
-import { Forbidden } from '~/pages/403';
 import i18n from '~/i18n';
+import { Forbidden } from '~/pages/403';
 
 export function meta() {
+  i18n.on('languageChanged', () => {
+    document.title = i18n.t('scans.heartbeat-details');
+  });
   return [{ title: i18n.t('scans.heartbeat-details') }];
 }
 
@@ -41,6 +44,7 @@ const HeartbeatReport = () => {
   const { slug } = useParams();
   const { data } = useAPI(Method.GET, [], `heartbeats/${slug}`);
   const featureFlags = useFeatureFlags();
+
   const { t } = useTranslation();
 
   const breadcrumbItems: BreadcrumbItem[] = [
@@ -61,8 +65,6 @@ const HeartbeatReport = () => {
       <>
         <SiteHeader title={t('scans.heartbeat-details')} />
         <Flex className='m-6' gap='3' direction='column'>
-          <Breadcrumbs items={breadcrumbItems} />
-
           <Breadcrumbs items={breadcrumbItems} />
 
           {/* Overall Grade */}

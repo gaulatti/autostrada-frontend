@@ -1,49 +1,49 @@
-import { Link } from '@radix-ui/themes';
 import { type ColumnDef, flexRender, getCoreRowModel, type SortingState, useReactTable } from '@tanstack/react-table';
 import { useMemo, useState } from 'react';
-import { NavLink } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import { Method, useAPI } from '~/clients/api';
 import { PaginationControls } from '~/components/pagination-controls';
+import { RenderNavLink } from '~/components/ui/render.navlink';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table';
 import { useRandom } from '~/hooks/useRandom';
-import { useTranslation } from 'react-i18next';
-import { RenderNavLink } from '~/components/ui/render.navlink';
-import i18n from '~/i18n';
 export type Url = {
   slug: string;
   url: { slug: string; url: string };
 };
 
-export const columns: ColumnDef<Url>[] = [
-  {
-    accessorKey: 'slug',
-    header: i18n.t('ui.slug'),
-    cell: ({ cell }) => {
-      const value = cell.getValue() as string;
-      return (
-        value && (
-          <RenderNavLink to={`/urls/${value}`}>
-            <code>{value}</code>
-          </RenderNavLink>
-        )
-      );
+export const useUrlColumns = (): ColumnDef<Url>[] => {
+  const { t } = useTranslation();
+  return [
+    {
+      accessorKey: 'slug',
+      header: () => t('ui.slug'),
+      cell: ({ cell }) => {
+        const value = cell.getValue() as string;
+        return (
+          value && (
+            <RenderNavLink to={`/urls/${value}`}>
+              <code>{value}</code>
+            </RenderNavLink>
+          )
+        );
+      },
     },
-  },
-  {
-    accessorKey: 'url',
-    header: i18n.t('ui.url'),
-    cell: ({ cell, row }) => {
-      const value = row.original;
-      return (
-        value && (
-          <RenderNavLink to={`/urls/${value.slug}`}>
-            <>{value.url}</>
-          </RenderNavLink>
-        )
-      );
+    {
+      accessorKey: 'url',
+      header: () => t('ui.url'),
+      cell: ({ cell, row }) => {
+        const value = row.original;
+        return (
+          value && (
+            <RenderNavLink to={`/urls/${value.slug}`}>
+              <>{value.url}</>
+            </RenderNavLink>
+          )
+        );
+      },
     },
-  },
-];
+  ];
+};
 
 const DataTable = () => {
   const [page, setPage] = useState(1);
@@ -51,6 +51,7 @@ const DataTable = () => {
   const [random, randomize] = useRandom();
   const [sorting, setSorting] = useState<SortingState>([{ id: 'updatedAt', desc: true }]);
   const { t } = useTranslation();
+  const columns = useUrlColumns();
 
   const sortingParams = useMemo(() => {
     if (sorting.length > 0) {

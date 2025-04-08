@@ -2,10 +2,14 @@ import { Flex } from '@radix-ui/themes';
 import { useTranslation } from 'react-i18next';
 import { Breadcrumbs, type BreadcrumbItem } from '~/components/breadcrumbs';
 import { SiteHeader } from '~/components/header';
+import i18n from '~/i18n';
 import { DataTable } from './list.table';
 
 export function meta() {
-  return [{ title: 'Providers - Autostrada' }];
+  i18n.on('languageChanged', () => {
+    document.title = i18n.t('scans.providers');
+  });
+  return [{ title: i18n.t('scans.providers') }];
 }
 
 const Page = () => {

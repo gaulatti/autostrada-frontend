@@ -20,6 +20,9 @@ import { Forbidden } from '~/pages/403';
 import { DataTable } from './detail.table';
 
 export function meta() {
+  i18n.on('languageChanged', () => {
+    document.title = i18n.t('targets.url-detail');
+  });
   return [{ title: i18n.t('targets.url-detail') }];
 }
 

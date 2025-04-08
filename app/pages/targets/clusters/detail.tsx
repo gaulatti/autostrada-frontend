@@ -20,6 +20,9 @@ import { Forbidden } from '~/pages/403';
 import i18n from '~/i18n';
 
 export function meta() {
+  i18n.on('languageChanged', () => {
+    document.title = i18n.t('targets.cluster-detail');
+  });
   return [{ title: i18n.t('targets.cluster-detail') }];
 }
 

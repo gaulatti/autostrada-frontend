@@ -11,81 +11,79 @@ import { RenderNavLink } from '~/components/ui/render.navlink';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip';
 import { useRandom } from '~/hooks/useRandom';
-import i18n from '~/i18n';
 import type { Pulse } from '~/pages/scans/pulses/list.table';
 export type Url = {
   slug: string;
   url: { slug: string; url: string };
 };
 
-export const columns: ColumnDef<Pulse>[] = [
-  {
-    accessorKey: 'slug',
-    header: i18n.t('ui.slug'),
-    cell: ({ cell }) => {
-      const value = cell.getValue() as string;
-      return (
-        value && (
-          <RenderNavLink to={`/pulses/${value}`}>
-            <code>{value}</code>
-          </RenderNavLink>
-        )
-      );
+const useColumns = (): ColumnDef<Pulse>[] => {
+  const { t } = useTranslation();
+  return [
+    {
+      accessorKey: 'slug',
+      header: () => t('ui.slug'),
+      cell: ({ cell }) => {
+        const value = cell.getValue() as string;
+        return (
+          value && (
+            <RenderNavLink to={`/pulses/${value}`}>
+              <code>{value}</code>
+            </RenderNavLink>
+          )
+        );
+      },
     },
-  },
-  {
-    accessorKey: 'createdAt',
-    header: ({ column }) => {
-      return (
+    {
+      accessorKey: 'createdAt',
+      header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          {i18n.t('ui.created')}
+          {t('ui.created')}
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
-      );
+      ),
+      cell: ({ cell }) => {
+        const value = cell.getValue();
+        return value ? (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>{moment().diff(value, 'hours') < 24 ? moment(value).fromNow() : moment(value).format('MMM D, YYYY [at] HH:mm')}</TooltipTrigger>
+              <TooltipContent>
+                <>{value}</>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        ) : (
+          ''
+        );
+      },
     },
-    cell: ({ cell }) => {
-      const value = cell.getValue();
-      return value ? (
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>{moment().diff(value, 'hours') < 24 ? moment(value).fromNow() : moment(value).format('MMM D, YYYY [at] HH:mm')}</TooltipTrigger>
-            <TooltipContent>
-              <>{value}</>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      ) : (
-        ''
-      );
-    },
-  },
-  {
-    accessorKey: 'updatedAt',
-    header: ({ column }) => {
-      return (
+    {
+      accessorKey: 'updatedAt',
+      header: ({ column }) => (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          {i18n.t('ui.updated')}
+          {t('ui.updated')}
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
-      );
+      ),
+      cell: ({ cell }) => {
+        const value = cell.getValue();
+        return value ? (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>{moment().diff(value, 'hours') < 24 ? moment(value).fromNow() : moment(value).format('MMM D, YYYY [at] HH:mm')}</TooltipTrigger>
+              <TooltipContent>
+                <>{value}</>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        ) : (
+          ''
+        );
+      },
     },
-    cell: ({ cell }) => {
-      const value = cell.getValue();
-      return value ? (
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>{moment().diff(value, 'hours') < 24 ? moment(value).fromNow() : moment(value).format('MMM D, YYYY [at] HH:mm')}</TooltipTrigger>
-            <TooltipContent>
-              <>{value}</>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      ) : (
-        ''
-      );
-    },
-  },
-];
+  ];
+};
 
 const DataTable = ({ slug, timeRange }: { slug: string; timeRange?: DateRange }) => {
   const [page, setPage] = useState(1);
@@ -93,6 +91,7 @@ const DataTable = ({ slug, timeRange }: { slug: string; timeRange?: DateRange })
   const [random, randomize] = useRandom();
   const [sorting, setSorting] = useState<SortingState>([{ id: 'updatedAt', desc: true }]);
   const { t } = useTranslation();
+  const columns = useColumns();
 
   const sortingParams = useMemo(() => {
     if (sorting.length > 0) {

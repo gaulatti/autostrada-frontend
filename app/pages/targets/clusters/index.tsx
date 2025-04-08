@@ -4,15 +4,19 @@ import type { DateRange } from 'react-day-picker';
 import { useTranslation } from 'react-i18next';
 import { Method, useAPI } from '~/clients/api';
 import { Breadcrumbs, type BreadcrumbItem } from '~/components/breadcrumbs';
+import { PerformantClusters } from '~/components/dashboard/performant.clusters';
 import { DatePickerWithRange } from '~/components/date-picker-with-range';
 import { SiteHeader } from '~/components/header';
 import { useFeatureFlags } from '~/hooks/useFeatureFlags';
+import i18n from '~/i18n';
 import { Forbidden } from '~/pages/403';
 import { DataTable } from './list.table';
-import { PerformantClusters } from '~/components/dashboard/performant.clusters';
 
 export function meta() {
-  return [{ title: 'Clusters - Autostrada' }];
+  i18n.on('languageChanged', () => {
+    document.title = i18n.t('targets.clusters');
+  });
+  return [{ title: i18n.t('targets.clusters') }];
 }
 
 const Clusters = () => {

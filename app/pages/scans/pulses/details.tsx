@@ -14,6 +14,9 @@ import i18n from '~/i18n';
 import { Forbidden } from '~/pages/403';
 
 export function meta() {
+  i18n.on('languageChanged', () => {
+    document.title = i18n.t('scans.pulse-details');
+  });
   return [{ title: i18n.t('scans.pulse-details') }];
 }
 

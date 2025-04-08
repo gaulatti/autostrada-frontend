@@ -9,11 +9,15 @@ import { DatePickerWithRange } from '~/components/date-picker-with-range';
 import { SiteHeader } from '~/components/header';
 import { OverlaySpinner } from '~/components/spinners';
 import { useFeatureFlags } from '~/hooks/useFeatureFlags';
+import i18n from '~/i18n';
 import { Forbidden } from '~/pages/403';
 import { DataTable } from './list.table';
 
 export function meta() {
-  return [{ title: 'Urls - Autostrada' }];
+  i18n.on('languageChanged', () => {
+    document.title = i18n.t('targets.urls');
+  });
+  return [{ title: i18n.t('targets.urls') }];
 }
 
 const Urls = () => {

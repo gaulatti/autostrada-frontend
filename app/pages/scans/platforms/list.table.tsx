@@ -6,37 +6,39 @@ import { PaginationControls } from '~/components/pagination-controls';
 import { RenderNavLink } from '~/components/ui/render.navlink';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table';
 import { useRandom } from '~/hooks/useRandom';
-import i18n from '~/i18n';
 
 export type Platform = {
   slug: string;
   url: { slug: string; url: string };
 };
 
-export const columns: ColumnDef<Platform>[] = [
-  {
-    accessorKey: 'slug',
-    header: i18n.t('ui.slug'),
-    cell: ({ cell }) => {
-      const value = cell.getValue() as string;
-      return (
-        value && (
-          <RenderNavLink to={`/platforms/${value}`}>
-            <code>{value}</code>
-          </RenderNavLink>
-        )
-      );
+const useColumns = (): ColumnDef<Platform>[] => {
+  const { t } = useTranslation();
+  return [
+    {
+      accessorKey: 'slug',
+      header: () => t('ui.slug'),
+      cell: ({ cell }) => {
+        const value = cell.getValue() as string;
+        return (
+          value && (
+            <RenderNavLink to={`/platforms/${value}`}>
+              <code>{value}</code>
+            </RenderNavLink>
+          )
+        );
+      },
     },
-  },
-  {
-    accessorKey: 'name',
-    header: i18n.t('ui.name'),
-    cell: ({ cell }) => {
-      const value = cell.getValue() as { slug: string; url: string };
-      return value && <RenderNavLink to={`/platforms/${value.slug}`}>{value.url}</RenderNavLink>;
+    {
+      accessorKey: 'name',
+      header: () => t('ui.name'),
+      cell: ({ cell }) => {
+        const value = cell.getValue() as { slug: string; url: string };
+        return value && <RenderNavLink to={`/platforms/${value.slug}`}>{value.url}</RenderNavLink>;
+      },
     },
-  },
-];
+  ];
+};
 
 const DataTable = () => {
   const [page, setPage] = useState(1);
@@ -44,6 +46,7 @@ const DataTable = () => {
   const [random, randomize] = useRandom();
   const [sorting, setSorting] = useState<SortingState>([{ id: 'updatedAt', desc: true }]);
   const { t } = useTranslation();
+  const columns = useColumns();
 
   const sortingParams = useMemo(() => {
     if (sorting.length > 0) {
