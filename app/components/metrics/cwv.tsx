@@ -2,7 +2,7 @@ import { Card } from '@radix-ui/themes';
 import { AlertCircle, Clock, Database, Image, Monitor, Smartphone, Zap } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { formatTime } from '~/utils/dashboards';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
+import { PlatformTooltip } from '../ui/platform.tooltip';
 
 /**
  * CoreWebVitals is a React component that displays metrics related to Core Web Vitals
@@ -84,16 +84,7 @@ const CoreWebVitals = ({ heartbeats }: any) => {
                           ) : (
                             <Monitor className='h-3 w-3 text-gray-500' />
                           )}
-                          <TooltipProvider>
-                            <Tooltip>
-                              <TooltipTrigger>
-                                <span>{heartbeat.platform.type.charAt(0).toUpperCase() + heartbeat.platform.type.slice(1)}</span>
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                <>{heartbeat.platform.user_agent}</>
-                              </TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
+                          <PlatformTooltip platform={heartbeat.platform} />
                         </div>
                         <span className={`font-bold ${color}`}>{vital.name === 'CLS' ? value.toFixed(2) : formatTime(value)}</span>
                       </div>
@@ -160,16 +151,7 @@ const CoreWebVitals = ({ heartbeats }: any) => {
                         ) : (
                           <Monitor className='h-3 w-3 text-gray-500' />
                         )}
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger>
-                              <span>{heartbeat.platform.type.charAt(0).toUpperCase() + heartbeat.platform.type.slice(1)}</span>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <>{heartbeat.platform.user_agent}</>
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
+                        <PlatformTooltip platform={heartbeat.platform} />
                       </div>
                       <p className='text-lg font-bold'>{metric.format(value)}</p>
                     </div>

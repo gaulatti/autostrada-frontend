@@ -1,12 +1,12 @@
-import { Link } from '@radix-ui/themes';
 import { type ColumnDef, flexRender, getCoreRowModel, type SortingState, useReactTable } from '@tanstack/react-table';
 import { useMemo, useState } from 'react';
-import { NavLink } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import { Method, useAPI } from '~/clients/api';
 import { PaginationControls } from '~/components/pagination-controls';
+import { RenderNavLink } from '~/components/ui/render.navlink';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table';
 import { useRandom } from '~/hooks/useRandom';
-import { useTranslation } from 'react-i18next';
+import i18n from '~/i18n';
 
 export type Platform = {
   slug: string;
@@ -16,40 +16,24 @@ export type Platform = {
 export const columns: ColumnDef<Platform>[] = [
   {
     accessorKey: 'slug',
-    header: ({ column }) => {
-      const { t } = useTranslation();
-      return t('ui.slug');
-    },
+    header: i18n.t('ui.slug'),
     cell: ({ cell }) => {
-      const value = cell.getValue();
+      const value = cell.getValue() as string;
       return (
         value && (
-          <Link asChild>
-            <NavLink to={`/platforms/${value}`}>
-              <code><>{value}</></code>
-            </NavLink>
-          </Link>
+          <RenderNavLink to={`/platforms/${value}`}>
+            <code>{value}</code>
+          </RenderNavLink>
         )
       );
     },
   },
   {
     accessorKey: 'name',
-    header: ({ column }) => {
-      const { t } = useTranslation();
-      return t('ui.name');
-    },
+    header: i18n.t('ui.name'),
     cell: ({ cell }) => {
-      const value = cell.getValue() as { slug: string, url: string };
-      return (
-        value && (
-          <Link asChild>
-            <NavLink to={`/platforms/${value.slug}`}>
-              <>{value.url}</>
-            </NavLink>
-          </Link>
-        )
-      );
+      const value = cell.getValue() as { slug: string; url: string };
+      return value && <RenderNavLink to={`/platforms/${value.slug}`}>{value.url}</RenderNavLink>;
     },
   },
 ];

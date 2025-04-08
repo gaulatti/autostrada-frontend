@@ -1,10 +1,9 @@
-import { Link } from '@radix-ui/themes';
 import { Clock, Laptop, Smartphone } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router';
 import { CartesianGrid, ReferenceLine, ResponsiveContainer, Scatter, ScatterChart, XAxis, YAxis } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
 import { ChartTooltip } from '~/components/ui/chart';
+import { RenderNavLink } from '~/components/ui/render.navlink';
 import { getProgressColor } from '~/utils/dashboards';
 
 /**
@@ -84,9 +83,7 @@ const TimeOfDay = ({ data }) => {
                       const data = payload[0].payload;
                       return (
                         <div className='bg-background border rounded-md shadow-md p-2'>
-                          <Link asChild>
-                            <NavLink to={`/heartbeats/${data.slug}`}>{t('metrics.view-details')}</NavLink>
-                          </Link>
+                          <RenderNavLink to={`/heartbeats/${data.slug}`}>{t('metrics.view-details')}</RenderNavLink>
                           <p className='font-medium'>
                             {t('dashboard.date')}: {data.date}
                           </p>
@@ -151,9 +148,7 @@ const TimeOfDay = ({ data }) => {
                       const data = payload[0].payload;
                       return (
                         <div className='bg-background border rounded-md shadow-md p-2'>
-                          <Link asChild>
-                            <NavLink to={`/heartbeats/${data.slug}`}>{t('metrics.view-details')}</NavLink>
-                          </Link>
+                          <RenderNavLink to={`/heartbeats/${data.slug}`}>{t('metrics.view-details')}</RenderNavLink>
                           <p className='font-medium'>
                             {t('dashboard.time')}: {data.hour}
                           </p>

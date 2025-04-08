@@ -7,7 +7,8 @@ import { PaginationControls } from '~/components/pagination-controls';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table';
 import { useRandom } from '~/hooks/useRandom';
 import { useTranslation } from 'react-i18next';
-
+import { RenderNavLink } from '~/components/ui/render.navlink';
+import i18n from '~/i18n';
 export type Url = {
   slug: string;
   url: { slug: string; url: string };
@@ -16,38 +17,28 @@ export type Url = {
 export const columns: ColumnDef<Url>[] = [
   {
     accessorKey: 'slug',
-    header: ({ column }) => {
-      const { t } = useTranslation();
-      return t('ui.slug');
-    },
+    header: i18n.t('ui.slug'),
     cell: ({ cell }) => {
-      const value = cell.getValue();
+      const value = cell.getValue() as string;
       return (
         value && (
-          <Link asChild>
-            <NavLink to={`/urls/${value}`}>
-              <code><>{value}</></code>
-            </NavLink>
-          </Link>
+          <RenderNavLink to={`/urls/${value}`}>
+            <code>{value}</code>
+          </RenderNavLink>
         )
       );
     },
   },
   {
     accessorKey: 'url',
-    header: ({ column }) => {
-      const { t } = useTranslation();
-      return t('ui.url');
-    },
+    header: i18n.t('ui.url'),
     cell: ({ cell, row }) => {
       const value = row.original;
       return (
         value && (
-          <Link asChild>
-            <NavLink to={`/urls/${value.slug}`}>
-              <>{value.url}</>
-            </NavLink>
-          </Link>
+          <RenderNavLink to={`/urls/${value.slug}`}>
+            <>{value.url}</>
+          </RenderNavLink>
         )
       );
     },

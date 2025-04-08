@@ -2,7 +2,7 @@ import { Card, Progress } from '@radix-ui/themes';
 import { AlertCircle, ExternalLink, FileText, Monitor, Smartphone, Zap } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { getProgressColor, getScoreColor } from '~/utils/dashboards';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
+import { PlatformTooltip } from '../ui/platform.tooltip';
 
 /**
  * The t('metrics.grades') component renders a section displaying various metrics (Performance, Accessibility,
@@ -75,16 +75,7 @@ const Grades = ({ heartbeats }: { heartbeats: any[] }) => {
                   <div key={heartbeat.id} className='space-y-1'>
                     <div className='flex items-center gap-1 text-sm'>
                       {heartbeat.platform.type === 'mobile' ? <Smartphone className='h-3 w-3 text-gray-500' /> : <Monitor className='h-3 w-3 text-gray-500' />}
-                      <TooltipProvider>
-                        <Tooltip>
-                          <TooltipTrigger>
-                            <span>{heartbeat.platform.type.charAt(0).toUpperCase() + heartbeat.platform.type.slice(1)}</span>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <>{heartbeat.platform.user_agent}</>
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
+                      <PlatformTooltip platform={heartbeat.platform} />
                     </div>
                     <div className='flex justify-between items-center text-sm'>
                       <span className={`font-bold ${getScoreColor(value)}`}>{Math.round(value)}</span>

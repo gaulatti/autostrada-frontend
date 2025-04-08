@@ -1,13 +1,12 @@
-import { Link } from '@radix-ui/themes';
 import { type ColumnDef, flexRender, getCoreRowModel, type SortingState, useReactTable } from '@tanstack/react-table';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router';
 import { Method, useAPI } from '~/clients/api';
 import { PaginationControls } from '~/components/pagination-controls';
+import { RenderNavLink } from '~/components/ui/render.navlink';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table';
 import { useRandom } from '~/hooks/useRandom';
-
+import i18n from '~/i18n';
 export type Cluster = {
   slug: string;
   name: string;
@@ -16,42 +15,24 @@ export type Cluster = {
 export const columns: ColumnDef<Cluster>[] = [
   {
     accessorKey: 'slug',
-    header: ({ column }) => {
-      const { t } = useTranslation();
-      return t('ui.slug');
-    },
+    header: () => i18n.t('ui.slug'),
     cell: ({ cell }) => {
-      const value = cell.getValue();
+      const value = cell.getValue() as string;
       return (
         value && (
-          <Link asChild>
-            <NavLink to={`/clusters/${value}`}>
-              <code>
-                <>{value}</>
-              </code>
-            </NavLink>
-          </Link>
+          <RenderNavLink to={`/clusters/${value}`}>
+            <code>{value}</code>
+          </RenderNavLink>
         )
       );
     },
   },
   {
     accessorKey: 'name',
-    header: ({ column }) => {
-      const { t } = useTranslation();
-      return t('ui.name');
-    },
+    header: i18n.t('ui.name'),
     cell: ({ cell, row }) => {
-      const value = cell.getValue();
-      return (
-        value && (
-          <Link asChild>
-            <NavLink to={`/clusters/${row.original.slug}`}>
-              <>{value}</>
-            </NavLink>
-          </Link>
-        )
-      );
+      const value = cell.getValue() as string;
+      return value && <RenderNavLink to={`/clusters/${row.original.slug}`}>{value}</RenderNavLink>;
     },
   },
 ];

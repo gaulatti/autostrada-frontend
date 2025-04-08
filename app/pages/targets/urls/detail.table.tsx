@@ -1,18 +1,18 @@
-import { Button, Link } from '@radix-ui/themes';
+import { Button } from '@radix-ui/themes';
 import { type ColumnDef, flexRender, getCoreRowModel, type SortingState, useReactTable } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
 import moment from 'moment';
 import { useMemo, useState } from 'react';
 import type { DateRange } from 'react-day-picker';
 import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router';
 import { Method, useAPI } from '~/clients/api';
 import { PaginationControls } from '~/components/pagination-controls';
+import { RenderNavLink } from '~/components/ui/render.navlink';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip';
 import { useRandom } from '~/hooks/useRandom';
+import i18n from '~/i18n';
 import type { Pulse } from '~/pages/scans/pulses/list.table';
-
 export type Url = {
   slug: string;
   url: { slug: string; url: string };
@@ -21,18 +21,14 @@ export type Url = {
 export const columns: ColumnDef<Pulse>[] = [
   {
     accessorKey: 'slug',
-    header: 'Slug',
+    header: i18n.t('ui.slug'),
     cell: ({ cell }) => {
-      const value = cell.getValue();
+      const value = cell.getValue() as string;
       return (
         value && (
-          <Link asChild>
-            <NavLink to={`/pulses/${value}`}>
-              <code>
-                <>{value}</>
-              </code>
-            </NavLink>
-          </Link>
+          <RenderNavLink to={`/pulses/${value}`}>
+            <code>{value}</code>
+          </RenderNavLink>
         )
       );
     },
@@ -40,10 +36,9 @@ export const columns: ColumnDef<Pulse>[] = [
   {
     accessorKey: 'createdAt',
     header: ({ column }) => {
-      const { t } = useTranslation();
       return (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          {t('ui.created')}
+          {i18n.t('ui.created')}
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
@@ -67,10 +62,9 @@ export const columns: ColumnDef<Pulse>[] = [
   {
     accessorKey: 'updatedAt',
     header: ({ column }) => {
-      const { t } = useTranslation();
       return (
         <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          {t('ui.updated')}
+          {i18n.t('ui.updated')}
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
