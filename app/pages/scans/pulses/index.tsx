@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react';
 import type { DateRange } from 'react-day-picker';
 import { useTranslation } from 'react-i18next';
 import { Method, useAPI } from '~/clients/api';
-import { StableUrls } from '~/components/dashboard/stable-urls';
+import { StableUrls } from '~/components/dashboard/stable.urls';
 import { SummaryCards } from '~/components/dashboard/summary';
 import { DatePickerWithRange } from '~/components/date-picker-with-range';
 import { SiteHeader } from '~/components/header';

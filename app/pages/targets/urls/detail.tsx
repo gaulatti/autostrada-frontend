@@ -8,7 +8,7 @@ import { Breadcrumbs, type BreadcrumbItem } from '~/components/breadcrumbs';
 import { CwvHistory } from '~/components/dashboard/cards/cwv.history';
 import { GradesRadial } from '~/components/dashboard/cards/grades.radial';
 import { TimeOfDay } from '~/components/dashboard/cards/time.day';
-import { StableUrls } from '~/components/dashboard/stable-urls';
+import { StableUrls } from '~/components/dashboard/stable.urls';
 import { UrlSummaryCards } from '~/components/dashboard/url.summary';
 import { DatePickerWithRange } from '~/components/date-picker-with-range';
 import { SiteHeader } from '~/components/header';
