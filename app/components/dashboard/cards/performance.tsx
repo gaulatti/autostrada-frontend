@@ -1,5 +1,3 @@
-'use client';
-
 import { ArrowRight, Laptop, Smartphone, TrendingUp } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -44,7 +42,7 @@ const getTextColor = (progress: number): string => {
  */
 
 const UrlPerformance = ({ url, average, grades, slug, variation, solo }: URLPerformanceData & { solo?: 'desktop' | 'mobile' }) => {
-  const name = url!.replace(/^https?:\/\//, '');
+  const name = url?.replace(/^https?:\/\//, '');
   return <PerformanceCard name={name} average={average} grades={grades} slug={slug} variation={variation} link={`/urls/${slug}`} solo={solo} />;
 };
 
@@ -61,7 +59,7 @@ const PerformanceComparisonCard = ({
   difference,
   solo,
 }: PerformanceComparisonData & { solo?: 'desktop' | 'mobile' }) => {
-  const title = name || url!.replace(/^https?:\/\//, '');
+  const title = name || url?.replace(/^https?:\/\//, '');
   const [isHovered, setIsHovered] = useState(false);
   const backgroundColor = getProgressColor(100 - difference);
   const textColor = getTextColor(100 - difference);

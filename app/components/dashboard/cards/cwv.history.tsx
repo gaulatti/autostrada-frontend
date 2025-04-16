@@ -1,23 +1,148 @@
 import { Laptop, LineChartIcon, Smartphone } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
+import ReactApexChart from 'react-apexcharts';
+import type { ApexOptions } from 'apexcharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from '~/components/ui/chart';
-import { dateFormatter, labelFormatter } from '~/utils/dashboards';
+import { dateFormatter } from '~/utils/dashboards';
 
-const CwvHistory = ({ data }) => {
+interface DataPoint {
+  date: string;
+  lcp: number;
+}
+
+interface CwvHistoryProps {
+  data: {
+    desktop: DataPoint[];
+    mobile: DataPoint[];
+  };
+}
+
+interface CandlestickData {
+  x: number;
+  y: [number, number, number, number]; // [open (p75 prev), high, low, close (p75 current)]
+}
+
+interface DayData {
+  values: number[];
+  date: number;
+}
+
+const CwvHistory = ({ data }: CwvHistoryProps) => {
   const { t } = useTranslation();
 
-  // Define colors from @radix-ui/themes (feel free to adjust these variables)
-  const colors = {
-    lcp: 'var(--red-11)',
-    fid: 'var(--green-11)',
-    ttfb: 'var(--blue-11)',
-    dcl: 'var(--violet-11)',
-    tti: 'var(--indigo-11)',
-    si: 'var(--orange-11)',
-    tbt: 'var(--yellow-11)',
+  const calculatePercentile = (arr: number[], percentile: number): number => {
+    const sorted = [...arr].sort((a, b) => a - b);
+    const index = Math.ceil((percentile / 100) * sorted.length) - 1;
+    return sorted[index];
   };
+
+  const processDataForCandlestick = (sourceData: DataPoint[]): CandlestickData[] => {
+    // First, group data by day
+    const dayMap = sourceData.reduce((acc: Map<string, DayData>, curr) => {
+      const date = new Date(curr.date);
+      const dayKey = date.toISOString().split('T')[0];
+      if (!acc.has(dayKey)) {
+        acc.set(dayKey, {
+          values: [curr.lcp],
+          date: date.getTime()
+        });
+      } else {
+        acc.get(dayKey)!.values.push(curr.lcp);
+      }
+      return acc;
+    }, new Map());
+
+    // Convert to array and sort by date
+    const sortedDays = Array.from(dayMap.entries())
+      .sort(([dateA], [dateB]) => dateA.localeCompare(dateB));
+
+    // Create candlestick data
+    return sortedDays.map((([_, dayData], index) => {
+      const values = dayData.values;
+      const prevDayValues = index > 0 ? sortedDays[index - 1][1].values : values;
+
+      return {
+        x: dayData.date,
+        y: [
+          calculatePercentile(prevDayValues, 75), // open (p75 from previous day)
+          Math.max(...values), // high
+          Math.min(...values), // low
+          calculatePercentile(values, 75), // close (p75 current day)
+        ]
+      };
+    }));
+  };
+
+  const baseChartOptions: ApexOptions = {
+    chart: {
+      type: 'candlestick' as const,
+      height: 200,
+      toolbar: {
+        show: false
+      }
+    },
+    xaxis: {
+      type: 'datetime',
+      labels: {
+        formatter: (value: string): string => {
+          return dateFormatter(new Date(parseInt(value)));
+        }
+      }
+    },
+    yaxis: {
+      tooltip: {
+        enabled: true
+      },
+      title: {
+        text: 'LCP (s)'
+      },
+      decimalsInFloat: 2
+    },
+    tooltip: {
+      custom: ({ seriesIndex, dataPointIndex, w }) => {
+        const o = w.globals.seriesCandleO[seriesIndex][dataPointIndex];
+        const h = w.globals.seriesCandleH[seriesIndex][dataPointIndex];
+        const l = w.globals.seriesCandleL[seriesIndex][dataPointIndex];
+        const c = w.globals.seriesCandleC[seriesIndex][dataPointIndex];
+        
+        return `
+          <div class="p-2">
+            <div>Date: ${dateFormatter(new Date(w.globals.seriesX[seriesIndex][dataPointIndex]))}</div>
+            <div>Open (Prev P75): ${o.toFixed(2)}s</div>
+            <div>High: ${h.toFixed(2)}s</div>
+            <div>Low: ${l.toFixed(2)}s</div>
+            <div>Close (P75): ${c.toFixed(2)}s</div>
+          </div>
+        `;
+      }
+    }
+  };
+
+  const desktopOptions: ApexOptions = {
+    ...baseChartOptions,
+    title: {
+      text: t('dashboard.desktop'),
+      align: 'center'
+    }
+  };
+
+  const mobileOptions: ApexOptions = {
+    ...baseChartOptions,
+    title: {
+      text: t('dashboard.mobile'),
+      align: 'center'
+    }
+  };
+
+  const desktopSeries = [{
+    name: 'LCP',
+    data: processDataForCandlestick(data.desktop)
+  }];
+
+  const mobileSeries = [{
+    name: 'LCP',
+    data: processDataForCandlestick(data.mobile)
+  }];
 
   return (
     <Card className='col-span-2 2xl:col-span-1'>
@@ -30,71 +155,31 @@ const CwvHistory = ({ data }) => {
       </CardHeader>
       <CardContent>
         <div className='grid md:grid-cols-2 gap-4'>
-          {/* Desktop Chart */}
           <div>
             <div className='text-center mb-2 flex items-center justify-center'>
               <Laptop className='w-5 h-5 mr-1' />
-              <span className='font-medium'>{t('dashboard.desktop')}</span>
             </div>
-            <ChartContainer
-              config={{
-                lcp: { label: 'LCP (s)', color: colors.lcp },
-                fid: { label: 'FID (s)', color: colors.fid },
-                ttfb: { label: 'TTFB (s)', color: colors.ttfb },
-                dcl: { label: 'DCL (s)', color: colors.dcl },
-                tti: { label: 'TTI (s)', color: colors.tti },
-                si: { label: 'SI', color: colors.si },
-                tbt: { label: 'TBT (ms)', color: colors.tbt },
-              }}
-              className='h-[200px] w-full'
-            >
-              <LineChart accessibilityLayer data={data.desktop} margin={{ top: 20, right: 30, left: 20, bottom: 10 }}>
-                <CartesianGrid strokeDasharray='3 3' />
-                <XAxis dataKey='date' tickFormatter={dateFormatter} />
-                <YAxis />
-                <ChartTooltip content={<ChartTooltipContent labelKey='date' labelFormatter={labelFormatter} />} />
-                <Line type='monotone' dataKey='lcp' stroke={colors.lcp} strokeWidth={1} dot={{ r: 0 }} activeDot={{ r: 6 }} />
-                <Line type='monotone' dataKey='fid' stroke={colors.fid} strokeWidth={1} dot={{ r: 0 }} activeDot={{ r: 6 }} />
-                <Line type='monotone' dataKey='ttfb' stroke={colors.ttfb} strokeWidth={1} dot={{ r: 0 }} activeDot={{ r: 6 }} />
-                <Line type='monotone' dataKey='dcl' stroke={colors.dcl} strokeWidth={1} dot={{ r: 0 }} activeDot={{ r: 6 }} />
-                <Line type='monotone' dataKey='tti' stroke={colors.tti} strokeWidth={1} dot={{ r: 0 }} activeDot={{ r: 6 }} />
-                <Line type='monotone' dataKey='si' stroke={colors.si} strokeWidth={1} dot={{ r: 0 }} activeDot={{ r: 6 }} />
-                <Line type='monotone' dataKey='tbt' stroke={colors.tbt} strokeWidth={1} dot={{ r: 0 }} activeDot={{ r: 6 }} />
-              </LineChart>
-            </ChartContainer>
+            <div className='h-[200px] w-full'>
+              <ReactApexChart 
+                options={desktopOptions}
+                series={desktopSeries}
+                type="candlestick"
+                height={200}
+              />
+            </div>
           </div>
-          {/* Mobile Chart */}
           <div>
             <div className='text-center mb-2 flex items-center justify-center'>
               <Smartphone className='w-5 h-5 mr-1' />
-              <span className='font-medium'>{t('dashboard.mobile')}</span>
             </div>
-            <ChartContainer
-              config={{
-                lcp: { label: 'LCP (s)', color: colors.lcp },
-                fid: { label: 'FID (s)', color: colors.fid },
-                ttfb: { label: 'TTFB (s)', color: colors.ttfb },
-                dcl: { label: 'DCL (s)', color: colors.dcl },
-                tti: { label: 'TTI (s)', color: colors.tti },
-                si: { label: 'SI', color: colors.si },
-                tbt: { label: 'TBT (ms)', color: colors.tbt },
-              }}
-              className='h-[200px] w-full'
-            >
-              <LineChart accessibilityLayer data={data.mobile} margin={{ top: 20, right: 30, left: 20, bottom: 10 }}>
-                <CartesianGrid strokeDasharray='3 3' />
-                <XAxis dataKey='date' tickFormatter={dateFormatter} />
-                <YAxis />
-                <ChartTooltip content={<ChartTooltipContent labelKey='date' labelFormatter={labelFormatter} />} />
-                <Line type='monotone' dataKey='lcp' stroke={colors.lcp} strokeWidth={1} dot={{ r: 0 }} activeDot={{ r: 6 }} />
-                <Line type='monotone' dataKey='fid' stroke={colors.fid} strokeWidth={1} dot={{ r: 0 }} activeDot={{ r: 6 }} />
-                <Line type='monotone' dataKey='ttfb' stroke={colors.ttfb} strokeWidth={1} dot={{ r: 0 }} activeDot={{ r: 6 }} />
-                <Line type='monotone' dataKey='dcl' stroke={colors.dcl} strokeWidth={1} dot={{ r: 0 }} activeDot={{ r: 6 }} />
-                <Line type='monotone' dataKey='tti' stroke={colors.tti} strokeWidth={1} dot={{ r: 0 }} activeDot={{ r: 6 }} />
-                <Line type='monotone' dataKey='si' stroke={colors.si} strokeWidth={1} dot={{ r: 0 }} activeDot={{ r: 6 }} />
-                <Line type='monotone' dataKey='tbt' stroke={colors.tbt} strokeWidth={1} dot={{ r: 0 }} activeDot={{ r: 6 }} />
-              </LineChart>
-            </ChartContainer>
+            <div className='h-[200px] w-full'>
+              <ReactApexChart 
+                options={mobileOptions}
+                series={mobileSeries}
+                type="candlestick"
+                height={200}
+              />
+            </div>
           </div>
         </div>
       </CardContent>
