@@ -6,15 +6,17 @@ A modern **React** and **TypeScript** application built with **Vite** that power
 
 ## Introduction
 
-Autostrada Frontend is designed to provide users with:
+Autostrada is a web performance monitoring platform that allows users to track and analyze the performance of their websites over time. The frontend provides a comprehensive dashboard for viewing performance metrics, managing scans, and analyzing website performance data collected via Google PageSpeed Insights and Lighthouse reports.
 
-- A **responsive user interface** that supports dynamic routing using React Router.
-- Comprehensive **authentication** flows powered by AWS Amplify and Cognito.
-- Data-management interfaces including interactive **data tables**, detailed reports, and dashboards.
-- A structured state management system with Redux and Redux Saga to handle asynchronous operations and global state changes.
-- **Feature flag management** to progressively release new functionalities.
+Key features of the frontend include:
 
-This repository is the frontend counterpart of the Autostrada platform and is tightly integrated with backend APIs for fetching and displaying scan data, user teams, project information, and more. The project architecture ensures scalability, ease of maintenance, and enhanced user experience.
+- A **responsive user interface** that supports dynamic routing using React Router
+- Comprehensive **authentication** flows powered by AWS Amplify and Cognito
+- Data-management interfaces including interactive **data tables**, detailed reports, and dashboards
+- A structured state management system with Redux and Redux Saga to handle asynchronous operations and global state changes
+- **Feature flag management** to progressively release new functionalities
+
+This repository is the frontend counterpart of the Autostrada platform and is tightly integrated with the backend service for fetching and displaying scan data, user teams, project information, and more. The project architecture ensures scalability, ease of maintenance, and enhanced user experience.
 
 ---
 
@@ -22,28 +24,28 @@ This repository is the frontend counterpart of the Autostrada platform and is ti
 
 - **User Authentication**
 
-  - Sign in and sign out mechanisms using AWS Cognito (configured in the root and API client modules).
-  - Utilizes hooks such as `useAuthStatus` and `useLogout` for accessing authentication status.
+  - Sign in and sign out mechanisms using AWS Cognito (configured in the root and API client modules)
+  - Utilizes hooks such as `useAuthStatus` and `useLogout` for accessing authentication status
 
 - **Dynamic Routing**
 
-  - Routes are defined using React Router and include both public and private layouts.
-  - The router configuration covers pages for scans, targets, and authentication.
+  - Routes are defined using React Router and include both public and private layouts
+  - The router configuration covers pages for scans, targets, and authentication
 
 - **Redux State Management**
 
-  - Global state is managed through Redux, enhanced with Redux Saga for side effects.
-  - Reducers and dispatchers handle user data, teams, feature flags, and lifecycle events.
+  - Global state is managed through Redux, enhanced with Redux Saga for side effects
+  - Reducers and dispatchers handle user data, teams, feature flags, and lifecycle events
 
 - **Data Tables and Pagination**
 
-  - Interactive data tables are built with @tanstack/react-table.
-  - Tables support sorting, pagination, and dynamic fetching via custom hooks using Axios.
-  - Pages for clusters, providers, projects, and URLs include data tables for detailed reporting.
+  - Interactive data tables are built with @tanstack/react-table
+  - Tables support sorting, pagination, and dynamic fetching via custom hooks using Axios
+  - Pages for clusters, providers, projects, and URLs include data tables for detailed reporting
 
 - **Theming and UI Components**
 
-  - Components use Radix UI Themes combined with Tailwind CSS for a modern look and feel.
+  - Components use Radix UI Themes combined with Tailwind CSS for a modern look and feel
   - A collapsible sidebar navigation and header components are included for easy access to different functionalities.
 
 - **Feature Flags**
