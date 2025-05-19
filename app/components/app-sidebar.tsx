@@ -111,11 +111,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         url: '//pompeii.gaulatti.com',
         icon: User,
       },
-      {
-        name: 'Wiphala',
-        url: '//wiphala.gaulatti.com',
-        icon: LayoutList,
-      },
     ],
   };
 
