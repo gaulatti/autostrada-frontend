@@ -5,7 +5,7 @@ export default [
     index('./pages/auth/interstitial.tsx'),
   ]),
   layout('./layouts/private.tsx', [
-    index('./pages/scans/pulses/index.tsx'),
+    route('/home', './pages/scans/pulses/index.tsx'),
     route('/urls', './pages/targets/urls/index.tsx'),
     route('/urls/:slug', './pages/targets/urls/detail.tsx'),
     route('/clusters', './pages/targets/clusters/index.tsx'),
