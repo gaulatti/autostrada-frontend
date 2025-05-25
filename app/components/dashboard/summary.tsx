@@ -1,3 +1,4 @@
+import { AverageLCP } from './cards/avg.lcp';
 import { AveragePerformance } from './cards/avg.performance';
 import { LastPulse } from './cards/last.pulse';
 import { TotalPulses } from './cards/total.pulses';
@@ -22,10 +23,14 @@ const SummaryCards = ({ data }) => {
   }
   return (
     <div className='grid gap-6 sm:grid-cols-2 lg:grid-cols-4'>
-      <TotalPulses total={data.totalPulses} />
-      <AveragePerformance average={data.averagePerformance} />
-      <UrlsMonitored amount={data.urlsMonitored} />
-      <LastPulse time={data.lastPulse} />
+      <TotalPulses total={data.count} />
+
+      {/* Commenting until we develop the mechanism to calculate performance */}
+      {/* <AveragePerformance average={data.averagePerformance} /> */}
+
+      <AverageLCP average={data.stats.lcp.avg} />
+      <UrlsMonitored amount={data.urlCount} />
+      <LastPulse time={data.latestTimestamp} />
     </div>
   );
 };

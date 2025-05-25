@@ -11,13 +11,20 @@ import { RenderNavLink } from '~/components/ui/render.navlink';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip';
 import { useRandom } from '~/hooks/useRandom';
-import type { Pulse } from '~/pages/scans/pulses/list.table';
+import type { 
+  PulseData, 
+  StabilityData, 
+  PlatformDifference, 
+  TimeOfDayEntry, 
+  HistoryEntry, 
+  UrlStats 
+} from '~/models/api.types';
 export type Url = {
   slug: string;
   url: { slug: string; url: string };
 };
 
-const useColumns = (): ColumnDef<Pulse>[] => {
+const useColumns = (): ColumnDef<PulseData>[] => {
   const { t } = useTranslation();
   return [
     {
@@ -85,7 +92,14 @@ const useColumns = (): ColumnDef<Pulse>[] => {
   ];
 };
 
-const DataTable = ({ slug, timeRange }: { slug: string; timeRange?: DateRange }) => {
+interface DataTableProps {
+  slug: string; 
+  timeRange?: DateRange;
+  platform?: string;
+  provider?: string;
+}
+
+const DataTable = ({ slug, timeRange, platform, provider }: DataTableProps) => {
   const [page, setPage] = useState(1);
   const [pageSize] = useState(20);
   const [random, randomize] = useRandom();
@@ -100,11 +114,49 @@ const DataTable = ({ slug, timeRange }: { slug: string; timeRange?: DateRange })
     return {};
   }, [sorting]);
 
-  const queryParams = useMemo(() => ({ page, pageSize, random, ...sortingParams, ...timeRange }), [page, pageSize, sortingParams, random, timeRange]);
-  const { data } = useAPI(Method.GET, [], `urls/${slug}/pulses`, queryParams);
+  const queryParams = useMemo(() => {
+    const params: Record<string, any> = {};
+    
+    // Add time range parameters if they exist and are valid
+    if (timeRange?.from && timeRange?.to) {
+      // Ensure from date is before or equal to to date
+      const fromDate = new Date(timeRange.from);
+      const toDate = new Date(timeRange.to);
+      
+      if (fromDate <= toDate) {
+        // Valid range: use ISO strings for API
+        params.from = fromDate.toISOString();
+        params.to = toDate.toISOString();
+      }
+    }
+    
+    // Add platform and provider if they exist
+    if (platform) params.platform = platform;
+    if (provider) params.provider = provider;
+    
+    // Note: pagination and sorting parameters have been removed as per requirements
+    
+    return params;
+  }, [timeRange, platform, provider]);
+  
+  const { data } = useAPI(Method.GET, [queryParams], `urls/${slug}/stats`, queryParams);
+
+  // Using the UrlStats interface from the API types module
+
+  // Map the new stats response to the format expected by the table
+  const mappedData = useMemo(() => {
+    // If no data is available or pulses are not included, return empty dataset
+    if (!data || !data.pulses) return { rows: [], count: 0 };
+    
+    // Extract pulses data from the stats response
+    return {
+      rows: data.pulses.rows || [],
+      count: data.pulses.count || 0
+    };
+  }, [data]);
 
   const table = useReactTable({
-    data: data?.rows ?? [],
+    data: mappedData.rows as PulseData[],
     columns,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
@@ -114,7 +166,7 @@ const DataTable = ({ slug, timeRange }: { slug: string; timeRange?: DateRange })
     manualPagination: true,
   });
 
-  const totalPages = useMemo(() => Math.ceil((data?.count || 0) / pageSize), [data, pageSize]);
+  const totalPages = useMemo(() => Math.ceil((mappedData.count || 0) / pageSize), [mappedData, pageSize]);
 
   return (
     <div>
@@ -130,7 +182,7 @@ const DataTable = ({ slug, timeRange }: { slug: string; timeRange?: DateRange })
             ))}
           </TableHeader>
           <TableBody>
-            {data?.rows.length ? (
+            {mappedData.rows.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow key={row.id}>
                   {row.getVisibleCells().map((cell) => (

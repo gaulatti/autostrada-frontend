@@ -9,7 +9,7 @@ const PublicLayout = () => {
 
   return (
     <SidebarProvider>
-      <AppSidebar />
+      {/* <AppSidebar /> */}
       <SidebarInset>{featureEnabled('NjAifRCOjQn6XL8n1oI3E').isEnabled() ? <Outlet /> : <Forbidden />}</SidebarInset>
     </SidebarProvider>
   );

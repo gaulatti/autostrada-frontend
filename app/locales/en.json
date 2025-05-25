@@ -28,7 +28,8 @@
     "performance-gap": "Performance Gap",
     "tested-on": "Tested on",
     "new-feature": "New Feature",
-    "name": "Name"
+    "name": "Name",
+    "total-performance-measurements": "Number of raw measurements"
   },
   "metrics": {
     "core-web-vitals": "Core Web Vitals",
@@ -118,7 +119,8 @@
     "noResults": "No Results",
     "access-denied-message": "You do not have permission to access this page.",
     "url": "URL",
-    "name": "Name"
+    "name": "Name",
+    "no-detailed-data": "No detailed data available"
   },
   "navigation": {
     "dashboard": "Dashboard",

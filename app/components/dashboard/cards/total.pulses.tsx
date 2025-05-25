@@ -16,7 +16,7 @@ const TotalPulses = ({ total }: { total: number }) => {
       textColor='text-slate-800'
       header={
         <div className='flex w-full justify-between'>
-          <span>{t('dashboard.total-pulses')}</span>
+          <span>{t('dashboard.total-performance-measurements', 'Number of raw measurements')}</span>
           <Zap className='w-4 h-4 text-muted-foreground' />
         </div>
       }

@@ -19,7 +19,7 @@ const AveragePerformance = ({ average }: { average: number }) => {
       textColor='text-slate-800'
       header={
         <div className='flex w-full justify-between'>
-          <span>{t('dashboard.avg-performance')}</span>
+          <span>{t('dashboard.avg-performance', 'Average Core Web Vitals score')}</span>
           <BarChart3 className='w-4 h-4 text-muted-foreground' />
         </div>
       }

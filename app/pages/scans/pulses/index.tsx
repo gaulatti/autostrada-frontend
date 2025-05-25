@@ -51,7 +51,7 @@ const Page = () => {
   const [timeRange, setTimeRange] = useState<DateRange>();
   const featureEnabled = useFeatureFlags();
   const queryParams = useMemo(() => ({ ...timeRange }), [timeRange]);
-  const { data } = useAPI(Method.GET, [], `pulses/stats`, queryParams);
+  const { data } = useAPI(Method.GET, [], `performance/stats`, queryParams);
   const { t } = useTranslation();
 
   /**
@@ -69,7 +69,6 @@ const Page = () => {
           <>
             <SummaryCards data={data} />
             <StableUrls data={data?.stability} />
-            <DataTable timeRange={timeRange} />
           </>
         ) : (
           <OverlaySpinner />
