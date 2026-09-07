@@ -1,5 +1,11 @@
 # Autostrada
 
+> **Disposition: retained maintenance surface.** This repository owns the
+> deployed frontend at [autostrada.gaulatti.com](https://autostrada.gaulatti.com).
+> The public route currently renders a 403 maintenance gate in a clean browser;
+> it is not a verified functional dashboard. See [OWNERSHIP.md](OWNERSHIP.md) for
+> the delivery, recovery, and residual-risk contract.
+
 A modern **React** and **TypeScript** application built with **Vite** that powers the Autostrada dashboard. The project delivers a dynamic frontend interface featuring robust state management with Redux and Redux Saga, seamless authentication through AWS Amplify, and feature flag support for phased rollouts. The UI leverages **Radix UI Themes** and **Tailwind CSS** for an appealing and responsive design. 🚀
 
 ---
