@@ -33,10 +33,11 @@ dependencies.
 | Backend integration | `https://api.autostrada.gaulatti.com`, source owned by [`gaulatti/autostrada-service`](https://github.com/gaulatti/autostrada-service) |
 | Identity integration | Cognito configuration supplied through repository Actions variables; the shared identity infrastructure still names the frontend callback and logout URLs |
 | Secrets owner | The `gaulatti` repository owner through GitHub Actions repository secrets. Secret values are never part of this document or source control. |
-| Build command | `npm ci --legacy-peer-deps` followed by `npm run build` |
+| Local verification | `npm ci --legacy-peer-deps` followed by `npm run build`; these are the locked local checks, not the deployment install command. |
+| Release build command | The existing workflow uses `npm install --legacy-peer-deps` followed by `npm run build`; dependency resolution and output must be recorded for the controlled release. |
 | Release path | A push to `main` invokes `.github/workflows/deploy.yml`, which builds the client, replaces the S3 contents, and invalidates CloudFront. This path is configured but not yet proven by a recorded Actions run. |
 | Health proof | DNS/TLS/HTTP and a clean private-browser render. The expected current result is the application-owned 403 gate, not authenticated dashboard health. |
-| Rollback | Revert the release commit through review and let the same `main` workflow rebuild and publish the prior tree. This procedure remains unverified until the blocked release-proof ticket is completed. |
+| Rollback | Revert the release commit through review and let the same `main` workflow rebuild and publish the prior tree. This reviewed source-rebuild procedure remains unverified until the blocked release-proof ticket is completed; it does not promise restoration of the exact previously deployed asset bytes. |
 
 ## Evidence
 

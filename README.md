@@ -2,7 +2,7 @@
 
 > **Disposition: retained maintenance surface.** This repository owns the
 > deployed frontend at [autostrada.gaulatti.com](https://autostrada.gaulatti.com).
-> The public route currently renders a 403 maintenance gate in a clean browser;
+> The September 7, 2026 audit observed a 403 maintenance gate in a clean browser;
 > it is not a verified functional dashboard. See [OWNERSHIP.md](OWNERSHIP.md) for
 > the delivery, recovery, and residual-risk contract.
 
